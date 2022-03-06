@@ -1,2 +1,4 @@
-frontend/node_module
-backend/node_module
+frontend/node_modules
+frontend/.angular
+frontend/.vscode
+backend/node_modules

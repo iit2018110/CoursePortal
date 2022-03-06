@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CourseCoordinatorRoutingModule } from './course-coordinator-routing.module';
 import { CourseCoordinatorComponent } from './course-coordinator.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CourseCoordinatorComponent } from './course-coordinator.component';
   ],
   imports: [
     CommonModule,
-    CourseCoordinatorRoutingModule
+    CourseCoordinatorRoutingModule,
+    SharedModule
   ]
 })
 export class CourseCoordinatorModule { }

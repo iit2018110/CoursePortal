@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { ElectiveRoutingModule } from './elective-routing.module';
 import { ElectiveComponent } from './elective.component';
+import { SharedModule } from '../shared/shared.module';
+// import { LoginComponent } from '../shared/login/login.component';
 
 
 @NgModule({
   declarations: [
-    ElectiveComponent
+    ElectiveComponent,
   ],
   imports: [
     CommonModule,
-    ElectiveRoutingModule
+    ElectiveRoutingModule,
   ]
 })
 export class ElectiveModule { }
