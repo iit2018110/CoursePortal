@@ -45,6 +45,4 @@ const Running_course = sequelize.define('running_courses', {
     timestamps: false
 });
 
-
-module.exports = Course;
-module.exports = Running_course;
+module.exports = {Course, Running_course};

@@ -66,5 +66,4 @@ const Buffer_basket_student = sequelize.define('buffer_basket_students', {
     timestamps: false
 })
 
-module.exports = Student;
-module.exports = Buffer_basket_student;
+module.exports = {Student, Buffer_basket_student};

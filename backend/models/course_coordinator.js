@@ -54,5 +54,4 @@ const Buffer_course_cc = sequelize.define('buffer_courses_cc', {
     timestamps: false
 })
 
-module.exports = Course_coordinator;
-module.exports = Buffer_course_cc;
+module.exports = {Course_coordinator, Buffer_course_cc};

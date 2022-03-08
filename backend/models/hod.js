@@ -68,6 +68,5 @@ const Buffer_course_faculty_hod = sequelize.define('buffer_course_faculty_hod', 
     timestamps: false
 });
 
-module.exports = HOD;
-module.exports = Buffer_basket_hod;
-module.exports = Buffer_course_faculty_hod;
+
+module.exports = {HOD, Buffer_basket_hod, Buffer_course_faculty_hod};

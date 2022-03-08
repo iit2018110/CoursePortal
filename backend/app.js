@@ -6,10 +6,20 @@ require('dotenv').config();
 const sequelize = require('./utils/database/config')
 const db = require('./utils/database/db');
 
+const elective = require('./routes/elective');
+const project  = require('./routes/project');
+const admin = require('./routes/admin');
+const jwt_route = require('./routes/token');
+
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors({origin: 'http://localhost:4200'}))
+app.use(cors());
+
+app.use('/elective', elective);
+// app.use('project', project);
+app.use('/admin', admin);
+app.use('/jwt', jwt_route);
 
 sequelize.sync()
 .then(()=> {
@@ -18,6 +28,7 @@ sequelize.sync()
 .catch((err)=>{
     console.log("Unable to connect database", err);
 })
+
 
 const PORT = process.env.PORT;
 app.listen(PORT,()=>{

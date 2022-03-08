@@ -12,7 +12,7 @@ import { SharedModule } from '../shared/shared.module';
     ElectiveComponent,
   ],
   imports: [
-    CommonModule,
+    // CommonModule,
     ElectiveRoutingModule,
   ]
 })
