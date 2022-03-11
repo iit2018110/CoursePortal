@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         if(res) {
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin/home']);
         }
       },
       err => console.log(err)
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     this._auth.userLogin(email,password)
     .subscribe(
       res => {
-        localStorage.setItem('token', res);
-        this.router.navigate(['/admin/dashboard']);
+        localStorage.setItem('token_admin', res);
+        this.router.navigate(['/admin/home']);
       },
       err => console.log(err)
     )

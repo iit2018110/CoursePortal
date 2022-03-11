@@ -1,0 +1,49 @@
+<div class="container">
+    <h2>IT</h2>
+    <div id="it">
+        <input type="text" #id placeholder="Basket Id">
+        <input type="text" #name placeholder="Basket Name">
+        <button type="button" (click)="addBasket('IT',id.value,name.value)" class="btn btn-warning">Create Basket</button>
+    </div>
+
+    <div *ngFor="let basket of _util.it_baskets">
+        <h4>{{basket.name}}</h4>
+        <div *ngFor="let course of basket.courses">
+            <p>{{course.name}}              <button type="button" (click)="removeCourse(basket.id,course.id)" class="btn btn-danger">Delete</button></p>
+        </div>
+        <div>
+            <input type="text" #id placeholder="Course Id">
+            <input type="text" #name placeholder="Course Name">
+            <button type="button" class="btn btn-success" (click)="addCourse(basket.id, id.value, name.value)">Add Course</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-danger" (click)="deleteBasket(basket.id)">Delete Basket</button>
+        </div>
+    </div>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    <h2>ECE</h2>
+    <div id="ece">
+        <input type="text" #basket_id placeholder="Basket Id">
+        <input type="text" #basket_name placeholder="Basket Name">
+        <button type="button" (click)="addBasket('ECE',basket_id.value,basket_name.value)" class="btn btn-warning">Create Basket</button>
+    </div>
+
+    <div *ngFor="let basket of _util.ece_baskets">
+        <h4>{{basket.name}}</h4>
+        <div *ngFor="let course of basket.courses">
+            <p>{{course.name}}              <button type="button" (click)="removeCourse(basket.id,course.id)" class="btn btn-danger">Delete</button></p>
+        </div>
+        <div>
+            <input type="text" #id placeholder="Course Id">
+            <input type="text" #name placeholder="Course Name">
+            <button type="button" class="btn btn-success" (click)="addCourse(basket.id, id.value, name.value)">Add Course</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-danger" (click)="deleteBasket(basket.id)">Delete Basket</button>
+        </div>
+    </div>
+</div>

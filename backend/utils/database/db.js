@@ -16,6 +16,7 @@ db.Student_preference = require('../../models/student_preference');
 db.Admin = require('../../models/admin');
 
 db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id' ,onDelete: 'cascade'});
 db.Running_course.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
 db.Running_course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 db.Buffer_course_cc.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});

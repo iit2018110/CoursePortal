@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   verifyLoggedIn():Observable<boolean>{
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('token_admin');
     if(!token) return observableOf(false);
     return this.http.post<any>(this.token_verify_url, {token: token});
   }
