@@ -14,9 +14,9 @@ export class AuthService {
   public stream!: string; //IT or ECE
   public basket_id!: string; 
 
-  private login_url = 'http://localhost:3000/elective/cc/login';
-  private fetch_profile_url = 'http://localhost:3000/elective/cc/profile';
-  private token_verify_url = 'http://localhost:3000/jwt/verify_token';
+  private login_url = 'http://localhost:3001/elective/cc/login';
+  private fetch_profile_url = 'http://localhost:3001/elective/cc/profile';
+  private token_verify_url = 'http://localhost:3001/jwt/verify_token';
 
   constructor(private http: HttpClient) { }
 
