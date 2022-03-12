@@ -15,7 +15,7 @@ export class AuthService {
   public basket_id!: string; 
 
   private login_url = 'http://localhost:3000/elective/cc/login';
-  private fetch_profile = 'http://localhost:3000/elective/cc/profile';
+  private fetch_profile_url = 'http://localhost:3000/elective/cc/profile';
   private token_verify_url = 'http://localhost:3000/jwt/verify_token';
 
   constructor(private http: HttpClient) { }
@@ -38,6 +38,13 @@ export class AuthService {
     this.name = decoded_token.name;
     this.email = decoded_token.email;
     
-    // this.http.get<any>()
+    this.http.get<any>(this.fetch_profile_url)
+    .subscribe(
+      res => {
+        this.stream = res.stream,
+        this.basket_id = res.basket_id;
+      },
+      err => console.log(err)
+    )
   }
 }
