@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
+import { UtilService } from './util.service';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AuthService } from './auth.service';
     HttpClientModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    UtilService
   ]
 })
 export class CourseCoordinatorModule { }

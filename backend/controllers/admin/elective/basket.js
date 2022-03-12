@@ -64,7 +64,7 @@ module.exports.add_course = (req, res) => {
         name: courseName,
         basket_id: basketId
     }).then((course)=>{
-        res.status(200).json(course);
+        return res.status(200).json(course);
     }).catch((err)=>{
         console.log("error in adding course in basket",err);
     })
@@ -80,7 +80,7 @@ module.exports.delete_course = (req,res) => {
             basket_id: basketId
         }
     }).then(()=>{
-        res.status(200).json("course deleted");
+        return res.status(200).json("course deleted");
     }).catch((err)=>{
         console.log("error in deleting course in basket",err);
     })
@@ -94,8 +94,18 @@ module.exports.delete_basket = (req,res) => {
             id: basketId
         }
     }).then(()=>{
-        res.status(200).json("basket deleted");
+        return res.status(200).json("basket deleted");
     }).catch((err)=>{
         console.log("error in deleting basket",err);
+    })
+
+    db.Course.destroy({
+        where: {
+            basket_id: basketId
+        }
+    }).then(()=>{
+        return res.status(200).json("subjects of basket deleted");
+    }).catch((err)=>{
+        console.log("error in deleting subjects of basket",err);
     })
 }

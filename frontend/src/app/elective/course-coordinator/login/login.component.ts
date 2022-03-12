@@ -13,12 +13,24 @@ export class LoginComponent implements OnInit {
   constructor(private _auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this._auth.verifyLoggedIn()
+    .subscribe(
+      res => {
+        if(res) {
+          this.router.navigate(['/elective/cc/dashboard']);
+        }
+      },
+      err => console.log(err)
+    )
   }
 
   onClick(email: string, password: string) {
     this._auth.userLogin(email,password)
     .subscribe(
-      res => console.log(res),
+      res => {
+        localStorage.setItem('token_cc', res);
+        this.router.navigate(['/elective/cc/dashboard']);
+      },
       err => console.log(err)
     )
   }

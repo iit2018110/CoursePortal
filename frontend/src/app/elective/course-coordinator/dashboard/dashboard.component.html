@@ -1,1 +1,34 @@
-<p>dashboard works!</p>
+<div *ngIf="status==='buffer'">
+    <h3>Pending:</h3>
+    <div *ngFor="let course of buffer_courses">
+        <div *ngIf="course.status==='pending'">
+            <p>{{course.name}}      
+                <button type="button" class="btn btn-success" >Accept</button>
+                <button type="button" class="btn btn-danger">Reject</button>
+            </p>
+        </div>
+    </div>
+    <h3>Accepted:</h3>
+    <div *ngFor="let course of buffer_courses">
+        <div *ngIf="course.status==='selected'">
+            <p>{{course.name}}      
+                <button type="button" class="btn btn-warning">Restore</button>
+            </p>
+        </div>
+    </div>
+    <h3>Rejected</h3>
+    <div *ngFor="let course of buffer_courses">
+        <div *ngIf="course.status==='rejected'">
+            <p>{{course.name}}      
+                <button type="button" class="btn btn-warning">Restore</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="status==='running'">
+    <h3>Running Courses</h3>
+    <div *ngFor="let course of running_courses">
+        <p>{{course.id}} ---------- {{course.name}}</p>
+    </div>
+</div>
