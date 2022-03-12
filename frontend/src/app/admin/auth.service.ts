@@ -6,8 +6,8 @@ import { Observable, of as observableOf } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private login_url = 'http://localhost:3000/admin/login';
-  private token_verify_url = 'http://localhost:3000/jwt/verify_token'
+  private login_url = 'http://localhost:3001/admin/login';
+  private token_verify_url = 'http://localhost:3001/jwt/verify_token'
 
   constructor(private http: HttpClient) { }
 
