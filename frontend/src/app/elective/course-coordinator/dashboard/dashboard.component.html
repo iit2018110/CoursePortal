@@ -1,34 +1,37 @@
-<div *ngIf="status==='buffer'">
-    <h3>Pending:</h3>
-    <div *ngFor="let course of buffer_courses">
-        <div *ngIf="course.status==='pending'">
-            <p>{{course.name}}      
-                <button type="button" class="btn btn-success" >Accept</button>
-                <button type="button" class="btn btn-danger">Reject</button>
-            </p>
+<div class="container">
+    <div *ngIf="this._util.status==='buffer'">
+        <h3>Pending:</h3>
+        <div *ngFor="let course of this._util.buffer_courses">
+            <div *ngIf="course.status==='pending'">
+                <p>{{course.name}}      
+                    <button type="button" class="btn btn-success" (click)="acceptCourse(course.id)">Accept</button>
+                    <button type="button" class="btn btn-danger" (click)="rejectCourse(course.id)">Reject</button>
+                </p>
+            </div>
         </div>
-    </div>
-    <h3>Accepted:</h3>
-    <div *ngFor="let course of buffer_courses">
-        <div *ngIf="course.status==='selected'">
-            <p>{{course.name}}      
-                <button type="button" class="btn btn-warning">Restore</button>
-            </p>
+        <h3>Accepted:</h3>
+        <div *ngFor="let course of this._util.buffer_courses">
+            <div *ngIf="course.status==='selected'">
+                <p>{{course.name}}      
+                    <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
+                </p>
+            </div>
         </div>
-    </div>
-    <h3>Rejected</h3>
-    <div *ngFor="let course of buffer_courses">
-        <div *ngIf="course.status==='rejected'">
-            <p>{{course.name}}      
-                <button type="button" class="btn btn-warning">Restore</button>
-            </p>
+        <h3>Rejected</h3>
+        <div *ngFor="let course of this._util.buffer_courses">
+            <div *ngIf="course.status==='rejected'">
+                <p>{{course.name}}      
+                    <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
+                </p>
+            </div>
         </div>
+        <button type="button" class="btn btn-primary" (click)="submitCourses()">Submit</button>
     </div>
 </div>
 
-<div *ngIf="status==='running'">
+<div *ngIf="this._util.status==='running'">
     <h3>Running Courses</h3>
-    <div *ngFor="let course of running_courses">
+    <div *ngFor="let course of this._util.running_courses">
         <p>{{course.id}} ---------- {{course.name}}</p>
     </div>
 </div>

@@ -18,9 +18,9 @@ db.Admin = require('../../models/admin');
 
 db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
 db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-db.Running_course.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
+// db.Running_course.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
 db.Running_course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-db.Buffer_course_cc.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
+db.Buffer_course_cc.belongsTo(db.Course, {foreignKey: 'id', targetKey: 'id'});
 db.Buffer_course_cc.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 db.Buffer_basket_hod.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'})
 db.Buffer_course_faculty_hod.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});

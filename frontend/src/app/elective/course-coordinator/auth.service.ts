@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 
@@ -20,6 +20,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  decodeJWT() {
+    let token = localStorage.getItem('token_cc') as string;
+    let decoded_token = jwt_decode<any>(token);
+
+    this.id = decoded_token.id;
+    this.name = decoded_token.name;
+    this.email = decoded_token.email;
+  }
 
   userLogin(email: string, password: string) {
     return this.http.post<any>(this.login_url, {email: email, password: password});
@@ -32,19 +40,23 @@ export class AuthService {
   }
 
   fetchProfile() {
-    let token = localStorage.getItem('token_cc') as string;
-    let decoded_token = jwt_decode<any>(token);
-    this.id = decoded_token.id;
-    this.name = decoded_token.name;
-    this.email = decoded_token.email;
-    
-    this.http.get<any>(this.fetch_profile_url)
+    this.decodeJWT();
+
+    this.fetch_profile()
     .subscribe(
       res => {
         this.stream = res.stream,
-        this.basket_id = res.basket_id;
+        this.basket_id = res.basket_id,
+        console.log(res)
       },
       err => console.log(err)
     )
+  }
+
+  fetch_profile() {
+    let params = new HttpParams()
+                  .set('id', this.id);
+
+    return this.http.get<any>(this.fetch_profile_url, {params})
   }
 }

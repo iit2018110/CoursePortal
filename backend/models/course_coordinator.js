@@ -33,15 +33,15 @@ const Course_coordinator = sequelize.define('course_coordinators', {
 });
 
 const Buffer_course_cc = sequelize.define('buffer_courses_cc', {
-    course_id: {
+    id: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    name: {
         type: Sequelize.STRING,
         notNull: true
     },
     basket_id: {
-        type: Sequelize.STRING,
-        notNull: true
-    },
-    stream: {
         type: Sequelize.STRING,
         notNull: true
     },

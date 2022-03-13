@@ -20,15 +20,15 @@ const Course = sequelize.define('courses', {
 });
 
 const Running_course = sequelize.define('running_courses', {
-    course_id: {
+    id: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    name: {
         type: Sequelize.STRING,
         notNull: true
     },
     basket_id: {
-        type: Sequelize.STRING,
-        notNull: true
-    },
-    stream: {
         type: Sequelize.STRING,
         notNull: true
     },
