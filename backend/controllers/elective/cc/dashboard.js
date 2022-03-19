@@ -11,7 +11,6 @@ module.exports.get_dashboard = async (req, res)=> {
                         }
                     })
     
-    console.log(running_course_data);
     if(running_course_data.count != 0) {
         return res.status(200).json({status: "running", data: running_course_data.rows});
     }
@@ -23,7 +22,6 @@ module.exports.get_dashboard = async (req, res)=> {
                                         }
                                     })
 
-    console.log(buffer_course_data);
     if(buffer_course_data.count != 0) {
         return res.status(200).json({status: "buffer", data: buffer_course_data.rows});
     }
@@ -37,7 +35,6 @@ module.exports.get_dashboard = async (req, res)=> {
                                         }
                                     })
     
-    console.log(buffer_course_data1);
     return res.status(200).json({status: "buffer", data: buffer_course_data1.rows});
 }
 

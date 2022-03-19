@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
 @Component({
@@ -8,23 +7,8 @@ import { UtilService } from '../util.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // public status!: string;
-
-  // public buffer_courses = [
-  //                   {id: "PR", name: "Pattern Recognization", status: "pending"},
-  //                   {id: "CO", name: "Convex Optimization",status: "pending"},
-  //                   {id: "NN", name: "Neural Network",status: "selected"},
-  //                   {id: "DL", name: "Deep Learning",status: "rejected"},
-  //                  ];
-  
-  // public running_courses = [
-  //                           {id: "PR", name: "Pattern Recognization"},
-  //                           {id: "CO", name: "Convex Optimization"},
-  //                           {id: "NN", name: "Neural Network"},
-  //                           {id: "DL", name: "Deep Learning"},
-  //                         ];               
-
-  constructor(public _util: UtilService, public _auth: AuthService) { }
+             
+  constructor(public _util: UtilService) { }
 
   ngOnInit(): void {
     this._util.init();

@@ -59,6 +59,10 @@ const Buffer_course_faculty_hod = sequelize.define('buffer_course_faculty_hod', 
         type: Sequelize.STRING,
         allowNull: false
     },
+    seats: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
     stream: {
         type: Sequelize.STRING,
         allowNull: false

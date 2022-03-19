@@ -1,0 +1,43 @@
+<h3>Assigned</h3>
+
+<div class="container">
+    <div *ngFor="let basket of assigned_basket_courses">
+        <h4>{{basket.name}}</h4>
+        <div class="row" *ngFor="let course of basket.courses">
+            <div class="col-lg-2">
+                <p>{{course.name}}</p>
+            </div>
+            <div class="col-lg-3">
+                <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger">Reset</button>
+    </div>
+</div>
+
+<h3>Unassigned</h3>
+<div class="container">
+    <div *ngFor="let basket of unassigned_basket_courses">
+        <h4>{{basket.name}}</h4>
+        <div class="row" *ngFor="let course of basket.courses">
+            <div class="col-lg-2">
+                <p>{{course.name}}</p>
+            </div>
+            <div class="col-lg-3">
+                <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option value="none">Select Faculty</option>
+                    <option *ngFor="let faculty of getFaculties(basket.id)">{{faculty.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="number" value="60" class="form-control" placeholder="No. of seats">
+            </div>
+        </div>
+        <button type="button" class="btn btn-success">Create</button>
+    </div>
+</div>
