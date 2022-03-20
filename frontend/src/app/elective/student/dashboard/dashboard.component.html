@@ -1,0 +1,48 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row"><p>DS - Javed Ali</p></div>
+            <div class="row"><p>DS - Javed Ali</p></div>
+            <div class="row"><p>DS - Javed Ali</p></div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row"><p>DS - Rahul Kala</p></div>
+            <div class="row"><p>DS - Rahul Kala</p></div>
+            <div class="row"><p>DS - Rahul Kala</p></div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container">
+    <div *ngFor="let basket of assigned_basket_courses">
+        <h4>{{basket.name}}</h4>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row" *ngFor="let course of basket.courses">
+                    <p>{{course.name}} ------------ {{course.faculty.name}}</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="none">1st preference</option>
+                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="none">2nd preference</option>
+                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="none">3rd preference</option>
+                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success">Create</button>
+    </div>
+</div>
