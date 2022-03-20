@@ -3,11 +3,15 @@ const router = express.Router();
 
 // need to change accordingly
 
-// const {login} = require('../../controllers/elective/cc/auth')
+const {login} = require('../../controllers/elective/faculty/auth')
+const {get_student} = require('../../controllers/elective/faculty/get_student');
+const { fetch_subjects } = require('../../controllers/elective/faculty/subject_preference');
 // const {profile} = require('../../controllers/elective/cc/profile');
 // const Dashboard = require('../../controllers/elective/cc/dashboard');
 
-// router.post('/login', login);
+router.post('/login', login);
+router.get('/get_student', get_student)
+router.get('/fetch_subjects', fetch_subjects)
 // router.get('/get_dashboard', Dashboard.get_dashboard);
 // router.put('/accept_course', Dashboard.accept_course);
 // router.put('/reject_course', Dashboard.reject_course);

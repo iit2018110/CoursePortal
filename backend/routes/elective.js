@@ -8,7 +8,7 @@ const hod = require('./elective/hod');
 
 router.use('/cc', cc);
 // router.use('/student', student);
-// router.use('/faculty', faculty);
+router.use('/faculty', faculty);
 // router.use('/hod', hod);
 
 module.exports = router;
