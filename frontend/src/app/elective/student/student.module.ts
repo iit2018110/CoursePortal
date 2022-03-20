@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { StudentRoutingModule } from './student-routing.module';
 import { StudentComponent } from './student.component';
+import { AuthService } from './auth.service';
+import { UtilService } from './util.service';
 
 
 @NgModule({
@@ -12,6 +14,10 @@ import { StudentComponent } from './student.component';
   imports: [
     CommonModule,
     StudentRoutingModule
+  ],
+  providers: [
+    AuthService,
+    UtilService
   ]
 })
 export class StudentModule { }
