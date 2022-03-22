@@ -23,10 +23,6 @@ const Faculty = sequelize.define('faculties', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    basket_id: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
 },{
     freezeTableName: true,
     timestamps: false
