@@ -22,7 +22,7 @@ const Faculty = sequelize.define('faculties', {
     stream: {
         type: Sequelize.STRING,
         allowNull: false
-    },
+    }
 },{
     freezeTableName: true,
     timestamps: false
