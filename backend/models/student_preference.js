@@ -11,15 +11,31 @@ const Student_preference = sequelize.define('student_preferences', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    pref_1 : {
+    basket_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    pref1_course_id : {
         type: Sequelize.STRING,
         defaultValue: null
     },
-    pref_2 : {
+    pref1_course_name : {
         type: Sequelize.STRING,
         defaultValue: null
     },
-    pref_3 : {
+    pref2_course_id : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref2_course_name : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref3_course_id  : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref3_course_name : {
         type: Sequelize.STRING,
         defaultValue: null
     }
