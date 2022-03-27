@@ -39,7 +39,7 @@ const Student = sequelize.define('students', {
 const Buffer_basket_student = sequelize.define('buffer_basket_students', {
     student_id: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     basket_id: {
         type: Sequelize.STRING,
@@ -47,17 +47,33 @@ const Buffer_basket_student = sequelize.define('buffer_basket_students', {
     },
     basket_status: {
         type: Sequelize.STRING,
-        defaultValue: "toOpt"
+        defaultValue: "non-opted"
     },
-    pref_1 : {
+    basket_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    pref1_course_id : {
         type: Sequelize.STRING,
         defaultValue: null
     },
-    pref_2 : {
+    pref1_course_name : {
         type: Sequelize.STRING,
         defaultValue: null
     },
-    pref_3 : {
+    pref2_course_id : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref2_course_name : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref3_course_id  : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref3_course_name : {
         type: Sequelize.STRING,
         defaultValue: null
     }

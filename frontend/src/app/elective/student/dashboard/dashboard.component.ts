@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from '../util.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -6,24 +8,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  assigned_basket_courses = [{id: 'ML', 
-                              name: 'Machine Learning', 
-                              courses: [{id: 'DL', name: 'Deep Learning', faculty: {id: 'PC', name: 'Pawan Chakorwarti'}},
-                                        {id: 'PR', name: 'Pattern Recognition', faculty: {id: 'SRD', name: 'Sri Ram Dubey'}},
-                                        {id: 'NN', name: 'Neural Network', faculty: {id: 'GCN', name: 'G.C.Nandi'}},
-                                        {id: 'IR', name: 'Information Retrieval', faculty: {id: 'SRD', name: 'Sri Ram Dubey'}}
-                                      ]},
-                              {id: 'IS', 
-                              name: 'Information Security', 
-                              courses: [{id: 'CR', name: 'Cryptography', faculty: {id:'VKC', name: 'V.K.Chourassia'}},
-                                        {id: 'BL', name: 'Blockchain', faculty: {id:'VK', name: 'Venkatesan'}},
-                                        {id: 'DS', name: 'Database Security', faculty: {id:'VKC', name: 'V.K.Chourassia'}}
-                                ]}                                             
-                            ];
-
-  constructor() { }
+  constructor(public _util: UtilService) { }
 
   ngOnInit(): void {
+    this._util.init();
+  }
+
+  onCreate(basketId: string, p1_id:string, p1_name: string, p2_id:string, p2_name: string, p3_id:string, p3_name: string) {
+    this._util.choose_preferences(basketId,p1_id,p1_name,p2_id,p2_name,p3_id,p3_name)
+    .subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
+  onDelete(basketId: string) {
+    this._util.remove_preferences(basketId).subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
+  onSubmit() {
+    this._util.submit_preferences().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
   }
 
 }

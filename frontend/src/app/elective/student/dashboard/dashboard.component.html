@@ -1,48 +1,103 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="row"><p>DS - Javed Ali</p></div>
-            <div class="row"><p>DS - Javed Ali</p></div>
-            <div class="row"><p>DS - Javed Ali</p></div>
-        </div>
-        <div class="col-lg-6">
-            <div class="row"><p>DS - Rahul Kala</p></div>
-            <div class="row"><p>DS - Rahul Kala</p></div>
-            <div class="row"><p>DS - Rahul Kala</p></div>
-        </div>
-    </div>
-</div> -->
-
-<div class="container">
-    <div *ngFor="let basket of assigned_basket_courses">
-        <h4>{{basket.name}}</h4>
+<div *ngIf="_util.status==='buffer'">
+  <h1>Opted</h1>
+  <div class="container">
+    <div *ngFor="let basket of _util.buffer_baskets">
+      <div *ngIf="basket.status==='opted'">
+        <h2>{{basket.name}}</h2>
         <div class="row">
-            <div class="col-lg-6">
-                <div class="row" *ngFor="let course of basket.courses">
-                    <p>{{course.name}} ------------ {{course.faculty.name}}</p>
-                </div>
+          <div class="col-lg-6">
+            <div class="row" *ngFor="let course of basket.courses">
+              <p>{{course.name}} ------------ {{course.faculty.name}}</p>
             </div>
-            <div class="col-lg-4">
-                <div class="row">
-                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="none">1st preference</option>
-                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="none">2nd preference</option>
-                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <select #selectSubject class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option value="none">3rd preference</option>
-                        <option *ngFor="let course of basket.courses">{{course.name}}</option>
-                    </select>
-                </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="row">
+              <label>1st preference:</label>
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                <option value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
+              </select>
             </div>
+            <div class="row">
+              <label>2nd preference:</label>
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>3rd preference:</label>
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
+              </select>
+            </div>
+          </div>
+
         </div>
-        <button type="button" class="btn btn-success">Create</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete(basket.id)">Delete</button>
+      </div>
     </div>
+  </div>
+
+
+  <h1>Not Opted</h1>
+  <div class="container">
+    <div *ngFor="let basket of _util.buffer_baskets">
+      <div *ngIf="basket.status==='non-opted'">
+        <h2>{{basket.name}}</h2>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row" *ngFor="let course of basket.courses">
+              <p>{{course.name}} ------------ {{course.faculty.name}}</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field appearance="outline">
+              <mat-label>1st preference</mat-label>
+              <mat-select #preference1>
+                <mat-option *ngFor="let course of basket.courses" [value]="course"
+                  [disabled]="course.id === preference2.value?.id || course.id === preference3.value?.id">
+                  {{course.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>2nd preference</mat-label>
+              <mat-select #preference2>
+                <mat-option *ngFor="let course of basket.courses" [value]="course"
+                  [disabled]="course.id === preference1.value?.id || course.id === preference3.value?.id">
+                  {{course.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>3rd preference</mat-label>
+              <mat-select #preference3>
+                <mat-option *ngFor="let course of basket.courses" [value]="course"
+                  [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id">
+                  {{course.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success"
+          (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value.id,preference2.value.name,preference3.value.id,preference3.value.name)">Create</button>
+      </div>
+    </div>
+  </div>
+
+
+  <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()"> Submit </button>
+
+</div>
+
+<div *ngIf="_util.status==='filled'">
+  <h1>Choosed Preferences: </h1>
+  <div class="container">
+    <div *ngFor="let basket of _util.baskets">
+      <h2>{{basket.name}}</h2>
+        <p>1st preference: {{basket.pref1_course_name}}</p> 
+        <p>2nd preference: {{basket.pref2_course_name}}</p>
+        <p>3rd preference: {{basket.pref3_course_name}}</p> 
+    </div>
+  </div>
 </div>
