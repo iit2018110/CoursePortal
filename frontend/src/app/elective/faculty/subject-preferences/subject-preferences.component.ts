@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'app-subject-preferences',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubjectPreferencesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _util: UtilService) { }
 
   ngOnInit(): void {
+    this._util.init();
   }
 
+  onSubmit(data: JSON) {
+    this._util.submit_preferences(data)
+    .subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+    console.log(data);
+  }
 }
