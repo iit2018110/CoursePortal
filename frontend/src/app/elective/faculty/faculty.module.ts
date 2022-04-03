@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SubjectPreferencesComponent } from './subject-preferences/subject-preferences.component';
 import { GetStudentsComponent } from './get-students/get-students.component';
+import { AuthService } from './auth.service';
+import { UtilService } from './util.service';
 
 
 @NgModule({
@@ -20,6 +22,10 @@ import { GetStudentsComponent } from './get-students/get-students.component';
   imports: [
     CommonModule,
     FacultyRoutingModule
+  ],
+  providers: [
+    AuthService,
+    UtilService
   ]
 })
 export class FacultyModule { }

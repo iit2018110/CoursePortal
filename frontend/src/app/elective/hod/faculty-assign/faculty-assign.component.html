@@ -1,29 +1,78 @@
+<div class="container m-3 p-3 shadow">
 <h3>Assigned</h3>
 
 <div class="container">
-    <div *ngFor="let basket of assigned_basket_courses">
+    <div *ngFor="let basket of assigned_basket_courses" class="m-2 p-2 shadow">
         <h4>{{basket.name}}</h4>
-        <div class="row" *ngFor="let course of basket.courses">
-            <div class="col-lg-2">
-                <p>{{course.name}}</p>
+            <div class="row">
+                <div class="col-lg-2">
+                    <p>Subject</p>
+                </div>
+                <div class="col-lg-3">
+                    <p>Faculty</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Seat</p>
+                </div>
             </div>
-            <div class="col-lg-3">
-                <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                    <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
-                </select>
+            <div class="row" *ngFor="let course of basket.courses">
+                <div class="col-lg-2">
+                    <p>{{course.name}}</p>
+                </div>
+                <div class="col-lg-3">
+                    <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                        <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
+                </div>
             </div>
-            <div class="col-md-1">
-                <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
-            </div>
-        </div>
+
+        <!-- <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Faculty</th>
+                  <th scope="col">Seat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <div *ngFor="let course of basket.courses">
+                    <tr>
+                        <td>{{course.name}}</td>
+                        <td>
+                            <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                                <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table> -->
         <button type="button" class="btn btn-danger">Reset</button>
     </div>
 </div>
-
-<h3>Unassigned</h3>
+</div>
+<div class="container m-3 p-3 shadow">
+<h3 style="font-size: large;">Unassigned</h3>
 <div class="container">
-    <div *ngFor="let basket of unassigned_basket_courses">
+    <div *ngFor="let basket of unassigned_basket_courses" class="m-2 p-2 shadow">
         <h4>{{basket.name}}</h4>
+        <div class="row">
+            <div class="col-lg-2">
+                <p>Subject</p>
+            </div>
+            <div class="col-lg-3">
+                <p>Faculty</p>
+            </div>
+            <div class="col-md-2">
+                <p>Seat</p>
+            </div>
+        </div>
         <div class="row" *ngFor="let course of basket.courses">
             <div class="col-lg-2">
                 <p>{{course.name}}</p>
@@ -40,4 +89,5 @@
         </div>
         <button type="button" class="btn btn-success">Create</button>
     </div>
+</div>
 </div>
