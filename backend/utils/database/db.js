@@ -14,6 +14,7 @@ db.Running_course = require('../../models/course').Running_course;
 db.Course_faculty = require('../../models/course_faculty');
 db.Student_preference = require('../../models/student_preference');
 db.Admin = require('../../models/admin');
+db.Faculty_preference = require('../../models/faculty_preferences');
 
 
 db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
