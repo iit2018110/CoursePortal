@@ -33,6 +33,10 @@ const Buffer_basket_hod = sequelize.define('buffer_baskets_hod', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    basket_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     basket_status: {
         type: Sequelize.STRING,
         allowNull: false
@@ -51,11 +55,19 @@ const Buffer_course_faculty_hod = sequelize.define('buffer_course_faculty_hod', 
         type: Sequelize.STRING,
         allowNull: false
     },
+    basket_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     course_id: {
         type: Sequelize.STRING,
         allowNull: false
     },
     faculty_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    basket_status: {
         type: Sequelize.STRING,
         allowNull: false
     },
