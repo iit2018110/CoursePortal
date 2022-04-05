@@ -1,6 +1,7 @@
-<div class="container">
-    <div *ngIf="this._util.status==='buffer'">
-        <h3>Pending:</h3>
+<div>
+    <div class="container shadow m-5 p-5" *ngIf="this._util.status==='buffer'">
+        <div class="row m-5 p-5 shadow">
+        <h2>Pending:</h2>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='pending'">
                 <p>{{course.name}}      
@@ -9,6 +10,8 @@
                 </p>
             </div>
         </div>
+        </div>
+        <div class="row m-5 p-5 shadow">
         <h3>Accepted:</h3>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='selected'">
@@ -17,6 +20,8 @@
                 </p>
             </div>
         </div>
+        </div>
+        <div class="row m-5 p-5 shadow">
         <h3>Rejected</h3>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='rejected'">
@@ -25,12 +30,13 @@
                 </p>
             </div>
         </div>
+        </div>
         <button type="button" class="btn btn-primary" (click)="submitCourses()">Submit</button>
     </div>
 </div>
 
-<div *ngIf="this._util.status==='running'">
-    <h3>Running Courses</h3>
+<div class="container shadow m-5 p-5" *ngIf="this._util.status==='running'">
+    <h2>Running Courses</h2>
     <div *ngFor="let course of this._util.running_courses">
         <p>{{course.id}} ---------- {{course.name}}</p>
     </div>
