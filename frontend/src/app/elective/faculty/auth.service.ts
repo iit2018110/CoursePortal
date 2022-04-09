@@ -12,35 +12,35 @@ export class AuthService {
     public name!: string;
     public email!: string;
     public stream!: string; //IT or ECE
-  
+
     private login_url = 'http://localhost:3001/elective/faculty/login';
     private fetch_profile_url = 'http://localhost:3001/elective/faculty/profile';
     private token_verify_url = 'http://localhost:3001/jwt/verify_token';
-  
+
     constructor(private http: HttpClient) { }
-  
+
     decodeJWT() {
       let token = localStorage.getItem('token_faculty') as string;
       let decoded_token = jwt_decode<any>(token);
-  
+
       this.id = decoded_token.id;
       this.name = decoded_token.name;
       this.email = decoded_token.email;
     }
-  
+
     userLogin(email: string, password: string) {
       return this.http.post<any>(this.login_url, {email: email, password: password});
     }
-  
+
     verifyLoggedIn():Observable<boolean>{
       let token = localStorage.getItem('token_faculty');
       if(!token) return observableOf(false);
       return this.http.post<any>(this.token_verify_url, {token: token});
     }
-  
+
     fetchProfile() {
       this.decodeJWT();
-  
+
       this.fetch_profile()
       .subscribe(
         res => {
@@ -50,11 +50,11 @@ export class AuthService {
         err => console.log(err)
       )
     }
-  
+
     fetch_profile() {
       let params = new HttpParams()
                     .set('id', this.id);
-  
+
       return this.http.get<any>(this.fetch_profile_url, {params})
     }
 }

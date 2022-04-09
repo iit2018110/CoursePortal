@@ -11,7 +11,7 @@ export class UtilService {
 
   public baskets!: any;
   public status!: string;
-  
+
   constructor(private _auth: AuthService, private http: HttpClient) { }
 
   init() {

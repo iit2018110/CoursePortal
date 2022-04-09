@@ -1,55 +1,48 @@
-<div *ngIf="_util.status==='buffer'">
+<div *ngIf="_util.status==='buffer'" class="shadow m-5 p-5">
+  <div class="m-5 p-5 shadow">
   <h1>Opted</h1>
   <div class="container">
     <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status==='opted'">
+      <div *ngIf="basket.status==='opted'" class="p-3" style="border: 2px solid black;">
         <h2>{{basket.name}}</h2>
         <div class="row">
-          <div class="col-lg-6">
+
             <div class="row" *ngFor="let course of basket.courses">
               <p>{{course.name}} ------------ {{course.faculty.name}}</p>
             </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="row">
+            <div class="p-5" style="width: fit-content;">
               <label>1st preference:</label>
               <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
                 <option value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
               </select>
-            </div>
-            <div class="row">
               <label>2nd preference:</label>
               <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
                 <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
               </select>
-            </div>
-            <div class="row">
               <label>3rd preference:</label>
               <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
                 <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
               </select>
             </div>
-          </div>
 
         </div>
         <button type="button" class="btn btn-danger" (click)="onDelete(basket.id)">Delete</button>
       </div>
     </div>
   </div>
+</div>
 
-
+<div class="m-5 p-5 shadow">
   <h1>Not Opted</h1>
   <div class="container">
     <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status==='non-opted'">
+      <div *ngIf="basket.status==='non-opted'" class="p-3" style="border: 2px solid black;">
         <h2>{{basket.name}}</h2>
         <div class="row">
-          <div class="col-lg-6">
             <div class="row" *ngFor="let course of basket.courses">
               <p>{{course.name}} ------------ {{course.faculty.name}}</p>
             </div>
-          </div>
-          <div class="col-lg-4">
+          <div class="row p-5" style="width: min-content;">
             <mat-form-field appearance="outline">
               <mat-label>1st preference</mat-label>
               <mat-select #preference1>
@@ -84,7 +77,7 @@
       </div>
     </div>
   </div>
-
+</div>
 
   <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()"> Submit </button>
 
