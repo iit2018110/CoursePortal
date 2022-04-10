@@ -71,11 +71,11 @@ module.exports.get_dashboard = async (req, res)=> {
         return res.status(200).json({status: "buffer", baskets});
     }
 
-    await sequelize.query(`INSERT INTO buffer_basket_students (basket_id, basket_name) 
-                           SELECT id, name FROM baskets WHERE stream='${stream}'`);
-
-    await sequelize.query(`UPDATE buffer_basket_students SET student_id='${id}' 
-                           WHERE student_id IS NULL`);
+    await sequelize.query(`INSERT INTO buffer_basket_students (student_id, basket_id, basket_name) 
+                           SELECT '${id}' as student_id, id, name FROM baskets WHERE stream='${stream}'`);
+    // TODO: vikash: remove below commented query, if previous one is working fine.
+    // await sequelize.query(`UPDATE buffer_basket_students SET student_id='${id}' 
+    //                        WHERE student_id IS NULL`);
 
     let baskets = await fun(id);
     return res.status(200).json({status: "buffer", baskets});
@@ -151,7 +151,7 @@ module.exports.submit_preferences = async (req, res) => {
     
     await db.Buffer_basket_student.destroy({truncate: true, cascade: false})
     .then(()=>{
-        return res.status(200).json("successfully submittd!!");
+        return res.status(200).json("successfully submitted!!");
     }).catch((err)=>{
         console.log("error in submitting from student",err);
         return res.status(400).json("error in submitting from student");

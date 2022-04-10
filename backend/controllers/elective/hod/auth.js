@@ -23,7 +23,7 @@ module.exports.login = (req, res) => {
         return res.status(200).json(token);
     })
     .catch((err)=>{
-        console.log("Error in admin login", err);
-        return res.status(400).json("Error in admin login");
+        console.log("Error in HOD login", err);
+        return res.status(400).json("Error in HOD login");
     })
 }

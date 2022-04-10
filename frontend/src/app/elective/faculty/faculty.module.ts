@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     AuthService,
-    UtilService
+    UtilService,
+    AuthGuard
   ]
 })
 export class FacultyModule { }

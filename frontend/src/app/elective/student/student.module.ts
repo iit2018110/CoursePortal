@@ -5,18 +5,17 @@ import { FormsModule } from '@angular/forms';
 
 
 import { StudentRoutingModule } from './student-routing.module';
-import { StudentComponent } from './student.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
   declarations: [
-    StudentComponent,
     LoginComponent,
     ProfileComponent,
     DashboardComponent
@@ -30,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     AuthService,
-    UtilService
+    UtilService,
+    AuthGuard
   ]
 })
 export class StudentModule { }
