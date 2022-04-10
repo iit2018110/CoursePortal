@@ -53,7 +53,7 @@ module.exports.submit_preferences = async (req, res) => {
         await db.Faculty_preference.create({
             faculty_id: facultyId,
             course_id: c,
-            preference_value: courses[c]
+            preference_value: courses[c] ? courses[c] : 10
         })
     }
 
