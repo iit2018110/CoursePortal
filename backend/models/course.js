@@ -32,13 +32,17 @@ const Running_course = sequelize.define('running_courses', {
         type: Sequelize.STRING,
         notNull: true
     },
+    stream: {
+        type: Sequelize.STRING,
+        notNull: true
+    },
     total_seats: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 60
     },
     available_seats: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 60
     }
 },{
     freezeTableName: true,

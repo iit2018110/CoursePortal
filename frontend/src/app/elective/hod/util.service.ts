@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAssigned_basket } from '../../models/assined_basket';
 import { AuthService } from './auth.service';
-import { IUnassigned_basket } from '../../models/unassigned_basket';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -9,11 +7,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class UtilService {
   private fetch_baskets_url = 'http://localhost:3001/elective/hod/fetch_baskets';
-  
+  private fetch_faculties_url = 'http://localhost:3001/elective/hod/fetch_faculties';
+  private assign_courses_url = 'http://localhost:3001/elective/hod/assign_courses';
+  private unassign_courses_url = 'http://localhost:3001/elective/hod/unassign_courses';
+  private submit_assigned_courses_url = 'http://localhost:3001/elective/hod/submit_assigned_courses';
+
   public status!: string;
-  public baskets!: any;
-  // public assigned_basket_courses!: IAssigned_basket[];
-  // public unassigned_basket_courses!: IUnassigned_basket[];
+  public selected_baskets!: any;
+  public buffer_baskets!: any;
+  public basket_faculties!: any;
 
   constructor(private _auth: AuthService, private http: HttpClient) { }
 
@@ -25,6 +27,7 @@ export class UtilService {
       res => {
         this._auth.stream = res.stream;
         this.fetchBaskets();
+        this.fetchFaculties();
       },
       err => console.log(err)
     )
@@ -32,8 +35,24 @@ export class UtilService {
 
   fetchBaskets() {
     this.fetch_baskets().subscribe(
-      res => this.baskets = res,
-      err => console.log(err) 
+      res => {
+        this.status = res.status;
+        if(res.status==='buffer') {
+          this.buffer_baskets = res.data;
+        } else {
+          this.selected_baskets = res.data;
+        }
+      },
+      err => console.log(err)
+    )
+  }
+
+  fetchFaculties() {
+    this.fetch_faculties().subscribe(
+      res => {
+        this.basket_faculties = res;
+      },
+      err => console.log(err)
     )
   }
 
@@ -41,5 +60,26 @@ export class UtilService {
     let params = new HttpParams()
                      .set('stream', this._auth.stream);
     return this.http.get<any>(this.fetch_baskets_url, {params});
+  }
+
+  fetch_faculties() {
+    let params = new HttpParams()
+                      .set('stream', this._auth.stream);
+    return this.http.get<any>(this.fetch_faculties_url, {params});
+  }
+
+  assign_courses(courses: any) {
+    let payload = {data: courses};
+    return this.http.put<any>(this.assign_courses_url, payload);
+  }
+
+  unassign_courses(basketId: string) {
+    let payload = {basket_id: basketId};
+    return this.http.put<any>(this.unassign_courses_url, payload);
+  }
+
+  submit_assigned_courses() {
+    let payload = {stream: this._auth.stream};
+    return this.http.post<any>(this.submit_assigned_courses_url, payload);
   }
 }

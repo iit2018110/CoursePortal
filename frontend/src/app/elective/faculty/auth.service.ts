@@ -55,6 +55,6 @@ export class AuthService {
       let params = new HttpParams()
                     .set('id', this.id);
 
-      return this.http.get<any>(this.fetch_profile_url, {params})
+      return this.http.get<any>(this.fetch_profile_url, {params});
     }
 }

@@ -1,8 +1,8 @@
 <div class="container" *ngIf="_util.status==='non-filled'">
   <h1>Please Choose preferences</h1>
   <form #subjectPreference="ngForm">
-      {{subjectPreference.value | json}}
-    
+      <!-- {{subjectPreference.value | json}} -->
+
       <div *ngFor="let basket of _util.baskets">
           <div *ngFor="let course of basket.running_courses">
             <div class="row">
@@ -32,9 +32,9 @@
                 </div>
               </div>
             </div>
-          </div>     
+          </div>
       </div>
-    
+
       <input type="submit" class="btn btn-primary" value="Submit Preference" (click)="onSubmit(subjectPreference.value)">
     </form>
 </div>
@@ -45,4 +45,4 @@
   <div *ngFor="let course of _util.baskets">
     {{course.name}} -------- {{course.preference_value}}
   </div>
-</div>  
+</div>

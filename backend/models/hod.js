@@ -65,15 +65,15 @@ const Buffer_course_faculty_hod = sequelize.define('buffer_course_faculty_hod', 
     },
     faculty_id: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     basket_status: {
         type: Sequelize.STRING,
-        allowNull: false
+        defaultValue: 'un-assigned'
     },
     seats: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        defaultValue: 60
     },
     stream: {
         type: Sequelize.STRING,
