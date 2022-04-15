@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AuthGuard } from './auth.guard';
     LoginComponent,
     DashboardComponent,
     SubjectPreferencesComponent,
-    GetStudentsComponent
+    GetStudentsComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

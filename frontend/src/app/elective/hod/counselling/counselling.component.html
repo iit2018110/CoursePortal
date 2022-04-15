@@ -1,1 +1,13 @@
-<p>counselling works!</p>
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div *ngFor="let basket of _util.basket_preferences">
+  <h2>{{basket.name}}</h2>
+  <div *ngFor="let course of basket.courses">
+    <h3>{{course.name}}</h3>
+    -------------------------
+    <div *ngFor="let student of course.students">
+      <p>{{student.name}}</p>
+    </div>
+  </div>
+</div>

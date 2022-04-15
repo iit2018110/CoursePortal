@@ -11,11 +11,14 @@ export class UtilService {
   private assign_courses_url = 'http://localhost:3001/elective/hod/assign_courses';
   private unassign_courses_url = 'http://localhost:3001/elective/hod/unassign_courses';
   private submit_assigned_courses_url = 'http://localhost:3001/elective/hod/submit_assigned_courses';
+  private fetch_basket_preferences_url = 'http://localhost:3001/elective/hod/fetch_basket_preferences';
 
   public status!: string;
   public selected_baskets!: any;
   public buffer_baskets!: any;
   public basket_faculties!: any;
+
+  public basket_preferences: any;
 
   constructor(private _auth: AuthService, private http: HttpClient) { }
 
@@ -28,6 +31,7 @@ export class UtilService {
         this._auth.stream = res.stream;
         this.fetchBaskets();
         this.fetchFaculties();
+        this.fetchBasketPreferences();
       },
       err => console.log(err)
     )
@@ -51,6 +55,15 @@ export class UtilService {
     this.fetch_faculties().subscribe(
       res => {
         this.basket_faculties = res;
+      },
+      err => console.log(err)
+    )
+  }
+
+  fetchBasketPreferences() {
+    this.fetch_basket_preferences().subscribe(
+      res => {
+        this.basket_preferences = res
       },
       err => console.log(err)
     )
@@ -81,5 +94,12 @@ export class UtilService {
   submit_assigned_courses() {
     let payload = {stream: this._auth.stream};
     return this.http.post<any>(this.submit_assigned_courses_url, payload);
+  }
+
+
+  fetch_basket_preferences() {
+    let params = new HttpParams()
+                      .set('stream', this._auth.stream);
+    return this.http.get<any>(this.fetch_basket_preferences_url, {params});
   }
 }

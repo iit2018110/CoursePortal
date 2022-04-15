@@ -1,3 +1,6 @@
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
 <div *ngIf="_util.status === 'buffer'">
   <h3>Assigned</h3>
 

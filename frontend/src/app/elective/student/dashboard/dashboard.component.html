@@ -1,3 +1,6 @@
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
 <div *ngIf="_util.status==='buffer'" class="shadow m-5 p-5">
   <div class="m-5 p-5 shadow">
   <h1>Opted</h1>
@@ -88,9 +91,9 @@
   <div class="container">
     <div *ngFor="let basket of _util.baskets">
       <h2>{{basket.name}}</h2>
-        <p>1st preference: {{basket.pref1_course_name}}</p> 
+        <p>1st preference: {{basket.pref1_course_name}}</p>
         <p>2nd preference: {{basket.pref2_course_name}}</p>
-        <p>3rd preference: {{basket.pref3_course_name}}</p> 
+        <p>3rd preference: {{basket.pref3_course_name}}</p>
     </div>
   </div>
 </div>

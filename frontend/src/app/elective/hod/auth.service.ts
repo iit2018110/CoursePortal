@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -18,9 +19,9 @@ export class AuthService {
   private login_url = 'http://localhost:3001/elective/hod/login';
   private fetch_profile_url = 'http://localhost:3001/elective/hod/profile';
   private token_verify_url = 'http://localhost:3001/jwt/verify_token';
-  
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   decodeJWT() {
     let token = localStorage.getItem('token_hod') as string;
@@ -59,5 +60,10 @@ export class AuthService {
                   .set('id', this.id);
 
     return this.http.get<any>(this.fetch_profile_url, {params})
+  }
+
+  userLogout() {
+    localStorage.removeItem('token_hod');
+    this.router.navigate(['/elective/hod/login']);
   }
 }

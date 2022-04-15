@@ -1,4 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
 
@@ -8,7 +10,7 @@ import { UtilService } from '../util.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(public _util: UtilService) { }
+  constructor( public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
     this._util.init();
