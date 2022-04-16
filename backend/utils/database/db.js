@@ -15,7 +15,8 @@ db.Course_faculty = require('../../models/course_faculty');
 db.Student_preference = require('../../models/student_preference');
 db.Admin = require('../../models/admin');
 db.Faculty_preference = require('../../models/faculty_preferences');
-
+db.project = require('../../models/project').Project
+db.Student_project = require('../../models/project').Student_project
 
 db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
 db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
@@ -35,6 +36,7 @@ db.Course_faculty.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'i
 db.Buffer_basket_student.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 db.Student_preference.belongsTo(db.Student, {foreignKey: 'student_id', targetKey: 'id'});
 db.Student_preference.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-
+db.project.hasMany(db.Student_project, {foreignKey: 'project_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
+db.Student_project.belongsTo(db.project, {foreignKey: 'project_id', targetKey: 'id'});
 
 module.exports = db;
