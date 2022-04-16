@@ -2,36 +2,86 @@ const Sequelize = require('sequelize');
 const sequelize = require("../../../utils/database/config");
 const db = require("../../../utils/database/db");
 
+const approved = "approved"
+const rejected = "rejected"
+
 async function FetchByProjectId(id) {
-    let QueryResult = await sequelize.query(`select Project.id as ProjectId, Project.title as ProjectTitle,
-    Project.faculty_id as FacultyId, Project.status as Status,
-    Student_project.Student_id as StudentId, Student_project.status as StudentStatus
-    from project join student_project
-    on Project.id = Student_project.project_id
-    where Project.id = '${id}';`, { type: Sequelize.QueryTypes.SELECT });
+    let QueryResultProject = await sequelize.query(`select project.id as ProjectId, project.title as ProjectTitle,
+    project.faculty_id as FacultyId, project.status as Status
+    from project
+    where project.id = '${id}';`, { type: Sequelize.QueryTypes.SELECT });
+
+    let QueryResultStudentProject = await sequelize.query(`select student_project.Student_id as StudentId, student_project.status as StudentStatus
+    from student_project
+    where student_project.project_id = '${id}';`, { type: Sequelize.QueryTypes.SELECT });
 
     let Students = []
     
-    for(let i = 0; i < query_result.length; i++) {
-        Students.push({student_id: query_result[i].StudentId, student_status: query_result[i].StudentStatus})
+    for(let i = 0; i < QueryResultStudentProject.length; i++) {
+        Students.push({student_id: QueryResultStudentProject[i].StudentId, student_status: QueryResultStudentProject[i].StudentStatus})
     }
 
     let GetResult = []
-
-    if(query_result.length > 0){
-        GetResult.push({project_id: query_result[0].ProjectId, project_title: query_result[0].ProjectTitle,
-        project_faculty: query_result[0].FacultyId, project_status: query_result[0].Status,
-        students: Students})
-    }
+    // console.log(typeof({project_id: QueryResultProject.ProjectId, project_title: QueryResultProject.ProjectTitle,
+    //     project_faculty: QueryResultProject.FacultyId, project_status: QueryResultProject.Status,
+    //     students: Students}))
+    GetResult.push({project_id: QueryResultProject.ProjectId, project_title: QueryResultProject.ProjectTitle,
+    project_faculty: QueryResultProject.FacultyId, project_status: QueryResultProject.Status,
+    students: Students})
 
     return GetResult
 }
+
 module.exports.get_project_by_project_id = async (req, res)=> {
     let id = req.query.id
     let data = await FetchByProjectId(id)
-    console.log("id: ${id}")
-    return res.status(200).json({status: "non-filled", data: data});
+    // console.log(typeof(data))
+    if(Object.keys(data).length===1){
+        return res.status(200).json({status: "Empty"});
+    }
+    else{
+        return res.status(200).json({status: "fetched", data: data}); 
+    }
 }
+
+async function PostProjectFacultyID(title, faculty_id) {
+    await sequelize.query(`INSERT INTO project (title, faculty_id)
+    (title, faculty_id)`);
+    let project_id = await sequelize.query(`select max(id) from project;`, { type: Sequelize.QueryTypes.SELECT });
+    return project_id
+}
+
+async function PostStudentProjectStudentIDStatus(project_id, Student_id, status) {
+    await sequelize.query(`INSERT INTO Student_project (project_id, Student_id, status)
+    (project_id, Student_id, status)`);
+}
+
+async function PostStudentProjectStudentID(project_id, Student_id) {
+    await sequelize.query(`INSERT INTO Student_project (project_id, Student_id)
+    (project_id, Student_id)`);
+}
+
+module.exports.post_project_by_student = async (req, res)=> {
+    let data = req.body
+    if (data.hasownproperty("title")===true && data.hasownproperty("faculty_id")===true && data.hasownproperty("student_posted_id")===true &&
+    data.hasownproperty("students")===true) {
+        let title = req.body.title
+        let faculty_id = req.body.faculty_id
+        let project_id = PostProjectFacultyID(title, faculty_id)
+        let student_posted_id = req.body.student_posted_id
+        PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
+        let students = req.body.students
+        for(let i = 0; i < students.length; i++) {
+            let student_id = students.student_id
+            PostStudentProjectStudentID(project_id, student_id)
+        }
+        return res.status(200).json({status: "Posted"});
+    }
+    else{
+        return res.status(200).json({status: "Invalid request"});
+    }
+}
+
 // async function fun(id) {
 //     let query_result = await sequelize.query(`select buffer_basket_students.basket_id as basket_id, 
 //         buffer_basket_students.basket_name as basket_name, buffer_basket_students.basket_status as basket_status,

@@ -3,7 +3,8 @@ const sequelize = require('../utils/database/config');
 
 const Project = sequelize.define('project', {
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     title: {
