@@ -37,7 +37,7 @@ module.exports.get_project_by_project_id = async (req, res)=> {
     let data = await FetchByProjectId(id)
     // console.log(typeof(data))
     if(Object.keys(data).length===1){
-        return res.status(200).json({status: "Empty"});
+        return res.status(200).json({status: "Empty", data: data});
     }
     else{
         return res.status(200).json({status: "fetched", data: data}); 
@@ -45,8 +45,7 @@ module.exports.get_project_by_project_id = async (req, res)=> {
 }
 
 async function PostProjectFacultyID(title, faculty_id) {
-    await sequelize.query(`INSERT INTO project (title, faculty_id)
-    VALUES ('${title}, '${faculty_id}');`);
+    await sequelize.query(`INSERT INTO project (title, faculty_id) VALUES('${title}', '${faculty_id}');`);
     let project_id = await sequelize.query(`select max(id) from project;`, { type: Sequelize.QueryTypes.SELECT });
     return project_id
 }
@@ -61,44 +60,44 @@ async function PostStudentProjectStudentID(project_id, Student_id) {
     VALUES ('${project_id}', '${Student_id}');`);
 }
 
-module.exports.post_project_by_student = (req, res) => {
-    let title = req.body.title
-    let faculty_id = req.body.faculty_id
-    let student_posted_id = req.body.student_posted_id
-    // let project_id = PostProjectFacultyID(title, faculty_id)
+// module.exports.post_project_by_student = (req, res) => {
+//     let title = req.body.title
+//     let faculty_id = req.body.faculty_id
+//     let student_posted_id = req.body.student_posted_id
+//     // let project_id = PostProjectFacultyID(title, faculty_id)
 
-    db.project.update({
-        where: {
-            title: title,
-            faculty_id: faculty_id
-        }
-    }).then(()=>{
-        return res.status(200).json("status updated successfully!!");
-    }).catch((err)=>{
-        return res.status(400).json("error in accept course");
-    })
-}
-
-// module.exports.post_project_by_student = async (req, res)=> {
-//     // let data = req.body
-//     // if (data.hasownproperty("title")===true && data.hasownproperty("faculty_id")===true && data.hasownproperty("student_posted_id")===true &&
-//     // data.hasownproperty("students")===true) {
-//         let title = req.body.title
-//         let faculty_id = req.body.faculty_id
-//         let project_id = PostProjectFacultyID(title, faculty_id)
-//         // let student_posted_id = req.body.student_posted_id
-//         // PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
-//         // let students = req.body.students
-//         // for(let i = 0; i < students.length; i++) {
-//         //     let student_id = students.student_id
-//         //     PostStudentProjectStudentID(project_id, student_id)
-//         // }
-//         return res.status(200).json("success");
-//     // }
-//     // else{
-//     //     return res.status(200).json({status: "Invalid request"});
-//     // }
+//     db.project.update({
+//         where: {
+//             title: title,
+//             faculty_id: faculty_id
+//         }
+//     }).then(()=>{
+//         return res.status(200).json("status updated successfully!!");
+//     }).catch((err)=>{
+//         return res.status(400).json("error in accept course");
+//     })
 // }
+
+module.exports.post_project_by_student = async (req, res)=> {
+    // let data = req.body
+    // if (data.hasownproperty("title")===true && data.hasownproperty("faculty_id")===true && data.hasownproperty("student_posted_id")===true &&
+    // data.hasownproperty("students")===true) {
+        let title = req.body.title
+        let faculty_id = req.body.faculty_id
+        let project_id = PostProjectFacultyID(title, faculty_id)
+        // let student_posted_id = req.body.student_posted_id
+        // PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
+        // let students = req.body.students
+        // for(let i = 0; i < students.length; i++) {
+        //     let student_id = students.student_id
+        //     PostStudentProjectStudentID(project_id, student_id)
+        // }
+        return res.status(200).json("success");
+    // }
+    // else{
+    //     return res.status(200).json({status: "Invalid request"});
+    // }
+}
 
 // async function fun(id) {
 //     let query_result = await sequelize.query(`select buffer_basket_students.basket_id as basket_id, 
