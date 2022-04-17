@@ -17,6 +17,7 @@ router.post('/submit_assigned_courses', facultyAssign.submit_assigned_courses);
 
 router.get('/fetch_basket_preferences', counselling.fetch_basket_preferences);
 router.post('/students_counselling', counselling.students_counselling);
+router.post('/submit_students_counselling', counselling.submit_students_couselling);
 
 router.get('/fetch_basket_subjects', courseSetting.fetch_basket_subjects);
 router.put('/run_course', courseSetting.run_course);

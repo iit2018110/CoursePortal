@@ -29,6 +29,9 @@ export class CounsellingComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this._util.submit_students_couselling().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
   }
 }
