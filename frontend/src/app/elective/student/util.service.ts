@@ -39,10 +39,10 @@ export class UtilService {
         this.status = res.status
         if(res.status === 'filled') {
           this.baskets = res.baskets;
-        } 
+        }
         else {
           this.buffer_baskets = res.baskets;
-        } 
+        }
       },
       err => console.log(err)
     )
@@ -56,8 +56,8 @@ export class UtilService {
     return this.http.get<any>(this.fetch_dashboard_url, {params})
   }
 
-  choose_preferences(basketId: string, p1_id:string, p1_name: string, p2_id:string, p2_name: string, p3_id:string, p3_name: string) {
-    let payload = {student_id: this._auth.id, basket_id: basketId, p1_id: p1_id, p1_name: p1_name, p2_id:p2_id, p2_name: p2_name, p3_id:p3_id, p3_name: p3_name};
+  choose_preferences(basketId: string, p1_id:string, p1_name: string, p2_id:string, p2_name: string, p3_id:string, p3_name: string, p4_id:string, p4_name: string, p5_id:string, p5_name: string) {
+    let payload = {student_id: this._auth.id, basket_id: basketId, p1_id: p1_id, p1_name: p1_name, p2_id:p2_id, p2_name: p2_name, p3_id:p3_id, p3_name: p3_name, p4_id:p4_id, p4_name: p4_name, p5_id:p5_id, p5_name: p5_name};
     return this.http.put<any>(this.choose_preferences_url, payload);
   }
 

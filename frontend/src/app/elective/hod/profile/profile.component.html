@@ -1,10 +1,8 @@
 <button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
 
 <div class="container">
-  <p>Enrollment no.: {{_auth.id}}</p>
   <p>Name: {{_auth.name}}</p>
   <p>Email: {{_auth.email}}</p>
-  <p>Gpa: {{_auth.gpa}}</p>
   <p>Stream: {{_auth.stream}}</p>
 
   <button type="button" class="btn btn-warning" routerLink="../dashboard">Back to dashboard</button>

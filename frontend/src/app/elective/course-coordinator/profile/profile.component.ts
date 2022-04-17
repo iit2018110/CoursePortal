@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { UtilService } from '../util.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,5 +13,4 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this._auth.fetchProfile();
   }
-
 }

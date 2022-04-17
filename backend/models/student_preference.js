@@ -38,6 +38,22 @@ const Student_preference = sequelize.define('student_preferences', {
     pref3_course_name : {
         type: Sequelize.STRING,
         defaultValue: null
+    },
+    pref4_course_id  : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref4_course_name : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref5_course_id  : {
+        type: Sequelize.STRING,
+        defaultValue: null
+    },
+    pref5_course_name : {
+        type: Sequelize.STRING,
+        defaultValue: null
     }
 }, {
     freezeTableName: true,

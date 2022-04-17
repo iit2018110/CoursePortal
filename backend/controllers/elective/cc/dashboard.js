@@ -9,7 +9,7 @@ module.exports.get_dashboard = async (req, res)=> {
                         where: {
                             basket_id: basketId
                         }
-                    })
+                    });
     
     if(running_course_data.count != 0) {
         return res.status(200).json({status: "running", data: running_course_data.rows});
@@ -91,7 +91,11 @@ module.exports.submit_courses = async (req,res) => {
 
     await sequelize.query(`INSERT INTO running_courses (id, name , basket_id) SELECT id, name, basket_id FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);
 
-    db.Buffer_course_cc.destroy({truncate: true, cascade: false})
+    db.Buffer_course_cc.destroy({
+        where: {
+            basket_id: basketId
+        }
+    })
     .then(()=>{
         return res.status(200).json("successfully submittd!!");
     }).catch((err)=>{

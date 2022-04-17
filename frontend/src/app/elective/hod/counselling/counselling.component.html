@@ -1,1 +1,24 @@
-<p>counselling works!</p>
+<button type="button" class="btn btn-primary" routerLink="../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div *ngFor="let basket of _util.basket_preferences">
+  <h2>{{basket.name}}</h2>
+  <div *ngFor="let course of basket.courses">
+    <h3>{{course.name}}</h3>
+    -------------------------
+    <div *ngFor="let student of course.students">
+      <p>{{student.name}}</p>
+    </div>
+    <div *ngIf="!isEmpty(_util.course_students)">
+      ================================================
+      <div *ngFor="let student of _util.course_students[course.id]">
+        {{student}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="startCounselling()">Start Counselling</button>
+<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>

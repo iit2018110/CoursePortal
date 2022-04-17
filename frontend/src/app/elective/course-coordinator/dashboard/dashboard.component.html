@@ -1,10 +1,14 @@
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+
 <div>
     <div class="container shadow m-5 p-5" *ngIf="this._util.status==='buffer'">
         <div class="row m-5 p-5 shadow">
         <h2>Pending:</h2>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='pending'">
-                <p>{{course.name}}      
+                <p>{{course.name}}
                     <button type="button" class="btn btn-success" (click)="acceptCourse(course.id)">Accept</button>
                     <button type="button" class="btn btn-danger" (click)="rejectCourse(course.id)">Reject</button>
                 </p>
@@ -15,7 +19,7 @@
         <h3>Accepted:</h3>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='selected'">
-                <p>{{course.name}}      
+                <p>{{course.name}}
                     <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
                 </p>
             </div>
@@ -25,7 +29,7 @@
         <h3>Rejected</h3>
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='rejected'">
-                <p>{{course.name}}      
+                <p>{{course.name}}
                     <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
                 </p>
             </div>

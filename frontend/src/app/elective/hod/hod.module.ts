@@ -11,6 +11,8 @@ import { CounsellingComponent } from './counselling/counselling.component';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
 import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { CourseSettingComponent } from './course-setting/course-setting.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { AuthGuard } from './auth.guard';
     LoginComponent,
     DashboardComponent,
     FacultyAssignComponent,
-    CounsellingComponent
+    CounsellingComponent,
+    ProfileComponent,
+    CourseSettingComponent
   ],
   imports: [
     CommonModule,

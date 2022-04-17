@@ -8,6 +8,8 @@ async function fun(id) {
         buffer_basket_students.pref1_course_id as pref1_course_id, buffer_basket_students.pref1_course_name as pref1_course_name,
         buffer_basket_students.pref2_course_id as pref2_course_id, buffer_basket_students.pref2_course_name as pref2_course_name,
         buffer_basket_students.pref3_course_id as pref3_course_id, buffer_basket_students.pref3_course_name as pref3_course_name,
+        buffer_basket_students.pref4_course_id as pref4_course_id, buffer_basket_students.pref4_course_name as pref4_course_name,
+        buffer_basket_students.pref5_course_id as pref5_course_id, buffer_basket_students.pref5_course_name as pref5_course_name,
         running_courses.id as course_id, running_courses.name as course_name, faculties.id as faculty_id, faculties.name as faculty_name
         from buffer_basket_students
         join course_faculties
@@ -35,7 +37,9 @@ async function fun(id) {
             baskets.push({id: query_result[i].basket_id, name: query_result[i].basket_name, status: query_result[i].basket_status, 
                 pref1_course_id:query_result[i].pref1_course_id, pref1_course_name: query_result[i].pref1_course_name,
                 pref2_course_id:query_result[i].pref2_course_id, pref2_course_name: query_result[i].pref2_course_name,
-                pref3_course_id:query_result[i].pref3_course_id, pref3_course_name: query_result[i].pref3_course_name,   
+                pref3_course_id:query_result[i].pref3_course_id, pref3_course_name: query_result[i].pref3_course_name,
+                pref4_course_id:query_result[i].pref4_course_id, pref4_course_name: query_result[i].pref4_course_name, 
+                pref5_course_id:query_result[i].pref5_course_id, pref5_course_name: query_result[i].pref5_course_name,    
                 courses: [course]})
         }
         
@@ -50,7 +54,7 @@ module.exports.get_dashboard = async (req, res)=> {
 
     let student_pref_data =  await db.Student_preference.findAndCountAll({
         attributes: [['basket_id', 'id'],['basket_name', 'name'],'pref1_course_id','pref1_course_name',
-            'pref2_course_id','pref2_course_name','pref3_course_id','pref3_course_name'],
+            'pref2_course_id','pref2_course_name','pref3_course_id','pref3_course_name','pref4_course_id','pref4_course_name','pref5_course_id','pref5_course_name'],
         where: {
             student_id: id
         }
@@ -90,6 +94,10 @@ module.exports.choose_preferences = (req, res) => {
     let p2_name = req.body.p2_name;
     let p3_id = req.body.p3_id;
     let p3_name = req.body.p3_name;
+    let p4_id = req.body.p4_id;
+    let p4_name = req.body.p4_name;
+    let p5_id = req.body.p5_id;
+    let p5_name = req.body.p5_name;
 
     db.Buffer_basket_student.update({
         basket_status: 'opted',
@@ -99,6 +107,10 @@ module.exports.choose_preferences = (req, res) => {
         pref2_course_name: p2_name,
         pref3_course_id: p3_id,
         pref3_course_name: p3_name,
+        pref4_course_id: p4_id,
+        pref4_course_name: p4_name,
+        pref5_course_id: p5_id,
+        pref5_course_name: p5_name,
     }, 
     {
         where: {
@@ -126,6 +138,10 @@ module.exports.remove_preferences = (req, res) => {
         pref2_course_name: null,
         pref3_course_id: null,
         pref3_course_name: null,
+        pref4_course_id: null,
+        pref4_course_name: null,
+        pref5_course_id: null,
+        pref5_course_name: null,
     },
     {
         where: {
@@ -144,12 +160,17 @@ module.exports.submit_preferences = async (req, res) => {
     let id = req.body.student_id;
 
     await sequelize.query(`INSERT INTO student_preferences (student_id,basket_id,basket_name,pref1_course_id,pref1_course_name,
-                           pref2_course_id,pref2_course_name,pref3_course_id,pref3_course_name)
+                           pref2_course_id,pref2_course_name,pref3_course_id,pref3_course_name,pref4_course_id,pref4_course_name,pref5_course_id,pref5_course_name)
                            SELECT student_id,basket_id,basket_name,pref1_course_id,pref1_course_name,
-                           pref2_course_id,pref2_course_name,pref3_course_id,pref3_course_name FROM buffer_basket_students
+                           pref2_course_id,pref2_course_name,pref3_course_id,pref3_course_name,
+                           pref4_course_id,pref4_course_name,pref5_course_id,pref5_course_name FROM buffer_basket_students
                            WHERE student_id='${id}'`);
     
-    await db.Buffer_basket_student.destroy({truncate: true, cascade: false})
+    await db.Buffer_basket_student.destroy({
+        where: {
+            student_id: id
+        }
+    })
     .then(()=>{
         return res.status(200).json("successfully submitted!!");
     }).catch((err)=>{
