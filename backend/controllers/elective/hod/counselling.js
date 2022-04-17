@@ -7,7 +7,7 @@ async function get_baskets_data(stream) {
         running_courses.name as course_name, students.id as student_id, students.name as student_name
         from student_preferences 
         join baskets on baskets.id=student_preferences.basket_id
-        join running_courses on running_courses.id=student_preferences.pref1_course_id or running_courses.id=student_preferences.pref2_course_id or running_courses.id=student_preferences.pref3_course_id
+        join running_courses on running_courses.id=student_preferences.pref1_course_id or running_courses.id=student_preferences.pref2_course_id or running_courses.id=student_preferences.pref3_course_id or running_courses.id=student_preferences.pref4_course_id or running_courses.id=student_preferences.pref5_course_id
         join students on students.id=student_preferences.student_id
         where running_courses.stream='${stream}'
         order by students.gpa desc;`, { type: Sequelize.QueryTypes.SELECT });
@@ -52,7 +52,9 @@ async function get_student_preferences_data(stream) {
         baskets.id AS basket_id,
         student_preferences.pref1_course_id as pref1,
         student_preferences.pref2_course_id as pref2,
-        student_preferences.pref3_course_id as pref3
+        student_preferences.pref3_course_id as pref3,
+        student_preferences.pref4_course_id as pref4,
+        student_preferences.pref5_course_id as pref5
     FROM
         student_preferences
             JOIN
@@ -73,11 +75,65 @@ async function get_available_seats_data(stream) {
     return data;
 }
 
+async function get_course_students_data(stream) {
+    let data = await sequelize.query(`select baskets.id as basket_id, baskets.name as basket_name, running_courses.id as course_id,
+        running_courses.name as course_name, students.id as student_id, students.name as student_name
+        from course_students 
+        join running_courses on running_courses.id=course_students.course_id
+        join baskets on baskets.id=running_courses.basket_id
+        join students on students.id=course_students.student_id
+        where running_courses.stream='${stream}'
+        order by students.gpa desc;`, { type: Sequelize.QueryTypes.SELECT });
+
+    let basket_students = [];
+    for (let i = 0; i < data.length; i++) {
+        let flag = false;
+        let basketId = data[i].basket_id;
+
+        let student = { id: data[i].student_id, name: data[i].student_name };
+        let course = { id: data[i].course_id, name: data[i].course_name, students: [student] };
+
+        for (let j = 0; j < basket_students.length; j++) {
+            if (basket_students[j].id === basketId) {
+                flag = true;
+                let flag1 = false;
+                for (let k = 0; k < basket_students[j].courses.length; k++) {
+                    if (basket_students[j].courses[k].id === data[i].course_id) {
+                        basket_students[j].courses[k].students.push(student);
+                        flag1 = true;
+                        break;
+                    }
+                }
+                if (!flag1) {
+                    basket_students[j].courses.push(course);
+                }
+            }
+        }
+
+        if (!flag) {
+            basket_students.push({ id: basketId, name: data[i].basket_name, courses: [course] })
+        }
+    }
+
+    return basket_students;
+}
+
 module.exports.fetch_basket_preferences = async (req, res) => {
     let stream = req.query.stream;
 
+    let course_students_count = await db.Course_student.count({
+        where: {
+            stream: stream
+        }
+    })
+
+    if (course_students_count != 0) {
+        let data = await get_course_students_data(stream);
+        return res.status(200).json({ status: 'submitted', data: data });
+    }
+
     let data = await get_baskets_data(stream);
-    return res.status(200).json(data);
+    return res.status(200).json({ status: 'unsubmitted', data: data });
 }
 
 module.exports.students_counselling = async (req, res) => {
@@ -92,7 +148,7 @@ module.exports.students_counselling = async (req, res) => {
     for (let i = 0; i < student_preferences_data.length; i++) {
         let studentId = student_preferences_data[i].student_id;
         let basketId = student_preferences_data[i].basket_id;
-        let basket = { id: basketId, pref1: student_preferences_data[i].pref1, pref2: student_preferences_data[i].pref2, pref3: student_preferences_data[i].pref3 };
+        let basket = { id: basketId, pref1: student_preferences_data[i].pref1, pref2: student_preferences_data[i].pref2, pref3: student_preferences_data[i].pref3, pref4: student_preferences_data[i].pref4, pref5: student_preferences_data[i].pref5 };
 
         let flag = false;
         for (let j = 0; j < student_preferences.length; j++) {
@@ -121,8 +177,6 @@ module.exports.students_counselling = async (req, res) => {
         seats_available[id] = seats;
     }
 
-    let unalloted_students = {};
-
     /**
      * Counselling logic.
      */
@@ -133,53 +187,75 @@ module.exports.students_counselling = async (req, res) => {
         for (let j = 0; j < student_preferences[i].baskets.length; j++) {
             let basketId = student_preferences[i].baskets[j].id;
             let pref1 = student_preferences[i].baskets[j].pref1;
-            let pref2 = student_preferences[i].baskets[j].pref1;
-            let pref3 = student_preferences[i].baskets[j].pref1;
+            let pref2 = student_preferences[i].baskets[j].pref2;
+            let pref3 = student_preferences[i].baskets[j].pref3;
+            let pref4 = student_preferences[i].baskets[j].pref4;
+            let pref5 = student_preferences[i].baskets[j].pref5;
 
-            let flag = false;
-
-            if (seats_available[pref1] > 0) {
+            if (pref1 && seats_available[pref1] > 0) {
                 if (course_students[pref1]) {
                     course_students[pref1].push(studentId);
                 } else {
                     course_students[pref1] = [studentId];
                 }
-
                 seats_available[pref1]--;
-                flag = true;
             }
-            else if (seats_available[pref2] > 0) {
+            else if (pref2 && seats_available[pref2] > 0) {
                 if (course_students[pref2]) {
                     course_students[pref2].push(studentId);
                 } else {
                     course_students[pref2] = [studentId];
                 }
-
                 seats_available[pref2]--;
-                flag = true;
             }
-            else if (seats_available[pref3] > 0) {
+            else if (pref3 && seats_available[pref3] > 0) {
                 if (course_students[pref3]) {
                     course_students[pref3].push(studentId);
                 } else {
                     course_students[pref3] = [studentId];
                 }
-
                 seats_available[pref3]--;
-                flag = true;
             }
-
-            if(!flag) {
-                if(unalloted_students[basketId]) {
-                    unalloted_students[basketId].push(studentId);
+            else if (pref4 && seats_available[pref4] > 0) {
+                if (course_students[pref4]) {
+                    course_students[pref4].push(studentId);
                 } else {
-                    unalloted_students[basketId] = [studentId];
+                    course_students[pref4] = [studentId];
                 }
+                seats_available[pref4]--;
+            }
+            else if (pref5 && seats_available[pref5] > 0) {
+                if (course_students[pref5]) {
+                    course_students[pref5].push(studentId);
+                } else {
+                    course_students[pref5] = [studentId];
+                }
+                seats_available[pref5]--;
             }
         }
     }
 
-    
+    await sequelize.query(`delete from buffer_course_students where stream='${stream}'`);
+
+    for (let id in course_students) {
+        for (let i = 0; i < course_students[id].length; i++) {
+            await db.Buffer_course_student.create({
+                course_id: id,
+                student_id: course_students[id][i],
+                stream: stream
+            })
+        }
+    }
 
     return res.status(200).json(course_students);
+}
+
+module.exports.submit_students_couselling = async (req, res) => {
+    let stream = req.body.stream;
+
+    await sequelize.query(`delete from course_students where stream='${stream}'`);
+    await sequelize.query(`INSERT INTO course_students SELECT * FROM buffer_course_students`);
+    await sequelize.query(`delete from buffer_course_students where stream='${stream}'`);
+
+    return res.status(200).json("submitted successfully!!");
 }

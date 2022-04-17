@@ -43,8 +43,7 @@ export class UtilService {
     let params = new HttpParams()
                   .set('faculty_id', this._auth.id)
                   .set('stream', this._auth.stream);
-
-    return this.http.get<any>(this.fetch_subjects_url, {params})
+    return this.http.get<any>(this.fetch_subjects_url, {params});
   }
 
   submit_preferences(data: JSON) {

@@ -3,84 +3,122 @@
 
 <div *ngIf="_util.status==='buffer'" class="shadow m-5 p-5">
   <div class="m-5 p-5 shadow">
-  <h1>Opted</h1>
-  <div class="container">
-    <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status==='opted'" class="p-3" style="border: 2px solid black;">
-        <h2>{{basket.name}}</h2>
-        <div class="row">
+    <h1>Opted</h1>
+    <div class="container">
+      <div *ngFor="let basket of _util.buffer_baskets">
+        <div *ngIf="basket.status==='opted'" class="p-3" style="border: 2px solid black;">
+          <h2>{{basket.name}}</h2>
+          <div class="row">
 
             <div class="row" *ngFor="let course of basket.courses">
               <p>{{course.name}} ------------ {{course.faculty.name}}</p>
             </div>
             <div class="p-5" style="width: fit-content;">
-              <label>1st preference:</label>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                <option value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
-              </select>
-              <label>2nd preference:</label>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
-              </select>
-              <label>3rd preference:</label>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
-              </select>
+              <div>
+                <label>1st preference:</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                  <option value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
+                </select>
+              </div>
+              <div>
+                <label>2nd preference:</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                  <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
+                </select>
+              </div>
+              <div>
+                <label>3rd preference:</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                  <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
+                </select>
+              </div>
+              <div [hidden]="basket.courses.length < 4">
+                <label>4th preference:</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                  <option value="course.faculty.id" selected>{{basket.pref4_course_name}}</option>
+                </select>
+              </div>
+              <div [hidden]="basket.courses.length < 5">
+                <label>5th preference:</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
+                  <option value="course.faculty.id" selected>{{basket.pref5_course_name}}</option>
+                </select>
+              </div>
             </div>
 
+          </div>
+          <button type="button" class="btn btn-danger" (click)="onDelete(basket.id)">Delete</button>
         </div>
-        <button type="button" class="btn btn-danger" (click)="onDelete(basket.id)">Delete</button>
       </div>
     </div>
   </div>
-</div>
 
-<div class="m-5 p-5 shadow">
-  <h1>Not Opted</h1>
-  <div class="container">
-    <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status==='non-opted'" class="p-3" style="border: 2px solid black;">
-        <h2>{{basket.name}}</h2>
-        <div class="row">
+  <div class="m-5 p-5 shadow">
+    <h1>Not Opted</h1>
+    <div class="container">
+      <div *ngFor="let basket of _util.buffer_baskets">
+        <div *ngIf="basket.status==='non-opted'" class="p-3" style="border: 2px solid black;">
+          <h2>{{basket.name}}</h2>
+          <div class="row">
             <div class="row" *ngFor="let course of basket.courses">
               <p>{{course.name}} ------------ {{course.faculty.name}}</p>
             </div>
-          <div class="row p-5" style="width: min-content;">
-            <mat-form-field appearance="outline">
-              <mat-label>1st preference</mat-label>
-              <mat-select #preference1>
-                <mat-option *ngFor="let course of basket.courses" [value]="course"
-                  [disabled]="course.id === preference2.value?.id || course.id === preference3.value?.id">
-                  {{course.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>2nd preference</mat-label>
-              <mat-select #preference2>
-                <mat-option *ngFor="let course of basket.courses" [value]="course"
-                  [disabled]="course.id === preference1.value?.id || course.id === preference3.value?.id">
-                  {{course.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>3rd preference</mat-label>
-              <mat-select #preference3>
-                <mat-option *ngFor="let course of basket.courses" [value]="course"
-                  [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id">
-                  {{course.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div class="row p-5" style="width: min-content;">
+              <mat-form-field appearance="outline">
+                <mat-label>1st preference</mat-label>
+                <mat-select #preference1>
+                  <mat-option *ngFor="let course of basket.courses" [value]="course"
+                    [disabled]="course.id === preference2.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
+                    {{course.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>2nd preference</mat-label>
+                <mat-select #preference2>
+                  <mat-option *ngFor="let course of basket.courses" [value]="course"
+                    [disabled]="course.id === preference1.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
+                    {{course.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>3rd preference</mat-label>
+                <mat-select #preference3>
+                  <mat-option *ngFor="let course of basket.courses" [value]="course"
+                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
+                    {{course.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" [hidden]="basket.courses.length < 4">
+                <mat-label>4th preference</mat-label>
+                <mat-select #preference4>
+                  <mat-option *ngFor="let course of basket.courses" [value]="course"
+                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference3.value?.id|| course.id === preference5.value?.id">
+                    {{course.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" [hidden]="basket.courses.length < 5">
+                <mat-label>5th preference</mat-label>
+                <mat-select #preference5>
+                  <mat-option *ngFor="let course of basket.courses" [value]="course"
+                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id">
+                    {{course.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
+          <button type="button" class="btn btn-success"
+            (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value.id,preference2.value.name,preference3.value.id,preference3.value.name,preference4.value?.id,preference4.value?.name,preference5.value?.id,preference5.value?.name)">Create</button>
         </div>
-        <button type="button" class="btn btn-success"
-          (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value.id,preference2.value.name,preference3.value.id,preference3.value.name)">Create</button>
       </div>
     </div>
   </div>
-</div>
 
   <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()"> Submit </button>
 
@@ -91,9 +129,11 @@
   <div class="container">
     <div *ngFor="let basket of _util.baskets">
       <h2>{{basket.name}}</h2>
-        <p>1st preference: {{basket.pref1_course_name}}</p>
-        <p>2nd preference: {{basket.pref2_course_name}}</p>
-        <p>3rd preference: {{basket.pref3_course_name}}</p>
+      <p>1st preference: {{basket.pref1_course_name}}</p>
+      <p>2nd preference: {{basket.pref2_course_name}}</p>
+      <p>3rd preference: {{basket.pref3_course_name}}</p>
+      <p [hidden]="!basket.pref4_course_name">4th preference: {{basket.pref4_course_name}}</p>
+      <p [hidden]="!basket.pref5_course_name">5th preference: {{basket.pref5_course_name}}</p>
     </div>
   </div>
 </div>
