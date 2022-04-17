@@ -46,17 +46,17 @@ module.exports.get_project_by_project_id = async (req, res)=> {
 
 async function PostProjectFacultyID(title, faculty_id) {
     await sequelize.query(`INSERT INTO project (title, faculty_id) VALUES('${title}', '${faculty_id}');`);
-    let project_id = await sequelize.query(`select max(id) from project;`, { type: Sequelize.QueryTypes.SELECT });
-    return project_id
+    let project_id = await sequelize.query(`select max(id) as max_id from project;`, { type: Sequelize.QueryTypes.SELECT });
+    return project_id[0].max_id
 }
 
 async function PostStudentProjectStudentIDStatus(project_id, Student_id, status) {
-    await sequelize.query(`INSERT INTO Student_project (project_id, Student_id, status)
+    await sequelize.query(`INSERT INTO student_project (project_id, Student_id, status)
     VALUES ('${project_id}', '${Student_id}', '${status}');`);
 }
 
 async function PostStudentProjectStudentID(project_id, Student_id) {
-    await sequelize.query(`INSERT INTO Student_project (project_id, Student_id)
+    await sequelize.query(`INSERT INTO student_project (project_id, Student_id)
     VALUES ('${project_id}', '${Student_id}');`);
 }
 
@@ -84,14 +84,14 @@ module.exports.post_project_by_student = async (req, res)=> {
     // data.hasownproperty("students")===true) {
         let title = req.body.title
         let faculty_id = req.body.faculty_id
-        let project_id = PostProjectFacultyID(title, faculty_id)
-        // let student_posted_id = req.body.student_posted_id
-        // PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
-        // let students = req.body.students
-        // for(let i = 0; i < students.length; i++) {
-        //     let student_id = students.student_id
-        //     PostStudentProjectStudentID(project_id, student_id)
-        // }
+        let project_id = await PostProjectFacultyID(title, faculty_id)
+        let student_posted_id = req.body.student_posted_id
+        PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
+        let students = req.body.students
+        for(let i = 0; i < students.length; i++) {
+            let student_id = students[i].student_id
+            PostStudentProjectStudentID(project_id, student_id)
+        }
         return res.status(200).json("success");
     // }
     // else{

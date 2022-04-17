@@ -26,10 +26,10 @@ const Project = sequelize.define('project', {
 
 const Student_project = sequelize.define('student_project', {
     project_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         notNull: true
     },
-    Student_id: {
+    student_id: {
         type: Sequelize.STRING,
         notNull: true
     },
