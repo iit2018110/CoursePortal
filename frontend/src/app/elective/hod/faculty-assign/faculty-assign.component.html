@@ -2,72 +2,98 @@
 <button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
 <button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
 
-<div *ngIf="_util.status === 'buffer'">
-  <h3>Assigned</h3>
+<div class="container m-3 p-3 shadow" *ngIf="_util.status === 'buffer'">
 
-  <div class="container">
-    <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status === 'assigned'">
-        <h3>{{basket.name}}</h3>
-        <div class="row" *ngFor="let course of basket.courses">
-          <div class="col-lg-2">
-            <p>{{course.name}}</p>
-          </div>
+    <div class="container m-3 p-3 shadow">
+        <h3>Assigned</h3>
+        <div *ngFor="let basket of _util.buffer_baskets">
+            <div class="m-2 p-2 shadow" *ngIf="basket.status === 'assigned'">
+                <h4>{{basket.name}}</h4>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p>Subject</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>Faculty</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Seat</p>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let course of basket.courses">
+                    <div class="col-lg-2">
+                        <p>{{course.name}}</p>
+                    </div>
 
-          <div class="col-lg-3">
-            <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-              <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
-            </select>
-          </div>
-          <div class="col-md-1">
-            <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
-          </div>
-        </div>
-        <button type="button" class="btn btn-danger" (click)="onReset(basket.id)">Reset</button>
-      </div>
-    </div>
-  </div>
-
-  <h3>Unassigned</h3>
-  <div class="container">
-    <div *ngFor="let basket of _util.buffer_baskets">
-      <div *ngIf="basket.status === 'un-assigned'">
-        <h3>{{basket.name}}</h3>
-        <form #selectFaculty="ngForm">
-          <div *ngFor="let course of basket.courses">
-            <div class="row" [ngModelGroup]="course.id">
-              <div class="col-lg-2">
-                <p>{{course.name}}</p>
-              </div>
-              <div class="col-lg-3">
-                <select ngModel [name]="'faculty_id'" class="form-select form-select-sm"
-                  aria-label=".form-select-sm example">
-                  <option value="">Select Faculty</option>
-                  <option *ngFor="let faculty of getFaculties(course.id)" [ngValue]="faculty.id">{{faculty.name}}
-                  </option>
-                </select>
-              </div>
-              <div class="col-md-2">
-                <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control"
-                  placeholder="default value: 60">
-              </div>
+                    <div class="col-lg-3">
+                        <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            disabled>
+                            <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger" (click)="onReset(basket.id)">Reset</button>
             </div>
-          </div>
-          <button type="button" class="btn btn-success" (click)="onCreate(selectFaculty.value)">Create</button>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 
-  <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    <div class="container m-3 p-3 shadow">
+        <h3 style="font-size: large;">Unassigned</h3>
+        <div class="container">
+            <div *ngFor="let basket of _util.buffer_baskets">
+                <div class="m-2 p-2 shadow" *ngIf="basket.status === 'un-assigned'">
+                    <h4>{{basket.name}}</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p>Subject</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <p>Faculty</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>Seat</p>
+                        </div>
+                    </div>
+                    <form #selectFaculty="ngForm">
+                        <div *ngFor="let course of basket.courses">
+                            <div class="row" [ngModelGroup]="course.id">
+                                <div class="col-lg-2">
+                                    <p>{{course.name}}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select ngModel [name]="'faculty_id'" class="form-select form-select-sm"
+                                        aria-label=".form-select-sm example">
+                                        <option value="">Select Faculty</option>
+                                        <option *ngFor="let faculty of getFaculties(course.id)" [ngValue]="faculty.id">
+                                            {{faculty.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control"
+                                        placeholder="default value: 60">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success"
+                            (click)="onCreate(selectFaculty.value)">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
 </div>
 
-<div *ngIf="_util.status === 'selected'">
-  <div *ngFor="let basket of _util.selected_baskets">
-    <h3>{{basket.name}}</h3>
-    <div *ngFor="let course of basket.courses">
-      {{course.name}} ----- {{course.faculty.name}} ----- {{course.seats}}
+<div class="container m-5 p-5 shadow" *ngIf="_util.status === 'selected'">
+    <div *ngFor="let basket of _util.selected_baskets">
+        <h3>{{basket.name}}</h3>
+        <div *ngFor="let course of basket.courses">
+            {{course.name}} ----- {{course.faculty.name}} ----- {{course.seats}}
+        </div>
+        -------------------------------------------------------------------
     </div>
-    -------------------------------------------------------------------
-  </div>
 </div>

@@ -124,9 +124,9 @@
 
 </div>
 
-<div *ngIf="_util.status==='filled'">
+<div class="container m-5 p-5 shadow"*ngIf="_util.status==='filled'">
   <h1>Choosed Preferences: </h1>
-  <div class="container">
+  <div class="container m-5 p-5 shadow">
     <div *ngFor="let basket of _util.baskets">
       <h2>{{basket.name}}</h2>
       <p>1st preference: {{basket.pref1_course_name}}</p>
