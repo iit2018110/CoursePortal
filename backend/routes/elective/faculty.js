@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../../middlewares/auth');
+
 
 // need to change accordingly
 
@@ -9,11 +11,11 @@ const { fetch_subjects, submit_preferences } = require('../../controllers/electi
 const {profile} = require('../../controllers/elective/faculty/profile');
 
 router.post('/login', login);
-router.get('/get_student', get_student)
-router.get('/fetch_subjects', fetch_subjects)
-router.post('/submit_preferences', submit_preferences);
+router.get('/get_student', authMiddleware.authValidator, get_student)
+router.get('/fetch_subjects', authMiddleware.authValidator, fetch_subjects)
+router.post('/submit_preferences', authMiddleware.authValidator, submit_preferences);
 
-router.get('/profile', profile);
+router.get('/profile',authMiddleware.authValidator, profile);
 
 
 module.exports = router;
