@@ -9,9 +9,10 @@ import { GetStudentsComponent } from './get-students/get-students.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
@@ -31,7 +32,12 @@ import { ProfileComponent } from './profile/profile.component';
   providers: [
     AuthService,
     UtilService,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ]
 })
 export class FacultyModule { }
