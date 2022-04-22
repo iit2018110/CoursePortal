@@ -14,31 +14,17 @@ module.exports.get_project_by_project_id = async (req, res)=> {
     return res.status(200).json({status:"empty", data: data})
 }
 
-module.exports.post_project_by_student = async (req, res)=> {
-    let title = req.body.title
-    let faculty_id = req.body.faculty_id
-    let project_id = await PostProjectFacultyID(title, faculty_id)
-    let student_posted_id = req.body.student_posted_id
-    PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
-    let students = req.body.students
-    for(let i = 0; i < students.length; i++) {
-        let student_id = students[i].student_id
-        PostStudentProjectStudentID(project_id, student_id)
-    }
-    return res.status(200).json("success");
-}
-
 // project_id must integer and student_id and status must be string
-module.exports.post_status_by_student = async (req, res)=> {
+module.exports.post_status_by_faculty = async (req, res)=> {
     let project_id = req.body.project_id
-    let student_id = req.body.student_id
+    let faculty_id = req.body.faculty_id
     let status = req.body.status
     if(status==approved){
-        PostStudentProjectStatus(project_id,student_id,status)
+        PostProjectStatus(project_id,title,faculty_id,status)
        return res.status(200).json("success");
     }
     if(status==rejected){
-        PostStudentProjectStatus(project_id,student_id,status)
+        PostProjectStatus(project_id,title,faculty_id,status)
         return res.status(200).json("success");
     }
     return res.status(400).json("bad request");
@@ -69,23 +55,7 @@ async function FetchByProjectId(id) {
     return {}
 }
 
-async function PostProjectFacultyID(title, faculty_id) {
-    await sequelize.query(`INSERT INTO project (title, faculty_id) VALUES('${title}', '${faculty_id}');`);
-    let project_id = await sequelize.query(`select max(id) as max_id from project;`, { type: Sequelize.QueryTypes.SELECT });
-    return project_id[0].max_id
-}
-
-async function PostStudentProjectStudentIDStatus(project_id, Student_id, status) {
-    await sequelize.query(`INSERT INTO student_project (project_id, Student_id, status)
-    VALUES ('${project_id}', '${Student_id}', '${status}');`);
-}
-
-async function PostStudentProjectStudentID(project_id, Student_id) {
-    await sequelize.query(`INSERT INTO student_project (project_id, Student_id)
-    VALUES ('${project_id}', '${Student_id}');`);
-}
-
-async function PostStudentProjectStatus(project_id, Student_id, status) {
-    await sequelize.query(`UPDATE student_project SET status = '${status}'
-    WHERE project_id = '${project_id}' AND  Student_id = '${Student_id}';`);
+async function  PostProjectStatus(project_id,title,faculty_id,status) {
+    await sequelize.query(`UPDATE project SET status = '${status}'
+    WHERE project_id = '${project_id}' AND  faculty_id = '${faculty_id} AND  title = '${title}';`);
 }
