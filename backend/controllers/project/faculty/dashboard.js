@@ -16,17 +16,19 @@ module.exports.get_project_by_project_id = async (req, res)=> {
 
 // project_id must integer and student_id and status must be string
 module.exports.post_status_by_faculty = async (req, res)=> {
-    let project_id = req.body.project_id
-    let faculty_id = req.body.faculty_id
-    let status = req.body.status
-    if(status==approved){
-        PostProjectStatus(project_id,title,faculty_id,status)
-       return res.status(200).json("success");
-    }
-    if(status==rejected){
-        PostProjectStatus(project_id,title,faculty_id,status)
-        return res.status(200).json("success");
-    }
+    // let project_id = req.body.project_id
+    // let faculty_id = req.body.faculty_id
+    // let status = req.body.status
+    // let title = req.body.title
+    // console.log(project_id)
+    // if(status==approved){
+    //     PostProjectStatus(project_id,title,faculty_id,status)
+    //    return res.status(200).json("success");
+    // }
+    // if(status==rejected){
+    //     PostProjectStatus(project_id,title,faculty_id,status)
+    //     return res.status(200).json("success");
+    // }
     return res.status(400).json("bad request");
 }
 
