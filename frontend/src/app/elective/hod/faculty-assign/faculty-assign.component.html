@@ -1,6 +1,11 @@
-<button type="button" class="btn btn-primary" routerLink="../dashboard">Dashboard</button>
-<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
-<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Back to dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
+</nav>
 
 <div class="container m-3 p-3 shadow" *ngIf="_util.status === 'buffer'">
 
@@ -74,7 +79,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control"
-                                        placeholder="default value: 60">
+                                        placeholder="default: 60">
                                 </div>
                             </div>
                         </div>
@@ -91,9 +96,23 @@
 <div class="container m-5 p-5 shadow" *ngIf="_util.status === 'selected'">
     <div *ngFor="let basket of _util.selected_baskets">
         <h3>{{basket.name}}</h3>
-        <div *ngFor="let course of basket.courses">
-            {{course.name}} ----- {{course.faculty.name}} ----- {{course.seats}}
+        <div class="container shadow p-2 m-2 mb-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Faculty Name</th>
+                        <th>Course Seat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of basket.courses">
+                        <td>{{course.name}}</td>
+                        <td>{{course.faculty.name}}</td>
+                        <td>{{course.seats}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        -------------------------------------------------------------------
     </div>
 </div>
