@@ -11,6 +11,7 @@ import { BasketComponent } from './basket/basket.component';
 import { UtilService } from './util.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { RunningCoursesComponent } from './running-courses/running-courses.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
     LoginComponent,
     ProfileComponent,
     HomeComponent,
-    BasketComponent
+    BasketComponent,
+    RunningCoursesComponent
   ],
   imports: [
     CommonModule,

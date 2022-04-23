@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public loginErr = false;
 
   constructor(private _auth: AuthService, private router: Router) { }
 
@@ -31,7 +32,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token_cc', res);
         this.router.navigate(['/elective/cc/dashboard']);
       },
-      err => console.log(err)
+      err => {
+        this.loginErr = true,
+        console.log(err)
+      }
     )
   }
 

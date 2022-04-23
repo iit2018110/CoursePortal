@@ -85,6 +85,21 @@ module.exports.get_dashboard = async (req, res)=> {
     return res.status(200).json({status: "buffer", baskets});
 }
 
+
+module.exports.fetch_alloted_courses = async (req, res)=> {
+    let studentId = req.query.student_id;
+
+    let alloted_course_data = await sequelize.query(`
+        select baskets.id as  basked_id, baskets.name as basket_name, running_courses.id as course_id, running_courses.name as course_name
+        from course_students
+        join running_courses on course_students.course_id=running_courses.id
+        join baskets on running_courses.basket_id=baskets.id
+        where course_students.student_id='${studentId}';
+    `, { type: Sequelize.QueryTypes.SELECT });
+
+    return res.status(200).json(alloted_course_data);
+}
+
 module.exports.choose_preferences = (req, res) => {
     let id = req.body.student_id;
     let basketId = req.body.basket_id;

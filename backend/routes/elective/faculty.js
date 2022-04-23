@@ -12,7 +12,7 @@ const { fetch_subjects, submit_preferences } = require('../../controllers/electi
 const {profile} = require('../../controllers/elective/faculty/profile');
 
 router.post('/login', authValidator.loginValidatorSchema, authValidator.loginValidator, login);
-router.get('/fetch_students', fetch_students)
+router.get('/fetch_students', authMiddleware.authValidator, fetch_students)
 router.get('/fetch_subjects', authMiddleware.authValidator, fetch_subjects)
 router.post('/submit_preferences', authMiddleware.authValidator, submit_preferences);
 

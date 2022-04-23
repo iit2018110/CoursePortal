@@ -136,4 +136,13 @@
       <p [hidden]="!basket.pref5_course_name">5th preference: {{basket.pref5_course_name}}</p>
     </div>
   </div>
+
+  <div *ngIf="_util.alloted_courses" class="container m-5 p-5 shadow">
+    <h1>Alloted Courses</h1>
+    <div *ngFor="let course of _util.alloted_courses">
+      {{course.basket_name}}-------{{course.course_name}}
+    </div>
+  </div>
 </div>
+
+

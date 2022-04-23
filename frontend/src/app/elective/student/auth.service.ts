@@ -14,6 +14,7 @@ export class AuthService {
     public email!: string;
     public stream!: string; //IT or ECE
     public gpa!: number;
+    public degree!: any;
 
     private login_url = 'http://localhost:3001/elective/student/login';
     private fetch_profile_url = 'http://localhost:3001/elective/student/profile';
@@ -48,6 +49,7 @@ export class AuthService {
         res => {
           this.stream = res.stream,
           this.gpa = res.gpa,
+          this.degree = res.degree
           console.log(res)
         },
         err => console.log(err)

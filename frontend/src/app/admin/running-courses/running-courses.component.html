@@ -1,0 +1,30 @@
+<button type="button" class="btn btn-primary" routerLink="../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+
+<div class="container">
+  <h1>IT</h1>
+  <div *ngFor="let basket of it_courses">
+    <h2>{{basket.name}}</h2>
+    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+      Course-coordinator didn't selected course yet!
+    </p>
+    <div *ngFor="let course of basket.running_courses">
+      {{course.name}}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1>ECE</h1>
+  <div *ngFor="let basket of ece_courses">
+    <h2>{{basket.name}}</h2>
+    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+      Course-coordinator didn't selected course yet!
+    </p>
+    <div *ngFor="let course of basket.running_courses">
+      {{course.name}}
+    </div>
+  </div>
+</div>

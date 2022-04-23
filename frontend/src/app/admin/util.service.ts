@@ -16,6 +16,10 @@ export class UtilService {
   private delete_course_url = this.BASKET_URL + "delete_course";
   private delete_basket_url = this.BASKET_URL + "delete_basket";
 
+  private RUNNING_COURSE_URL = 'http://localhost:3001/admin/elective/'
+  private fetch_it_courses_url = this.RUNNING_COURSE_URL + "fetch_it_courses";
+  private fetch_ece_courses_url = this.RUNNING_COURSE_URL + "fetch_ece_courses";
+
   public it_baskets!: IBasket[];
   public ece_baskets!: IBasket[];
 
@@ -33,7 +37,7 @@ export class UtilService {
     this.fetch_ece_baskets().subscribe(
       res => this.ece_baskets = res,
       err => console.log(err)
-    ) 
+    )
   }
 
   fetch_it_baskets() {
@@ -69,4 +73,14 @@ export class UtilService {
   }
 
 
+  /**
+   * Running courses.
+   */
+   fetch_it_courses() {
+     return this.http.get<any>(this.fetch_it_courses_url);
+   }
+
+   fetch_ece_courses() {
+    return this.http.get<any>(this.fetch_ece_courses_url);
+  }
 }
