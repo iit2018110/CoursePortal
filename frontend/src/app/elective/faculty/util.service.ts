@@ -7,9 +7,11 @@ import { AuthService } from './auth.service';
 })
 export class UtilService {
   private fetch_subjects_url = 'http://localhost:3001/elective/faculty/fetch_subjects';
+  private fetch_students_url = 'http://localhost:3001/elective/faculty/fetch_students';
   private submit_preferences_url = 'http://localhost:3001/elective/faculty/submit_preferences';
 
   public baskets!: any;
+  public courses!: any;
   public status!: string;
 
   constructor(private _auth: AuthService, private http: HttpClient) { }
@@ -21,7 +23,8 @@ export class UtilService {
     .subscribe(
       res => {
         this._auth.stream = res.stream
-        this.fetchSubjects()
+        this.fetchSubjects(),
+        this.fetchStudents()
       },
       err => console.log(err)
     )
@@ -39,11 +42,24 @@ export class UtilService {
     )
   }
 
+  fetchStudents() {
+    this.fetch_students().subscribe(
+      res => this.courses = res,
+      err => console.log(err)
+    )
+  }
+
   fetch_subjects() {
     let params = new HttpParams()
                   .set('faculty_id', this._auth.id)
                   .set('stream', this._auth.stream);
     return this.http.get<any>(this.fetch_subjects_url, {params});
+  }
+
+  fetch_students() {
+    let params = new HttpParams()
+                  .set('faculty_id', this._auth.id)
+    return this.http.get<any>(this.fetch_students_url, {params});
   }
 
   submit_preferences(data: JSON) {

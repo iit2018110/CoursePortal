@@ -1,3 +1,7 @@
+<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+
 <div class="container m-5 shadow-lg p-5">
     <h1>Baskets</h1>
     <div class="container m-3 shadow-lg p-5">
@@ -11,7 +15,7 @@
     <div class="container shadow p-5 m-5" *ngFor="let basket of _util.it_baskets">
         <h3>{{basket.name}}</h3>
         <div class="row" *ngFor="let course of basket.courses">
-            <div class="col m-2"><p>{{course.name}}</p> </div>             
+            <div class="col m-2"><p>{{course.name}}</p> </div>
             <div class="col m-2"><button type="button" (click)="removeCourse(basket.id,course.id)" class="btn btn-danger">Delete</button></div>
         </div>
         <div class="row">
@@ -36,7 +40,7 @@
     <div class="container shadow p-5 m-5" *ngFor="let basket of _util.ece_baskets">
         <h3>{{basket.name}}</h3>
         <div class="row" *ngFor="let course of basket.courses">
-            <div class="col m-2"><p>{{course.name}}</p> </div> 
+            <div class="col m-2"><p>{{course.name}}</p> </div>
             <div class="col m-2"><button type="button" (click)="removeCourse(basket.id,course.id)" class="btn btn-danger">Delete</button></div>
         </div>
         <div class="row">
