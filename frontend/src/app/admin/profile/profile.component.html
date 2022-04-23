@@ -1,1 +1,8 @@
-<p>profile works!</p>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div class="container">
+  <p>Name: {{_auth.name}}</p>
+  <p>Email: {{_auth.email}}</p>
+
+  <button type="button" class="btn btn-warning" routerLink="../dashboard">Back to dashboard</button>
+</div>

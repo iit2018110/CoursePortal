@@ -16,9 +16,15 @@ export class UtilService {
   private delete_course_url = this.BASKET_URL + "delete_course";
   private delete_basket_url = this.BASKET_URL + "delete_basket";
 
-  private RUNNING_COURSE_URL = 'http://localhost:3001/admin/elective/'
-  private fetch_it_courses_url = this.RUNNING_COURSE_URL + "fetch_it_courses";
-  private fetch_ece_courses_url = this.RUNNING_COURSE_URL + "fetch_ece_courses";
+  private ELECTIVE_URL = 'http://localhost:3001/admin/elective/'
+  private fetch_it_courses_url = this.ELECTIVE_URL + "fetch_it_courses";
+  private fetch_ece_courses_url = this.ELECTIVE_URL + "fetch_ece_courses";
+
+  private fetch_faculty_preferences_it_url = this.ELECTIVE_URL + "fetch_faculty_preferences_it";
+  private fetch_faculty_preferences_ece_url = this.ELECTIVE_URL + "fetch_faculty_preferences_ece";
+
+  private fetch_course_faculty_it_url = this.ELECTIVE_URL + "fetch_course_faculty_it";
+  private fetch_course_faculty_ece_url = this.ELECTIVE_URL + "fetch_course_faculty_ece";
 
   public it_baskets!: IBasket[];
   public ece_baskets!: IBasket[];
@@ -82,5 +88,24 @@ export class UtilService {
 
    fetch_ece_courses() {
     return this.http.get<any>(this.fetch_ece_courses_url);
+  }
+
+  /**
+   * Faculties preferences.
+   */
+   fetch_faculty_preferences_it() {
+    return this.http.get<any>(this.fetch_faculty_preferences_it_url);
+   }
+
+   fetch_faculty_preferences_ece() {
+    return this.http.get<any>(this.fetch_faculty_preferences_ece_url);
+   }
+
+   fetch_course_faculty_it() {
+     return this.http.get<any>(this.fetch_course_faculty_it_url);
+   }
+
+   fetch_course_faculty_ece() {
+    return this.http.get<any>(this.fetch_course_faculty_ece_url);
   }
 }

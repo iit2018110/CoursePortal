@@ -12,6 +12,9 @@ import { UtilService } from './util.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { RunningCoursesComponent } from './running-courses/running-courses.component';
+import { FacultyPreferencesComponent } from './faculty-preferences/faculty-preferences.component';
+import { CourseFacultyComponent } from './course-faculty/course-faculty.component';
+import { StudentPreferencesComponent } from './student-preferences/student-preferences.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { RunningCoursesComponent } from './running-courses/running-courses.compo
     ProfileComponent,
     HomeComponent,
     BasketComponent,
-    RunningCoursesComponent
+    RunningCoursesComponent,
+    FacultyPreferencesComponent,
+    CourseFacultyComponent,
+    StudentPreferencesComponent
   ],
   imports: [
     CommonModule,
