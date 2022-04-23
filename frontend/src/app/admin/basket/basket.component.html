@@ -1,6 +1,10 @@
-<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
-<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
-<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
+</nav>
 
 
 <div class="container m-5 shadow-lg p-5">
