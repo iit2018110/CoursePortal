@@ -28,7 +28,6 @@ module.exports.fetch_it_baskets = (req,res) => {
             required: false
         }]
     }).then(async(data)=>{
-        console.log("data", data);
         return res.status(200).json(data);
     }).catch((err) => {
         console.log("err in fetching from it basket", err);
@@ -47,7 +46,6 @@ module.exports.fetch_ece_baskets = (req,res) => {
             required: false
         }]
     }).then(async(data)=>{
-        console.log("data", data);
         return res.status(200).json(data);
     }).catch((err) => {
         console.log("err in fetching from it basket", err);

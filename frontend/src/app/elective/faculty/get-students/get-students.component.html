@@ -1,3 +1,12 @@
+<button type="button" class="btn btn-primary" routerLink="../dashboard">Dashboard</button>
 <button type="button" class="btn btn-primary" routerLink="../profile">Profile</button>
 <button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
 
+<div class="container">
+  <div *ngFor="let course of _util.courses">
+    <h2>{{course.name}}</h2>
+    <div *ngFor="let student of course.students">
+      {{student.id}}-----{{student.name}}
+    </div>
+  </div>
+</div>

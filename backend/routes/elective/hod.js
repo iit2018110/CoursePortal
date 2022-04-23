@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../../middlewares/auth');
+const authValidator = require('../../middlewares/validator');
 
 
 const {login} = require('../../controllers/elective/hod/auth')
@@ -9,7 +10,7 @@ const facultyAssign = require('../../controllers/elective/hod/faculty_assign');
 const counselling = require('../../controllers/elective/hod/counselling');
 const courseSetting = require('../../controllers/elective/hod/course_setting');
 
-router.post('/login', login);
+router.post('/login', authValidator.loginValidatorSchema, authValidator.loginValidator, login);
 router.get('/profile',authMiddleware.authValidator, profile);
 router.get('/fetch_baskets',authMiddleware.authValidator, facultyAssign.fetch_baskets);
 router.get('/fetch_faculties',authMiddleware.authValidator, facultyAssign.fetch_faculties);
