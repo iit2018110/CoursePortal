@@ -1,4 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
 
@@ -8,14 +10,14 @@ import { UtilService } from '../util.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(public _util: UtilService) { }
+  constructor( public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
     this._util.init();
   }
 
-  onCreate(basketId: string, p1_id:string, p1_name: string, p2_id:string, p2_name: string, p3_id:string, p3_name: string) {
-    this._util.choose_preferences(basketId,p1_id,p1_name,p2_id,p2_name,p3_id,p3_name)
+  onCreate(basketId: string, p1_id:string, p1_name: string, p2_id:string, p2_name: string, p3_id: string, p3_name: string, p4_id:string, p4_name: string, p5_id:string, p5_name: string) {
+    this._util.choose_preferences(basketId,p1_id,p1_name,p2_id,p2_name,p3_id,p3_name,p4_id,p4_name,p5_id,p5_name)
     .subscribe(
       res => this.ngOnInit(),
       err => console.log(err)

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<div class="container m-5 p-5 shadow">
+  <h1>Stream: IT</h1>
+  <div *ngFor="let basket of it_courses">
+    <h2>{{basket.name}}</h2>
+    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+      ** Course-coordinator didn't select course yet! **
+    </p>
+    <ul>
+      <li *ngFor="let course of basket.running_courses">
+        {{course.name}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h1>Stream: ECE</h1>
+  <div *ngFor="let basket of ece_courses">
+    <h2>{{basket.name}}</h2>
+    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+      ** Course-coordinator didn't select course yet! **
+    </p>
+    <ul>
+      <li *ngFor="let course of basket.running_courses">
+        {{course.name}}
+      </li>
+    </ul>
+  </div>
+</div>

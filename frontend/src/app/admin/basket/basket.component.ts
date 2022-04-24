@@ -9,7 +9,7 @@ import { UtilService } from '../util.service';
 })
 export class BasketComponent implements OnInit {
 
-  constructor(private _auth: AuthService, public _util: UtilService) { }
+  constructor(public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
     this._util.fetch_baskets();

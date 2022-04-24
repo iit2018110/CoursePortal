@@ -41,7 +41,7 @@ module.exports.fetch_subjects = async (req,res) => {
     }).then(async(data)=>{
         return res.status(200).json({status: "non-filled", data: data});
     }).catch((err) => {
-        console.log("err in fetching from it basket", err);
+        console.log("err in fetching from basket", err);
     })
 }
 
@@ -53,7 +53,7 @@ module.exports.submit_preferences = async (req, res) => {
         await db.Faculty_preference.create({
             faculty_id: facultyId,
             course_id: c,
-            preference_value: courses[c]
+            preference_value: courses[c] ? courses[c] : 10
         })
     }
 

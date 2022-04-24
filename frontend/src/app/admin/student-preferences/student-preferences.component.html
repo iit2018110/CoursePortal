@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div class="container">
+  <h1>IT</h1>
+  <div *ngFor="let student of it_students">
+    <h2>{{student.id}}-----{{student.name}}</h2>
+    <p *ngIf="student.baskets.length===0" class="text-danger">
+      preferences not yet submitted!
+    </p>
+    <div *ngFor="let basket of student.baskets">
+      <h2>{{basket.name}}</h2>
+      <p>1st preference: {{basket.pref1_name}}</p>
+      <p>2nd preference: {{basket.pref2_name}}</p>
+      <p>3rd preference: {{basket.pref3_name}}</p>
+      <p [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</p>
+      <p [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1>ECE</h1>
+  <div *ngFor="let student of ece_students">
+    <h2>{{student.id}}-----{{student.name}}</h2>
+    <p *ngIf="student.baskets.length===0" class="text-danger">
+      preferences not yet submitted!
+    </p>
+    <div *ngFor="let basket of student.baskets">
+      <h2>{{basket.name}}</h2>
+      <p>1st preference: {{basket.pref1_name}}</p>
+      <p>2nd preference: {{basket.pref2_name}}</p>
+      <p>3rd preference: {{basket.pref3_name}}</p>
+      <p [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</p>
+      <p [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</p>
+    </div>
+  </div>
+</div>

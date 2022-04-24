@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CourseCoordinatorRoutingModule } from './course-coordinator-routing.module';
-import { CourseCoordinatorComponent } from './course-coordinator.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
+import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
   declarations: [
-    CourseCoordinatorComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,13 @@ import { UtilService } from './util.service';
   ],
   providers: [
     AuthService,
-    UtilService
+    UtilService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ]
 })
 export class CourseCoordinatorModule { }

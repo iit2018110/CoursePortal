@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<div class="container m-5 p-5 shadow" *ngFor="let basket of _util.baskets">
+  <h2>{{basket.name}}</h2>
+  <ul>
+    <li *ngFor="let course of basket.courses">
+      <div class="row m-2">
+        <div class="col">{{course.name}}</div>
+        <div class="col"><button [hidden]="course.seats <= 0" type="button" class="btn btn-danger"
+          (click)="dontRunCourse(basket.id,course.id)"> Don't Run It</button></div>
+        <div class="col"><button [hidden]="course.seats > 0" type="button" class="btn btn-success" (click)="runCourse(basket.id,course.id)">
+          Run It</button></div>
+      </div>
+      </li>
+  </ul>
+</div>

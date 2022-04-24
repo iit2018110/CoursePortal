@@ -9,6 +9,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  public loginErr = false;
+
   constructor(private _auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -30,7 +32,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token_student', res);
         this.router.navigate(['/elective/student/dashboard']);
       },
-      err => console.log(err)
+      err => {
+        this.loginErr = true,
+        console.log(err)
+      }
     )
   }
 

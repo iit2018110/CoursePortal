@@ -19,7 +19,7 @@ module.exports.login = (req, res) => {
             return res.status(401).json("Wrong password");
         }
 
-        let token = get_token(user.id, user.email, user.name);
+        let token = get_token('admin', user.id, user.email, user.name);
         return res.status(200).json(token);
     })
     .catch((err)=>{

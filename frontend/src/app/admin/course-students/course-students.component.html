@@ -1,0 +1,41 @@
+<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div class="container">
+  <h1>IT</h1>
+  <p *ngIf="it_baskets.length===0" class="text-danger">
+    Counselling not done yet!
+  </p>
+  <div class="container m-5 p-5 shadow" *ngFor="let basket of it_baskets">
+    <h1>{{basket.name}}</h1>
+    <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
+      <h2>{{course.name}}</h2>
+      <h3>Students to whom this course is alloted</h3>
+      <ul>
+        <li *ngFor="let student of course.students">
+          <p>{{student.id}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1>ECE</h1>
+  <p *ngIf="ece_baskets.length===0" class="text-danger">
+    Counselling not done yet!
+  </p>
+  <div class="container m-5 p-5 shadow" *ngFor="let basket of ece_baskets">
+    <h1>{{basket.name}}</h1>
+    <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
+      <h2>{{course.name}}</h2>
+      <h3>Students to whom this course is alloted</h3>
+      <ul>
+        <li *ngFor="let student of course.students">
+          <p>{{student.id}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

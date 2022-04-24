@@ -5,18 +5,18 @@ import { FormsModule } from '@angular/forms';
 
 
 import { StudentRoutingModule } from './student-routing.module';
-import { StudentComponent } from './student.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
   declarations: [
-    StudentComponent,
     LoginComponent,
     ProfileComponent,
     DashboardComponent
@@ -30,7 +30,13 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     AuthService,
-    UtilService
+    UtilService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ]
 })
 export class StudentModule { }

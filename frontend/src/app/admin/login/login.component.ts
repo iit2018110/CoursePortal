@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public loginErr = false;
 
   constructor(private _auth: AuthService, private router: Router) { }
 
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         if(res) {
-          this.router.navigate(['/admin/home']);
+          this.router.navigate(['/admin/dashboard']);
         }
       },
       err => console.log(err)
@@ -28,9 +29,12 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('token_admin', res);
-        this.router.navigate(['/admin/home']);
+        this.router.navigate(['/admin/dashboard']);
       },
-      err => console.log(err)
+      err => {
+        this.loginErr = true,
+        console.log(err)
+      }
     )
   }
 }

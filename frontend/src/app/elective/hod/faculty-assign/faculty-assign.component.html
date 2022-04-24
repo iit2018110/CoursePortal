@@ -1,93 +1,118 @@
-<div class="container m-3 p-3 shadow">
-<h3>Assigned</h3>
 
-<div class="container">
-    <div *ngFor="let basket of assigned_basket_courses" class="m-2 p-2 shadow">
-        <h4>{{basket.name}}</h4>
-            <div class="row">
-                <div class="col-lg-2">
-                    <p>Subject</p>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
+</nav>
+
+<div class="container m-3 p-3 shadow" *ngIf="_util.status === 'buffer'">
+
+    <div class="container m-3 p-3 shadow">
+        <h3>Assigned</h3>
+        <div *ngFor="let basket of _util.buffer_baskets">
+            <div class="m-2 p-2 shadow" *ngIf="basket.status === 'assigned'">
+                <h4>{{basket.name}}</h4>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p>Subject</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>Faculty</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Seat</p>
+                    </div>
                 </div>
-                <div class="col-lg-3">
-                    <p>Faculty</p>
+                <div class="row" *ngFor="let course of basket.courses">
+                    <div class="col-lg-2">
+                        <p>{{course.name}}</p>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            disabled>
+                            <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <p>Seat</p>
+                <button type="button" class="btn btn-danger" (click)="onReset(basket.id)">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container m-3 p-3 shadow">
+        <h3 style="font-size: large;">Unassigned</h3>
+        <div class="container">
+            <div *ngFor="let basket of _util.buffer_baskets">
+                <div class="m-2 p-2 shadow" *ngIf="basket.status === 'un-assigned'">
+                    <h4>{{basket.name}}</h4>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p>Subject</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <p>Faculty</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>Seat</p>
+                        </div>
+                    </div>
+                    <form #selectFaculty="ngForm">
+                        <div *ngFor="let course of basket.courses">
+                            <div class="row" [ngModelGroup]="course.id">
+                                <div class="col-lg-2">
+                                    <p>{{course.name}}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select ngModel [name]="'faculty_id'" class="form-select form-select-sm"
+                                        aria-label=".form-select-sm example">
+                                        <option value="">Select Faculty</option>
+                                        <option *ngFor="let faculty of getFaculties(course.id)" [ngValue]="faculty.id">
+                                            {{faculty.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control"
+                                        placeholder="default: 60">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success"
+                            (click)="onCreate(selectFaculty.value)">Create</button>
+                    </form>
                 </div>
             </div>
-            <div class="row" *ngFor="let course of basket.courses">
-                <div class="col-lg-2">
-                    <p>{{course.name}}</p>
-                </div>
-                <div class="col-lg-3">
-                    <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                        <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
-                </div>
-            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+</div>
 
-        <!-- <table class="table">
-            <thead>
-                <tr>
-                  <th scope="col">Subject</th>
-                  <th scope="col">Faculty</th>
-                  <th scope="col">Seat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <div *ngFor="let course of basket.courses">
+<div class="container m-5 p-5 shadow" *ngIf="_util.status === 'selected'">
+    <div *ngFor="let basket of _util.selected_baskets">
+        <h3>{{basket.name}}</h3>
+        <div class="container shadow p-2 m-2 mb-5">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{course.name}}</td>
-                        <td>
-                            <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                                <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
-                        </td>
+                        <th>Course Name</th>
+                        <th>Faculty Name</th>
+                        <th>Course Seat</th>
                     </tr>
-                </div>
-            </tbody>
-        </table> -->
-        <button type="button" class="btn btn-danger">Reset</button>
-    </div>
-</div>
-</div>
-<div class="container m-3 p-3 shadow">
-<h3 style="font-size: large;">Unassigned</h3>
-<div class="container">
-    <div *ngFor="let basket of unassigned_basket_courses" class="m-2 p-2 shadow">
-        <h4>{{basket.name}}</h4>
-        <div class="row">
-            <div class="col-lg-2">
-                <p>Subject</p>
-            </div>
-            <div class="col-lg-3">
-                <p>Faculty</p>
-            </div>
-            <div class="col-md-2">
-                <p>Seat</p>
-            </div>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of basket.courses">
+                        <td>{{course.name}}</td>
+                        <td>{{course.faculty.name}}</td>
+                        <td>{{course.seats}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row" *ngFor="let course of basket.courses">
-            <div class="col-lg-2">
-                <p>{{course.name}}</p>
-            </div>
-            <div class="col-lg-3">
-                <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option value="none">Select Faculty</option>
-                    <option *ngFor="let faculty of getFaculties(basket.id)">{{faculty.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input type="number" value="60" class="form-control" placeholder="No. of seats">
-            </div>
-        </div>
-        <button type="button" class="btn btn-success">Create</button>
     </div>
-</div>
 </div>

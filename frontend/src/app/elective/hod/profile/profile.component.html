@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<div class="container m-5 p-5 shadow-lg" style="text-align: center;">
+  <h2>Name: {{_auth.name}}</h2>
+  <h2>Email: {{_auth.email}}</h2>
+  <h2>Stream: {{_auth.stream}}</h2>
+</div>
