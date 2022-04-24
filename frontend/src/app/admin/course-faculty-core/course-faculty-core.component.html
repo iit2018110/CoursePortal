@@ -1,0 +1,31 @@
+<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div class="container m-5 p-5 shadow">
+  <h1>IT</h1>
+  <p *ngIf="baskets_it.length===0" class="text-danger">
+    HOD didn't assined faculty yet!
+  </p>
+  <div *ngFor="let basket of baskets_it">
+      <h3>{{basket.name}}</h3>
+      <div *ngFor="let course of basket.courses">
+          {{course.name}} ----- {{course.faculty.name}}
+      </div>
+      -------------------------------------------------------------------
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h1>ECE</h1>
+  <p *ngIf="baskets_ece.length===0" class="text-danger">
+    HOD didn't assined faculty yet!
+  </p>
+  <div *ngFor="let basket of baskets_ece">
+      <h3>{{basket.name}}</h3>
+      <div *ngFor="let course of basket.courses">
+          {{course.name}} ----- {{course.faculty.name}}
+      </div>
+      -------------------------------------------------------------------
+  </div>
+</div>

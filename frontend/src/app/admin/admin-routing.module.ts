@@ -10,6 +10,8 @@ import { FacultyPreferencesComponent } from './faculty-preferences/faculty-prefe
 import { CourseFacultyComponent } from './course-faculty/course-faculty.component';
 import { StudentPreferencesComponent } from './student-preferences/student-preferences.component';
 import { CourseStudentsComponent } from './course-students/course-students.component';
+import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/faculty-preferences-core.component';
+import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login' },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'elective/courses_faculty', component:  CourseFacultyComponent, canActivate: [AuthGuard]},
   { path: 'elective/student_preferences', component: StudentPreferencesComponent, canActivate: [AuthGuard] },
   { path: 'elective/course_students', component: CourseStudentsComponent, canActivate: [AuthGuard] },
+  { path: 'core/faculties_preference', component: FacultyPreferencesCoreComponent, canActivate: [AuthGuard]},
+  { path: 'core/courses_faculty', component: CourseFacultyCoreComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'dashboard' }
 ];
 

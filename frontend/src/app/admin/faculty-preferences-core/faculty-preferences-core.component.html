@@ -1,0 +1,29 @@
+<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
+<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
+<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+
+<div class="container">
+  <h1>IT</h1>
+  <div *ngFor="let faculty of faculties_it">
+    <h3>{{faculty.name}}</h3>
+    <p *ngIf="faculty.courses.length===0" class="text-danger">
+      Preferences has not been submitted yet!
+    </p>
+    <div *ngFor="let course of faculty.courses">
+      <p>{{course.name}}-----{{course.preference_value}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1>ECE</h1>
+  <div *ngFor="let faculty of faculties_ece">
+    <h3>{{faculty.name}}</h3>
+    <p *ngIf="faculty.courses.length===0" class="text-danger">
+      Preferences has not been submitted yet!
+    </p>
+    <div *ngFor="let course of faculty.courses">
+      <p>{{course.name}}-----{{course.preference_value}}</p>
+    </div>
+  </div>
+</div>

@@ -84,5 +84,35 @@ const Buffer_course_faculty_hod = sequelize.define('buffer_course_faculty_hod', 
     timestamps: false
 });
 
+const Buffer_core_course_faculty_hod = sequelize.define('buffer_core_course_faculty_hod', {
+    semester: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    course_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    faculty_id: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    sem_status: {
+        type: Sequelize.STRING,
+        defaultValue: 'un-assigned'
+    },
+    stream: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+},{
+    freezeTableName: true,
+    timestamps: false
+});
 
-module.exports = {HOD, Buffer_basket_hod, Buffer_course_faculty_hod};
+
+module.exports = {
+                    HOD, Buffer_basket_hod, 
+                    Buffer_course_faculty_hod,
+                    Buffer_core_course_faculty_hod
+                };
