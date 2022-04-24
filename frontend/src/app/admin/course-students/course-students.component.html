@@ -1,15 +1,19 @@
-<button type="button" class="btn btn-primary" routerLink="../../dashboard">Dashboard</button>
-<button type="button" class="btn btn-primary" routerLink="../../profile">Profile</button>
-<button type="button" class="btn btn-primary" (click)="_auth.userLogout()">Logout</button>
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
 
-<div class="container">
+<div class="container m-5 p-5 shadow">
   <h1>IT</h1>
   <p *ngIf="it_baskets.length===0" class="text-danger">
-    Counselling not done yet!
+    ** Counselling not done yet! **
   </p>
-  <div class="container m-5 p-5 shadow" *ngFor="let basket of it_baskets">
+  <div class="container m-2 p-5 shadow" *ngFor="let basket of it_baskets">
     <h1>{{basket.name}}</h1>
-    <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
+    <div class="container m-2 p-2" *ngFor="let course of basket.courses">
       <h2>{{course.name}}</h2>
       <h3>Students to whom this course is alloted</h3>
       <ul>
@@ -21,14 +25,14 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container m-5 p-5 shadow">
   <h1>ECE</h1>
   <p *ngIf="ece_baskets.length===0" class="text-danger">
-    Counselling not done yet!
+    ** Counselling not done yet! **
   </p>
-  <div class="container m-5 p-5 shadow" *ngFor="let basket of ece_baskets">
+  <div class="container m-2 p-5 shadow" *ngFor="let basket of ece_baskets">
     <h1>{{basket.name}}</h1>
-    <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
+    <div class="container m-2 p-2" *ngFor="let course of basket.courses">
       <h2>{{course.name}}</h2>
       <h3>Students to whom this course is alloted</h3>
       <ul>
