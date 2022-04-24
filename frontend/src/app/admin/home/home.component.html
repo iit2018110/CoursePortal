@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
     <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
     <form class="form-inline">
-        <button type="button" class="btn btn-secondary m-2" routerLink="../profile" style="visibility: hidden;">Profile</button>
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile" >Profile</button>
         <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
     </form>
 </nav>
@@ -17,7 +17,7 @@
     <li class="btn btn-primary m-2" routerLink="/admin/elective/faculties_preference">Faculties preferences</li>
     <li class="btn btn-primary m-2" routerLink="/admin/elective/courses_faculty">Faculty in courses</li>
     <li class="btn btn-primary m-2" routerLink="/admin/elective/student_preferences">Students Preferences</li>
-    <li class="btn btn-primary m-2">Students in courses</li>
+    <li class="btn btn-primary m-2" routerLink="/admin/elective/course_students">Students in courses</li>
 </ul>
 </div>
 

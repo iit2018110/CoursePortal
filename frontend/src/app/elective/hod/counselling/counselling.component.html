@@ -13,10 +13,10 @@
     <h3>Students who had choosen this course.</h3>
     <ul title="Student who preffered this course">
       <li *ngFor="let student of course.students">
-        <p>{{student.name}}</p>
+        <p>{{student.id}}</p>
       </li>
     </ul>
-   
+
     <div *ngIf="!isEmpty(_util.course_students)">
       <h3>Students to whom this course is alloted.</h3>
       <ul>
