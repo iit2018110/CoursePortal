@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   decodeJWT() {
-    let token = localStorage.getItem('token_hod') as string;
+    let token = localStorage.getItem('token_admin') as string;
     let decoded_token = jwt_decode<any>(token);
 
     this.id = decoded_token.id;
