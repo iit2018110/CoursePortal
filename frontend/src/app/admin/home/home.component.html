@@ -1,31 +1,44 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
-    <form class="form-inline">
-        <button type="button" class="btn btn-secondary m-2" routerLink="../profile" >Profile</button>
-        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-    </form>
+  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+  <form class="form-inline">
+    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
 </nav>
 
 <div class="container m-5 shadow p-5">
-<h1>DashBoard</h1>
+  <h1>DashBoard</h1>
 
-<div class="container m-3 shadow p-5">
-<h1 style="text-align: center;">Electives</h1>
-<ul style="text-align: center;">
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/basket">Baskets</li>
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/running_courses">Running courses</li>
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/faculties_preference">Faculties preferences</li>
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/courses_faculty">Faculty in courses</li>
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/student_preferences">Students Preferences</li>
-    <li class="btn btn-primary m-2" routerLink="/admin/elective/course_students">Students in courses</li>
-</ul>
-</div>
+  <div class="container m-3 shadow p-5">
+    <h1 style="text-align: center;">Electives</h1>
+    <ul style="text-align: center;">
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/basket">Baskets</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/running_courses">Running courses</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/faculties_preference">Faculties preferences</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/courses_faculty">Faculty in courses</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/student_preferences">Students Preferences</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/elective/course_students">Students in courses</li>
+    </ul>
+  </div>
 
-<div class="container m-3 shadow p-5">
-<h1 style="text-align: center;">Projects</h1>
-<ul style="text-align: center;">
-    <li class="btn btn-primary m-2">Students</li>
-    <li class="btn btn-primary m-2">Faculties</li>
-</ul>
-</div>
+  <div class="container m-3 shadow p-5">
+    <h1 style="text-align: center;">Projects</h1>
+    <ul style="text-align: center;">
+      <li class="btn btn-primary m-2">Students</li>
+      <li class="btn btn-primary m-2">Faculties</li>
+    </ul>
+  </div>
+
+  <div class="container m-3 shadow p-5">
+    <h1 style="text-align: center;">Core</h1>
+    <div style="text-align: center;">
+      <h3>current semsesters:</h3>
+      <button type="button" class="btn btn-secondary m-2" [disabled]="semType==='odd'" (click)="setSemType('odd')">Odd</button>
+      <button type="button" class="btn btn-secondary m-2" [disabled]="semType==='even'" (click)="setSemType('even')">Even</button>
+    </div>
+    <ul style="text-align: center;">
+      <li class="btn btn-primary m-2" routerLink="/admin/core/faculties_preference">Faculties preferences</li>
+      <li class="btn btn-primary m-2" routerLink="/admin/core/courses_faculty">Faculty in courses</li>
+    </ul>
+  </div>
 </div>

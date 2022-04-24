@@ -32,6 +32,17 @@ export class UtilService {
   private fetch_it_course_students_url = this.ELECTIVE_URL + "fetch_it_course_students";
   private fetch_ece_course_students_url = this.ELECTIVE_URL + "fetch_ece_course_students";
 
+  private CORE_URL = 'http://localhost:3001/admin/core/'
+
+  private set_sem_type_url = this.CORE_URL + "set_sem_type";
+  private get_sem_type_url = this.CORE_URL + "get_sem_type";
+
+  private fetch_core_course_faculty_it_url = this.CORE_URL + "fetch_course_faculty_it";
+  private fetch_core_course_faculty_ece_url = this.CORE_URL + "fetch_course_faculty_ece";
+
+  private fetch_core_faculty_preferences_it_url = this.CORE_URL + "fetch_faculty_preferences_it";
+  private fetch_core_faculty_preferences_ece_url = this.CORE_URL + "fetch_faculty_preferences_ece";
+
   public it_baskets!: IBasket[];
   public ece_baskets!: IBasket[];
 
@@ -139,4 +150,34 @@ export class UtilService {
    fetch_ece_course_students() {
     return this.http.get<any>(this.fetch_ece_course_students_url);
   }
+
+
+  /**
+   * Core.
+   */
+   set_sem_type(semType: string) {
+    return this.http.put<any>(this.set_sem_type_url, {sem_type: semType});
+   }
+
+   get_sem_type() {
+    return this.http.get<any>(this.get_sem_type_url);
+   }
+
+
+   fetch_core_course_faculty_it() {
+    return this.http.get<any>(this.fetch_core_course_faculty_it_url);
+  }
+
+  fetch_core_course_faculty_ece() {
+   return this.http.get<any>(this.fetch_core_course_faculty_ece_url);
+ }
+
+
+ fetch_core_faculty_preferences_it() {
+  return this.http.get<any>(this.fetch_core_faculty_preferences_it_url);
+ }
+
+ fetch_core_faculty_preferences_ece() {
+  return this.http.get<any>(this.fetch_core_faculty_preferences_ece_url);
+ }
 }

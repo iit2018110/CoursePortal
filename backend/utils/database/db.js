@@ -18,6 +18,12 @@ db.Faculty_preference = require('../../models/faculty_preferences');
 db.Course_student = require('../../models/course_students').Course_student;
 db.Buffer_course_student = require('../../models/course_students').Buffer_course_student;
 
+db.Core_course = require('../../models/core_course');
+db.Core_faculty_preference = require('../../models/core_faculty_preferences');
+db.Buffer_core_course_faculty_hod = require('../../models/hod').Buffer_core_course_faculty_hod;
+db.Core_course_faculty = require('../../models/core_course_faculty');
+db.Params = require('../../models/params');
+
 
 db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
 db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});

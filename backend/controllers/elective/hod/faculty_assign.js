@@ -133,6 +133,7 @@ module.exports.fetch_faculties = async (req, res) => {
     on running_courses.id=faculty_preferences.course_id
     join faculties
     on faculty_preferences.faculty_id=faculties.id
+    where running_courses.stream='${stream}'
     order by faculty_preferences.preference_value, faculty_preferences.updatedAt;
     `, { type: Sequelize.QueryTypes.SELECT });
 

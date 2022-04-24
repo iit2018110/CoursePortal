@@ -16,6 +16,8 @@ import { FacultyPreferencesComponent } from './faculty-preferences/faculty-prefe
 import { CourseFacultyComponent } from './course-faculty/course-faculty.component';
 import { StudentPreferencesComponent } from './student-preferences/student-preferences.component';
 import { CourseStudentsComponent } from './course-students/course-students.component';
+import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/faculty-preferences-core.component';
+import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { CourseStudentsComponent } from './course-students/course-students.compo
     FacultyPreferencesComponent,
     CourseFacultyComponent,
     StudentPreferencesComponent,
-    CourseStudentsComponent
+    CourseStudentsComponent,
+    FacultyPreferencesCoreComponent,
+    CourseFacultyCoreComponent
   ],
   imports: [
     CommonModule,
