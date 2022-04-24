@@ -26,6 +26,12 @@ export class UtilService {
   private fetch_course_faculty_it_url = this.ELECTIVE_URL + "fetch_course_faculty_it";
   private fetch_course_faculty_ece_url = this.ELECTIVE_URL + "fetch_course_faculty_ece";
 
+  private fetch_it_student_preferences_url = this.ELECTIVE_URL + "fetch_it_student_preferences";
+  private fetch_ece_student_preferences_url = this.ELECTIVE_URL + "fetch_ece_student_preferences";
+
+  private fetch_it_course_students_url = this.ELECTIVE_URL + "fetch_it_course_students";
+  private fetch_ece_course_students_url = this.ELECTIVE_URL + "fetch_ece_course_students";
+
   public it_baskets!: IBasket[];
   public ece_baskets!: IBasket[];
 
@@ -101,11 +107,36 @@ export class UtilService {
     return this.http.get<any>(this.fetch_faculty_preferences_ece_url);
    }
 
+   /**
+    * Courses Faculty
+    */
    fetch_course_faculty_it() {
      return this.http.get<any>(this.fetch_course_faculty_it_url);
    }
 
    fetch_course_faculty_ece() {
     return this.http.get<any>(this.fetch_course_faculty_ece_url);
+  }
+
+  /**
+   * Student preferences.
+   */
+   fetch_it_student_preferences() {
+     return this.http.get<any>(this.fetch_it_student_preferences_url);
+   }
+
+   fetch_ece_student_preferences() {
+    return this.http.get<any>(this.fetch_ece_student_preferences_url);
+  }
+
+  /**
+   * Course students.
+   */
+   fetch_it_course_students() {
+     return this.http.get<any>(this.fetch_it_course_students_url);
+   }
+
+   fetch_ece_course_students() {
+    return this.http.get<any>(this.fetch_ece_course_students_url);
   }
 }

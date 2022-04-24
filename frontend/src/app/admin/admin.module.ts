@@ -15,6 +15,7 @@ import { RunningCoursesComponent } from './running-courses/running-courses.compo
 import { FacultyPreferencesComponent } from './faculty-preferences/faculty-preferences.component';
 import { CourseFacultyComponent } from './course-faculty/course-faculty.component';
 import { StudentPreferencesComponent } from './student-preferences/student-preferences.component';
+import { CourseStudentsComponent } from './course-students/course-students.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { StudentPreferencesComponent } from './student-preferences/student-prefe
     RunningCoursesComponent,
     FacultyPreferencesComponent,
     CourseFacultyComponent,
-    StudentPreferencesComponent
+    StudentPreferencesComponent,
+    CourseStudentsComponent
   ],
   imports: [
     CommonModule,
