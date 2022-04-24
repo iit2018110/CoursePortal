@@ -7,7 +7,7 @@
 </nav>
 
 <div *ngIf="_util.status==='buffer'" class="shadow m-5 p-5">
-  <div class="m-5 p-5 shadow">
+  <div class="m-2 p-5 shadow">
     <h1>Opted</h1>
     <div class="container">
       <div *ngFor="let basket of _util.buffer_baskets">
@@ -131,8 +131,8 @@
 
 <div class="container m-5 p-5 shadow" *ngIf="_util.status==='filled'">
   <h1>Choosed Preferences: </h1>
-  <div class="container m-5 p-5 shadow">
-    <div *ngFor="let basket of _util.baskets">
+  <div class="container m-2 p-5 shadow mb-5">
+    <div class="mb-5" *ngFor="let basket of _util.baskets">
       <h2>{{basket.name}}</h2>
       <p>1st preference: {{basket.pref1_course_name}}</p>
       <p>2nd preference: {{basket.pref2_course_name}}</p>
@@ -142,11 +142,22 @@
     </div>
   </div>
 
-  <div *ngIf="_util.alloted_courses" class="container m-5 p-5 shadow">
+  <div *ngIf="_util.alloted_courses" class="container m-2 p-5 shadow">
     <h1>Alloted Courses</h1>
-    <div *ngFor="let course of _util.alloted_courses">
-      {{course.basket_name}}-------{{course.course_name}}
-    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Basket</th>
+          <th>Course</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of _util.alloted_courses">
+          <td>{{course.basket_name}}</td>
+          <td>{{course.course_name}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
