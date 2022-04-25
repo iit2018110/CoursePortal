@@ -1,42 +1,36 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
   <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
     <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
   </form>
 </nav>
-
+<div class="container m-5 p-5 shadow">
 <h1>Current Timing</h1>
-<div class="container">
+<div class="row m-2 p-2 shadow">
+<div class="col">
   <h1>Elective</h1>
-  <div class="container">
-    <h2></h2>
-    <p>Course coordinator: {{elective_cc_start ? (elective_cc_start | date: 'short') : null  }} {{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
+  <p>Course coordinator: {{elective_cc_start ? (elective_cc_start | date: 'short') : null  }} {{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
     <p>HOD: {{elective_hod_start ? (elective_hod_start | date: 'short') : null  }} {{elective_hod_end ? (elective_hod_end | date: 'short') : null  }}</p>
     <p>Faculty: {{elective_faculty_start ? (elective_faculty_start | date: 'short') : null  }} {{elective_faculty_end ? (elective_faculty_end | date: 'short') : null  }}</p>
     <p>Student: {{elective_student_start ? (elective_student_start | date: 'short') : null  }} {{elective_student_end ? (elective_student_end | date: 'short') : null  }}</p>
-  </div>
 </div>
 
-<div class="container">
+<div class="col">
   <h1>Project</h1>
-  <div class="container">
-    <h2></h2>
     <p>Faculty: {{project_faculty_start ? (project_faculty_start | date: 'short') : null  }} {{project_faculty_end ? (project_faculty_end | date: 'short') : null  }}</p>
     <p>Student: {{project_student_start ? (project_student_start | date: 'short') : null  }} {{project_student_end ? (project_student_end | date: 'short') : null  }}</p>
-  </div>
 </div>
 
-<div class="container">
+<div class="col">
   <h1>Core</h1>
-  <div class="container">
-    <h2></h2>
     <p>HOD: {{core_hod_start ? (core_hod_start | date: 'short') : null  }} {{core_hod_end ? (core_hod_end | date: 'short') : null  }}</p>
     <p>Faculty: {{core_faculty_start ? (core_faculty_start | date: 'short') : null  }} {{core_faculty_end ? (core_faculty_end | date: 'short') : null  }}</p>
-  </div>
+</div>
+</div>
 </div>
 
-
+<div class="container m-5 p-5 shadow">
 <h1>Set Timing</h1>
 <div class="container">
   <h1>Elective</h1>
@@ -101,4 +95,6 @@
 
     </p>
   </div>
+</div>
+
 </div>

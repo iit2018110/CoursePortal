@@ -1,14 +1,10 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+  <button type="button" class="btn btn-secondary btn m-2" routerLink="../portal_setting">Portal Setting</button>
   <form class="form-inline">
     <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
     <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
   </form>
 </nav>
-
-<div class="container">
-  <button type="button" class="btn btn-secondary btn-lg" routerLink="../portal_setting">Portal Setting</button>
-</div>
 
 <div class="container m-5 shadow p-5">
   <h1>DashBoard</h1>
