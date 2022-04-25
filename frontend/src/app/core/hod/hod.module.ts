@@ -10,6 +10,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TimeGuard } from './time.guard';
 
 
 @NgModule({
@@ -22,12 +24,14 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     HodRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [
     AuthService,
     UtilService,
     AuthGuard,
+    TimeGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

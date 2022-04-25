@@ -14,6 +14,8 @@ import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { CourseSettingComponent } from './course-setting/course-setting.component';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TimeGuard } from './time.guard';
 
 
 @NgModule({
@@ -29,12 +31,14 @@ import { TokenInterceptorService } from './token-interceptor.service';
     CommonModule,
     HODRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     AuthService,
     UtilService,
     AuthGuard,
+    TimeGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

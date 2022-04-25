@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 import { SharedComponent } from './shared.component';
 import { PortalStatusComponent } from './portal-status/portal-status.component';
+import { UtilService } from './util.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PortalStatusComponent } from './portal-status/portal-status.component';
     CommonModule,
     SharedRoutingModule
   ],
+  providers: [UtilService],
   exports: [
     PortalStatusComponent
   ]

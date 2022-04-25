@@ -5,12 +5,13 @@ import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { TimeGuard } from './time.guard';
 
 const routes: Routes = [{ path: '', redirectTo: 'login' },
 { path: 'login', component: LoginComponent },
 { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-{ path: 'portal_status', component: PortalStatusComponent, data: {startTime: 1, endTime: 5}},
-{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+{ path: 'portal_status', component: PortalStatusComponent, data: {user_type: 'project_student'}},
+{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard,TimeGuard] },
 { path: '**', redirectTo: 'dashboard'}];
 
 @NgModule({
