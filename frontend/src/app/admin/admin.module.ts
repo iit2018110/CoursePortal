@@ -18,6 +18,8 @@ import { StudentPreferencesComponent } from './student-preferences/student-prefe
 import { CourseStudentsComponent } from './course-students/course-students.component';
 import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/faculty-preferences-core.component';
 import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
+import { PortalSettingComponent } from './portal-setting/portal-setting.component';
+import { PortalSettingService } from './portal-setting.service';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty
     StudentPreferencesComponent,
     CourseStudentsComponent,
     FacultyPreferencesCoreComponent,
-    CourseFacultyCoreComponent
+    CourseFacultyCoreComponent,
+    PortalSettingComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,7 @@ import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty
   providers: [
     AuthService,
     UtilService,
+    PortalSettingService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

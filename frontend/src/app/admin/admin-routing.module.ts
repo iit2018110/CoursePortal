@@ -12,12 +12,14 @@ import { StudentPreferencesComponent } from './student-preferences/student-prefe
 import { CourseStudentsComponent } from './course-students/course-students.component';
 import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/faculty-preferences-core.component';
 import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
+import { PortalSettingComponent } from './portal-setting/portal-setting.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'portal_setting', component: PortalSettingComponent, canActivate: [AuthGuard]},
   { path: 'elective/basket', component: BasketComponent, canActivate: [AuthGuard] },
   { path: 'elective/running_courses', component: RunningCoursesComponent, canActivate: [AuthGuard] },
   { path: 'elective/faculties_preference', component: FacultyPreferencesComponent, canActivate: [AuthGuard] },
