@@ -8,7 +8,7 @@
 
 <div class="container m-5 p-5 shadow">
   <h1>IT</h1>
-  <div class="container shadow -5 p-5" *ngFor="let faculty of faculties_it">
+  <div class="container shadow p-5" *ngFor="let faculty of faculties_it">
     <h3>{{faculty.name}}</h3>
     <p *ngIf="faculty.courses.length===0" class="text-danger">
       ** Preferences has not been submitted yet! **
@@ -32,7 +32,7 @@
 
 <div class="container m-5 p-5 shadow">
   <h1>ECE</h1>
-  <div *ngFor="let faculty of faculties_ece">
+  <div class="container shadow p-5" *ngFor="let faculty of faculties_ece">
     <h3>{{faculty.name}}</h3>
     <p *ngIf="faculty.courses.length===0" class="text-danger">
       ** Preferences has not been submitted yet! **

@@ -10,7 +10,7 @@
 <div class="row m-2 p-2 shadow">
 <div class="col">
   <h1>Elective</h1>
-  <p>Course coordinator: {{elective_cc_start ? (elective_cc_start | date: 'short') : null  }} {{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
+    <p>Course coordinator: {{elective_cc_start ? (elective_cc_start | date: 'short') : null  }} {{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
     <p>HOD: {{elective_hod_start ? (elective_hod_start | date: 'short') : null  }} {{elective_hod_end ? (elective_hod_end | date: 'short') : null  }}</p>
     <p>Faculty: {{elective_faculty_start ? (elective_faculty_start | date: 'short') : null  }} {{elective_faculty_end ? (elective_faculty_end | date: 'short') : null  }}</p>
     <p>Student: {{elective_student_start ? (elective_student_start | date: 'short') : null  }} {{elective_student_end ? (elective_student_end | date: 'short') : null  }}</p>
@@ -32,69 +32,71 @@
 
 <div class="container m-5 p-5 shadow">
 <h1>Set Timing</h1>
-<div class="container">
+<div class="container m-2 p-5 shadow">
   <h1>Elective</h1>
   <div class="container">
-    <p>Course coordinator:
-      <input #eccs type="datetime-local" value="">
-      <input #ecce type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_cc',eccs.value,ecce.value)">set</button>
-    </p>
-    <p>HOD:
-      <input #ehs type="datetime-local" value="">
-      <input #ehe type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_hod',ehs.value,ehe.value)">set</button>
-    </p>
-    <p>Faculty:
-      <input #efs type="datetime-local" value="">
-      <input #efe type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_faculty',efs.value,efe.value)">set</button>
+    <h2>Course coordinator:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #eccs type="datetime-local" value=""></div>
+      <div class="col">End: <input #ecce type="datetime-local" value=""></div>
+      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_cc',eccs.value,ecce.value)">set</button></div>
+    </div>
+    <h2>HOD:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #ehs type="datetime-local" value=""></div>
+      <div class="col">End: <input #ehe type="datetime-local" value=""></div>
+      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_hod',ehs.value,ehe.value)">set</button></div>
+    </div>
+    <h2>Faculty:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #efs type="datetime-local" value=""></div>
+      <div class="col">End: <input #efe type="datetime-local" value=""></div>
+      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_faculty',efs.value,efe.value)">set</button></div>
 
-    </p>
-    <p>Student:
-      <input #ess type="datetime-local" value="">
-      <input #ese type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_student',ess.value,ese.value)">set</button>
-
-    </p>
+    </div>
+    <h2>Student:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #ess type="datetime-local" value=""></div>
+      <div class="col">End: <input #ese type="datetime-local" value=""></div>
+      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_student',ess.value,ese.value)">set</button></div>
+    </div>
   </div>
 </div>
 
-<div class="container">
+<div class="container m-2 p-5 shadow">
   <h1>Project</h1>
   <div class="container">
-    <h2></h2>
-    <p>Faculty:
-      <input #pfs type="datetime-local" value="">
-      <input #pfe type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('project_faculty',pfs.value,pfe.value)">set</button>
+    <h2>Faculty:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #pfs type="datetime-local" value=""></div>
+      <div class="col">End: <input #pfe type="datetime-local" value=""></div>
+      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('project_faculty',pfs.value,pfe.value)">set</button></div>
 
-    </p>
-    <p>Student:
-      <input #pss type="datetime-local" value="">
-      <input #pse type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('project_student',pss.value,pse.value)">set</button>
-    </p>
+    </div>
+    <h2>Student:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #pss type="datetime-local" value=""></div>
+      <div class="col">End: <input #pse type="datetime-local" value=""></div>
+      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('project_student',pss.value,pse.value)">set</button></div>
+    </div>
   </div>
 </div>
 
-<div class="container">
+<div class="container m-2 p-5 shadow">
   <h1>Core</h1>
   <div class="container">
-    <h2></h2>
-    <p>HOD:
-      <input #chs type="datetime-local" value="">
-      <input #che type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('core_hod',chs.value,che.value)">set</button>
-
-    </p>
-    <p>Faculty:
-      <input #cfs type="datetime-local" value="">
-      <input #cfe type="datetime-local" value="">
-      <button type="button" class="btn btn-primary" (click)="setPortalTiming('core_faculty',cfs.value,cfe.value)">set</button>
-
-    </p>
+    <h2>HOD:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #chs type="datetime-local" value=""></div>
+      <div class="col">End: <input #che type="datetime-local" value=""></div>
+      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('core_hod',chs.value,che.value)">set</button></div>
+    </div>
+    <h2>Faculty:</h2>
+    <div class="row mb-5">
+      <div class="col">Start: <input #cfs type="datetime-local" value=""></div>
+      <div class="col">End: <input #cfe type="datetime-local" value=""></div>
+      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('core_faculty',cfs.value,cfe.value)">set</button></div>
+    </div>
   </div>
 </div>
-
 </div>
