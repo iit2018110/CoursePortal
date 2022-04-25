@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/elective', elective);
-// app.use('project', project);
+app.use('/project', project);
 app.use('/admin', admin);
 app.use('/core', core);
 app.use('/jwt', jwt_route);
