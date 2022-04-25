@@ -65,4 +65,11 @@ export class AuthService {
     localStorage.removeItem('token_cc');
     this.router.navigate(['/elective/cc/login']);
   }
+
+  private get_portal_timing_url = 'http://localhost:3001/admin/get_portal_timing';
+  get_portal_timing() {
+    let params = new HttpParams()
+      .set('user_type', 'elective_cc');
+    return this.http.get<any>(this.get_portal_timing_url, { params });
+  }
 }

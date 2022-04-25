@@ -10,6 +10,8 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { UtilService } from './util.service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TimeGuard } from './time.guard';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { UtilService } from './util.service';
   imports: [
     CommonModule,
     FacultyRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     AuthService,
     UtilService,
     AuthGuard,
+    TimeGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

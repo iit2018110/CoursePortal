@@ -1,5 +1,13 @@
-<p>portal-status works!</p>
 
-<p>currTime: {{currTime}}</p>
-<p>startTime: {{startTime}}</p>
-<p>endTime: {{endTime}}</p>
+<div class="container">
+  <p *ngIf="currTime >= startTime && currTime <= endTime">
+    Portal is open.
+  </p>
+  <p *ngIf="currTime < startTime">
+    Portal not opened yet, will open at {{startTime}}.
+  </p>
+  <p *ngIf="currTime >= startTime && currTime <= endTime">
+    Portal closed, please contact with your administrator.
+  </p>
+</div>
+

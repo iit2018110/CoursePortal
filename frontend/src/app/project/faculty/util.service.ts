@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UtilService {
-  private fetch_subjects_url = 'http://localhost:3001/elective/faculty/fetch_subjects';
+  private fetch_subjects_url = 'http://localhost:3001/project/faculty/fetch_subjects';
   private fetch_students_url = 'http://localhost:3001/elective/faculty/fetch_students';
   private submit_preferences_url = 'http://localhost:3001/elective/faculty/submit_preferences';
 
