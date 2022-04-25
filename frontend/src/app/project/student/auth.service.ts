@@ -13,15 +13,17 @@ export class AuthService {
     public name!: string;
     public email!: string;
     public stream!: string; //IT or ECE
+    public gpa!: number;
+    public degree!: any;
 
-    private login_url = 'http://localhost:3001/elective/faculty/login';
-    private fetch_profile_url = 'http://localhost:3001/elective/faculty/profile';
+    private login_url = 'http://localhost:3001/elective/student/login';
+    private fetch_profile_url = 'http://localhost:3001/elective/student/profile';
     private token_verify_url = 'http://localhost:3001/jwt/verify_token';
 
     constructor(private http: HttpClient, private router: Router) { }
 
     decodeJWT() {
-      let token = localStorage.getItem('token_faculty') as string;
+      let token = localStorage.getItem('token_student') as string;
       let decoded_token = jwt_decode<any>(token);
 
       this.id = decoded_token.id;
@@ -34,7 +36,7 @@ export class AuthService {
     }
 
     verifyLoggedIn():Observable<boolean>{
-      let token = localStorage.getItem('token_faculty');
+      let token = localStorage.getItem('token_student');
       if(!token) return observableOf(false);
       return this.http.post<any>(this.token_verify_url, {token: token});
     }
@@ -46,6 +48,8 @@ export class AuthService {
       .subscribe(
         res => {
           this.stream = res.stream,
+          this.gpa = res.gpa,
+          this.degree = res.degree
           console.log(res)
         },
         err => console.log(err)
@@ -56,11 +60,11 @@ export class AuthService {
       let params = new HttpParams()
                     .set('id', this.id);
 
-      return this.http.get<any>(this.fetch_profile_url, {params});
+      return this.http.get<any>(this.fetch_profile_url, {params})
     }
 
     userLogout() {
-      localStorage.removeItem('token_faculty');
-      this.router.navigate(['/elective/faculty/login']);
+      localStorage.removeItem('token_student');
+      this.router.navigate(['/project/student/login']);
     }
 }

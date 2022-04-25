@@ -61,6 +61,6 @@ export class AuthService {
 
     userLogout() {
       localStorage.removeItem('token_faculty');
-      this.router.navigate(['/elective/faculty/login']);
+      this.router.navigate(['/project/faculty/login']);
     }
 }

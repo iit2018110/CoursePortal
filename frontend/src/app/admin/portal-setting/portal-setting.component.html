@@ -1,0 +1,104 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <form class="form-inline">
+    <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<h1>Current Timing</h1>
+<div class="container">
+  <h1>Elective</h1>
+  <div class="container">
+    <h2></h2>
+    <p>Course coordinator: {{elective_cc_start ? (elective_cc_start | date: 'short') : null  }} {{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
+    <p>HOD: {{elective_hod_start ? (elective_hod_start | date: 'short') : null  }} {{elective_hod_end ? (elective_hod_end | date: 'short') : null  }}</p>
+    <p>Faculty: {{elective_faculty_start ? (elective_faculty_start | date: 'short') : null  }} {{elective_faculty_end ? (elective_faculty_end | date: 'short') : null  }}</p>
+    <p>Student: {{elective_student_start ? (elective_student_start | date: 'short') : null  }} {{elective_student_end ? (elective_student_end | date: 'short') : null  }}</p>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Project</h1>
+  <div class="container">
+    <h2></h2>
+    <p>Faculty: {{project_faculty_start ? (project_faculty_start | date: 'short') : null  }} {{project_faculty_end ? (project_faculty_end | date: 'short') : null  }}</p>
+    <p>Student: {{project_student_start ? (project_student_start | date: 'short') : null  }} {{project_student_end ? (project_student_end | date: 'short') : null  }}</p>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Core</h1>
+  <div class="container">
+    <h2></h2>
+    <p>HOD: {{core_hod_start ? (core_hod_start | date: 'short') : null  }} {{core_hod_end ? (core_hod_end | date: 'short') : null  }}</p>
+    <p>Faculty: {{core_faculty_start ? (core_faculty_start | date: 'short') : null  }} {{core_faculty_end ? (core_faculty_end | date: 'short') : null  }}</p>
+  </div>
+</div>
+
+
+<h1>Set Timing</h1>
+<div class="container">
+  <h1>Elective</h1>
+  <div class="container">
+    <p>Course coordinator:
+      <input #eccs type="datetime-local" value="">
+      <input #ecce type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_cc',eccs.value,ecce.value)">set</button>
+    </p>
+    <p>HOD:
+      <input #ehs type="datetime-local" value="">
+      <input #ehe type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_hod',ehs.value,ehe.value)">set</button>
+    </p>
+    <p>Faculty:
+      <input #efs type="datetime-local" value="">
+      <input #efe type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_faculty',efs.value,efe.value)">set</button>
+
+    </p>
+    <p>Student:
+      <input #ess type="datetime-local" value="">
+      <input #ese type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_student',ess.value,ese.value)">set</button>
+
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Project</h1>
+  <div class="container">
+    <h2></h2>
+    <p>Faculty:
+      <input #pfs type="datetime-local" value="">
+      <input #pfe type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('project_faculty',pfs.value,pfe.value)">set</button>
+
+    </p>
+    <p>Student:
+      <input #pss type="datetime-local" value="">
+      <input #pse type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('project_student',pss.value,pse.value)">set</button>
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Core</h1>
+  <div class="container">
+    <h2></h2>
+    <p>HOD:
+      <input #chs type="datetime-local" value="">
+      <input #che type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('core_hod',chs.value,che.value)">set</button>
+
+    </p>
+    <p>Faculty:
+      <input #cfs type="datetime-local" value="">
+      <input #cfe type="datetime-local" value="">
+      <button type="button" class="btn btn-primary" (click)="setPortalTiming('core_faculty',cfs.value,cfe.value)">set</button>
+
+    </p>
+  </div>
+</div>

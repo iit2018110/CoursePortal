@@ -1,5 +1,7 @@
 const db = {};
 
+db.Portal_status = require('../../models/portal_status');
+
 db.Student = require('../../models/student').Student;
 db.Buffer_basket_student = require('../../models/student').Buffer_basket_student;
 db.Faculty = require('../../models/faculty');

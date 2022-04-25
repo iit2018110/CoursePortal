@@ -1,0 +1,7 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
