@@ -1,9 +1,65 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
   <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
   <form class="form-inline">
-      <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
   </form>
 </nav>
 
 
+
+<div class="container m-5 p-5 shadow">
+  <h2>Approved</h2>
+  <div *ngFor="let project of projects">
+    <div *ngIf="project.project_status==='approved'">
+      <div class="container m-5 p-5 shadow">
+        <p>Project Title: {{project.project_title}}</p>
+        <p>Team members: </p>
+        <p *ngFor="let student of project.students">
+          Student: {{student.student_id}} Status: {{student.student_status}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h2>Pending</h2>
+  <div *ngFor="let project of projects">
+    <div *ngIf="project.project_status==='pending'">
+      <div class="container m-5 p-5 shadow">
+        <p>Project Title: {{project.project_title}}</p>
+        <p>Team members: </p>
+        <p *ngFor="let student of project.students">
+          Student: {{student.student_id}} Status: {{student.student_status}}
+        </p>
+        <button type="button" class="btn btn-success" (click)="changeStatus(project.project_id,'approved')">Accept</button>
+        <button type="button" class="btn btn-danger" (click)="changeStatus(project.project_id,'rejected')">Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h2>Rejected</h2>
+  <div *ngFor="let project of projects">
+    <div *ngIf="project.project_status==='rejected'">
+      <div class="container m-5 p-5 shadow">
+        <p>Project Title: {{project.project_title}}</p>
+        <p>Team members: </p>
+        <p *ngFor="let student of project.students">
+          Student: {{student.student_id}} Status: {{student.student_status}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- POST faculty/post_status_by_faculty
+http://localhost:3001/project/faculty/post_status_by_faculty
+{
+   "project_id": "2",
+   "faculty_id": "GCN",
+   "status": "rejected"
+} -->

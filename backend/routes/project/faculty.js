@@ -11,5 +11,6 @@ router.get('/get_project_by_faculty_id', Dashboard.get_project_by_faculty_id);
 router.post('/post_status_by_faculty', Dashboard.post_status_by_faculty);
 router.get('/profile', profile);
 
+router.get('/get_detail_project', Dashboard.get_detail_project);
 
 module.exports = router;

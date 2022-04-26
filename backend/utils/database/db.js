@@ -47,8 +47,8 @@ db.Course_faculty.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'i
 db.Buffer_basket_student.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 db.Student_preference.belongsTo(db.Student, {foreignKey: 'student_id', targetKey: 'id'});
 db.Student_preference.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-db.project.hasMany(db.Student_project, {foreignKey: 'project_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
-db.Student_project.belongsTo(db.project, {foreignKey: 'project_id', targetKey: 'id'});
+// db.project.hasMany(db.Student_project, {foreignKey: 'project_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
+// db.Student_project.belongsTo(db.project, {foreignKey: 'project_id', targetKey: 'id'});
 db.Running_course.hasMany(db.Faculty_preference, {foreignKey: 'course_id', sourceKey: 'id', onDelete: 'CASCADE'});
 db.Faculty_preference.belongsTo(db.Running_course, {foreignKey:'course_id',targetKey: 'id'});
 db.Faculty.hasMany(db.Faculty_preference, {foreignKey: 'faculty_id', sourceKey: 'id'});

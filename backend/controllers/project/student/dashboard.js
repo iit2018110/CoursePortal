@@ -9,8 +9,9 @@ const pending = "pending"
 
 async function FetchByProjectId(id) {
     let QueryResultProject = await sequelize.query(`select project.id as ProjectId, project.title as ProjectTitle,
-    project.faculty_id as FacultyId, project.status as Status
+    project.faculty_id as FacultyId, faculties.name as facultyName, project.status as Status
     from project
+    join faculties on faculties.id=project.faculty_id
     where project.id = '${id}';`, { type: Sequelize.QueryTypes.SELECT });
 
     let QueryResultStudentProject = await sequelize.query(`select student_project.Student_id as StudentId, student_project.status as StudentStatus
@@ -26,7 +27,7 @@ async function FetchByProjectId(id) {
     if (QueryResultProject.length > 0) {
         return {
             project_id: QueryResultProject[0].ProjectId, project_title: QueryResultProject[0].ProjectTitle,
-            project_faculty: QueryResultProject[0].FacultyId, project_status: QueryResultProject[0].Status,
+            project_faculty: QueryResultProject[0].FacultyId, faculty_name: QueryResultProject[0].facultyName, project_status: QueryResultProject[0].Status,
             students: Students
         }
     }
@@ -86,6 +87,12 @@ async function PostStudentProjectStatus(project_id, Student_id, status) {
     WHERE project_id = '${project_id}' AND  Student_id = '${Student_id}';`);
 }
 
+module.exports.get_faculty_list = async (req, res) => {
+    let data = await db.Faculty.findAll({
+        attributes: ['id', 'name']
+    })
+    return res.status(200).json(data);
+}
 
 module.exports.get_project_by_project_id = async (req, res) => {
     if (req.query.hasOwnProperty('id')) {
@@ -124,11 +131,11 @@ module.exports.post_project_by_student = async (req, res) => {
         return res.status(200).json("Already approved in other project")
     }
     let project_id = await PostProjectFacultyID(title, faculty_id)
-    PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
+    await PostStudentProjectStudentIDStatus(project_id, student_posted_id, approved)
     let students = req.body.students
     for (let i = 0; i < students.length; i++) {
         let student_id = students[i].student_id
-        PostStudentProjectStudentID(project_id, student_id)
+        await PostStudentProjectStudentID(project_id, student_id)
     }
     return res.status(200).json("success")
 }
@@ -164,4 +171,25 @@ module.exports.post_status_by_student = async (req, res) => {
     else {
         return res.status(200).json("Internal Issue.")
     }
+}
+
+module.exports.get_detail_project = async (req, res) => {
+    if (req.query.hasOwnProperty('student_id')) {
+        let Student_id = req.query.student_id;
+        let QueryResult = await sequelize.query(`select student_project.project_id as StudentProjectID
+                from student_project where student_project.Student_id = '${Student_id}';`,
+            { type: Sequelize.QueryTypes.SELECT });
+
+        let resData = [];
+
+        for (let i = 0; i < QueryResult.length; i++) {
+            let projectId = QueryResult[i].StudentProjectID;
+            
+            let projectData = await FetchByProjectId(projectId);
+            resData.push(projectData);
+        }
+
+        return res.status(200).json(resData);
+    }
+    return res.status(400).json("bad request")
 }
