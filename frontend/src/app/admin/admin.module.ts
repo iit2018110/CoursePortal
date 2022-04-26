@@ -20,6 +20,7 @@ import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/facu
 import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
 import { PortalSettingComponent } from './portal-setting/portal-setting.component';
 import { PortalSettingService } from './portal-setting.service';
+import { ProjectManagementComponent } from './project-management/project-management.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PortalSettingService } from './portal-setting.service';
     CourseStudentsComponent,
     FacultyPreferencesCoreComponent,
     CourseFacultyCoreComponent,
-    PortalSettingComponent
+    PortalSettingComponent,
+    ProjectManagementComponent
   ],
   imports: [
     CommonModule,

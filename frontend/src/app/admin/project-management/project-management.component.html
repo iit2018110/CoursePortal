@@ -1,0 +1,60 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <form class="form-inline">
+    <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<div class="container m-5 p-5 shadow">
+  <div *ngFor="let faculty of faculties">
+    <h1>{{faculty.name}}</h1>
+    <div class="container m-5 p-5 shadow">
+      <h2>Approved</h2>
+      <div *ngFor="let project of faculty.projects">
+        <div *ngIf="project.project_status==='approved'">
+          <div class="container m-5 p-5 shadow">
+            <p>Project Title: {{project.project_title}}</p>
+            <p>Team members: </p>
+            <p *ngFor="let student of project.students">
+              Student: {{student.student_id}} Status: {{student.student_status}}
+            </p>
+            <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container m-5 p-5 shadow">
+      <h2>Pending</h2>
+      <div *ngFor="let project of faculty.projects">
+        <div *ngIf="project.project_status==='pending'">
+          <div class="container m-5 p-5 shadow">
+            <p>Project Title: {{project.project_title}}</p>
+            <p>Team members: </p>
+            <p *ngFor="let student of project.students">
+              Student: {{student.student_id}} Status: {{student.student_status}}
+            </p>
+            <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container m-5 p-5 shadow">
+      <h2>Rejected</h2>
+      <div *ngFor="let project of faculty.projects">
+        <div *ngIf="project.project_status==='rejected'">
+          <div class="container m-5 p-5 shadow">
+            <p>Project Title: {{project.project_title}}</p>
+            <p>Team members: </p>
+            <p *ngFor="let student of project.students">
+              Student: {{student.student_id}} Status: {{student.student_status}}
+            </p>
+            <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

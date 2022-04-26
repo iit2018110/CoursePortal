@@ -11,7 +11,7 @@ const {login} = require('../controllers/admin/auth');
 const portalSetting = require('../controllers/admin/portal_setting');
 
 router.use('/elective', elective);
-// router.use('/project', project);
+router.use('/project', project);
 router.use('/core', core);
 
 

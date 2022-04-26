@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IBasket } from '../models/basket';
 import { HttpParams } from '@angular/common/http';
@@ -32,7 +32,7 @@ export class UtilService {
   private fetch_it_course_students_url = this.ELECTIVE_URL + "fetch_it_course_students";
   private fetch_ece_course_students_url = this.ELECTIVE_URL + "fetch_ece_course_students";
 
-  private CORE_URL = 'http://localhost:3001/admin/core/'
+  private CORE_URL = 'http://localhost:3001/admin/core/';
 
   private set_sem_type_url = this.CORE_URL + "set_sem_type";
   private get_sem_type_url = this.CORE_URL + "get_sem_type";
@@ -43,6 +43,11 @@ export class UtilService {
   private fetch_core_faculty_preferences_it_url = this.CORE_URL + "fetch_faculty_preferences_it";
   private fetch_core_faculty_preferences_ece_url = this.CORE_URL + "fetch_faculty_preferences_ece";
 
+  private PROJECT_URL = 'http://localhost:3001/admin/project/';
+
+  private get_all_project_detail_url = this.PROJECT_URL + "get_all_project_detail";
+  private delete_project_url = this.PROJECT_URL + "delete_project";
+
   public it_baskets!: IBasket[];
   public ece_baskets!: IBasket[];
 
@@ -52,7 +57,7 @@ export class UtilService {
     this.fetch_it_baskets().subscribe(
       res => {
         this.it_baskets = res,
-        console.log(this.it_baskets)
+          console.log(this.it_baskets)
       },
       err => console.log(err)
     )
@@ -72,82 +77,82 @@ export class UtilService {
   }
 
   create_basket(stream: string, basket_id: string, basket_name: string) {
-    let payload = {stream: stream, basket_id: basket_id, basket_name: basket_name};
+    let payload = { stream: stream, basket_id: basket_id, basket_name: basket_name };
     console.log("payload", payload);
     return this.http.post<any>(this.create_basket_url, payload);
   }
 
   add_course(basket_id: string, course_id: string, course_name: string) {
-    let payload = {basket_id: basket_id, course_id: course_id, course_name: course_name};
+    let payload = { basket_id: basket_id, course_id: course_id, course_name: course_name };
     return this.http.post<any>(this.add_course_url, payload);
   }
 
   delete_course(basket_id: string, course_id: string) {
     let params = new HttpParams()
-                  .set('basket_id',basket_id)
-                  .set('course_id',course_id);
-    return this.http.delete<any>(this.delete_course_url, {params});
+      .set('basket_id', basket_id)
+      .set('course_id', course_id);
+    return this.http.delete<any>(this.delete_course_url, { params });
   }
 
   delete_basket(basket_id: string) {
     let params = new HttpParams()
-                  .set('basket_id',basket_id);
-    return this.http.delete<any>(this.delete_basket_url, {params});
+      .set('basket_id', basket_id);
+    return this.http.delete<any>(this.delete_basket_url, { params });
   }
 
 
   /**
    * Running courses.
    */
-   fetch_it_courses() {
-     return this.http.get<any>(this.fetch_it_courses_url);
-   }
+  fetch_it_courses() {
+    return this.http.get<any>(this.fetch_it_courses_url);
+  }
 
-   fetch_ece_courses() {
+  fetch_ece_courses() {
     return this.http.get<any>(this.fetch_ece_courses_url);
   }
 
   /**
    * Faculties preferences.
    */
-   fetch_faculty_preferences_it() {
+  fetch_faculty_preferences_it() {
     return this.http.get<any>(this.fetch_faculty_preferences_it_url);
-   }
+  }
 
-   fetch_faculty_preferences_ece() {
+  fetch_faculty_preferences_ece() {
     return this.http.get<any>(this.fetch_faculty_preferences_ece_url);
-   }
+  }
 
-   /**
-    * Courses Faculty
-    */
-   fetch_course_faculty_it() {
-     return this.http.get<any>(this.fetch_course_faculty_it_url);
-   }
+  /**
+   * Courses Faculty
+   */
+  fetch_course_faculty_it() {
+    return this.http.get<any>(this.fetch_course_faculty_it_url);
+  }
 
-   fetch_course_faculty_ece() {
+  fetch_course_faculty_ece() {
     return this.http.get<any>(this.fetch_course_faculty_ece_url);
   }
 
   /**
    * Student preferences.
    */
-   fetch_it_student_preferences() {
-     return this.http.get<any>(this.fetch_it_student_preferences_url);
-   }
+  fetch_it_student_preferences() {
+    return this.http.get<any>(this.fetch_it_student_preferences_url);
+  }
 
-   fetch_ece_student_preferences() {
+  fetch_ece_student_preferences() {
     return this.http.get<any>(this.fetch_ece_student_preferences_url);
   }
 
   /**
    * Course students.
    */
-   fetch_it_course_students() {
-     return this.http.get<any>(this.fetch_it_course_students_url);
-   }
+  fetch_it_course_students() {
+    return this.http.get<any>(this.fetch_it_course_students_url);
+  }
 
-   fetch_ece_course_students() {
+  fetch_ece_course_students() {
     return this.http.get<any>(this.fetch_ece_course_students_url);
   }
 
@@ -155,29 +160,41 @@ export class UtilService {
   /**
    * Core.
    */
-   set_sem_type(semType: string) {
-    return this.http.put<any>(this.set_sem_type_url, {sem_type: semType});
-   }
+  set_sem_type(semType: string) {
+    return this.http.put<any>(this.set_sem_type_url, { sem_type: semType });
+  }
 
-   get_sem_type() {
+  get_sem_type() {
     return this.http.get<any>(this.get_sem_type_url);
-   }
+  }
 
 
-   fetch_core_course_faculty_it() {
+  fetch_core_course_faculty_it() {
     return this.http.get<any>(this.fetch_core_course_faculty_it_url);
   }
 
   fetch_core_course_faculty_ece() {
-   return this.http.get<any>(this.fetch_core_course_faculty_ece_url);
- }
+    return this.http.get<any>(this.fetch_core_course_faculty_ece_url);
+  }
 
 
- fetch_core_faculty_preferences_it() {
-  return this.http.get<any>(this.fetch_core_faculty_preferences_it_url);
- }
+  fetch_core_faculty_preferences_it() {
+    return this.http.get<any>(this.fetch_core_faculty_preferences_it_url);
+  }
 
- fetch_core_faculty_preferences_ece() {
-  return this.http.get<any>(this.fetch_core_faculty_preferences_ece_url);
- }
+  fetch_core_faculty_preferences_ece() {
+    return this.http.get<any>(this.fetch_core_faculty_preferences_ece_url);
+  }
+
+  /**
+   * Projects.
+   */
+   get_all_project_detail() {
+     return this.http.get<any>(this.get_all_project_detail_url);
+   }
+
+   delete_project(projectId: string) {
+     let params = new HttpParams().set('project_id', projectId);
+     return this.http.delete<any>(this.delete_project_url, {params});
+   }
 }
