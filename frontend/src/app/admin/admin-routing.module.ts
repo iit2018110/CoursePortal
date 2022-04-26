@@ -13,21 +13,28 @@ import { CourseStudentsComponent } from './course-students/course-students.compo
 import { FacultyPreferencesCoreComponent } from './faculty-preferences-core/faculty-preferences-core.component';
 import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty-core.component';
 import { PortalSettingComponent } from './portal-setting/portal-setting.component';
+import { ProjectManagementComponent } from './project-management/project-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'portal_setting', component: PortalSettingComponent, canActivate: [AuthGuard]},
+
+  { path: 'portal_setting', component: PortalSettingComponent, canActivate: [AuthGuard] },
+
   { path: 'elective/basket', component: BasketComponent, canActivate: [AuthGuard] },
   { path: 'elective/running_courses', component: RunningCoursesComponent, canActivate: [AuthGuard] },
   { path: 'elective/faculties_preference', component: FacultyPreferencesComponent, canActivate: [AuthGuard] },
-  { path: 'elective/courses_faculty', component:  CourseFacultyComponent, canActivate: [AuthGuard]},
+  { path: 'elective/courses_faculty', component: CourseFacultyComponent, canActivate: [AuthGuard] },
   { path: 'elective/student_preferences', component: StudentPreferencesComponent, canActivate: [AuthGuard] },
   { path: 'elective/course_students', component: CourseStudentsComponent, canActivate: [AuthGuard] },
-  { path: 'core/faculties_preference', component: FacultyPreferencesCoreComponent, canActivate: [AuthGuard]},
-  { path: 'core/courses_faculty', component: CourseFacultyCoreComponent, canActivate: [AuthGuard]},
+
+  { path: 'project/project_management', component: ProjectManagementComponent, canActivate: [AuthGuard] },
+
+  { path: 'core/faculties_preference', component: FacultyPreferencesCoreComponent, canActivate: [AuthGuard] },
+  { path: 'core/courses_faculty', component: CourseFacultyCoreComponent, canActivate: [AuthGuard] },
+
   { path: '**', redirectTo: 'dashboard' }
 ];
 
