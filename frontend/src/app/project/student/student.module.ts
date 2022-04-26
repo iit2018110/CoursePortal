@@ -12,6 +12,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { UtilService } from './util.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TimeGuard } from './time.guard';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TimeGuard } from './time.guard';
   imports: [
     CommonModule,
     StudentRoutingModule,
+    FormsModule,
     HttpClientModule,
     SharedModule
   ],

@@ -6,7 +6,7 @@
   <p *ngIf="currTime < startTime">
     Portal not opened yet, will open at {{startTime}}.
   </p>
-  <p *ngIf="currTime >= startTime && currTime <= endTime">
+  <p *ngIf="currTime > endTime">
     Portal closed, please contact with your administrator.
   </p>
 </div>

@@ -6,13 +6,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UtilService {
-  private fetch_subjects_url = 'http://localhost:3001/project/faculty/fetch_subjects';
-  private fetch_students_url = 'http://localhost:3001/elective/faculty/fetch_students';
-  private submit_preferences_url = 'http://localhost:3001/elective/faculty/submit_preferences';
-
-  public baskets!: any;
-  public courses!: any;
-  public status!: string;
+  private post_status_by_faculty_url = 'http://localhost:3001/project/faculty/post_status_by_faculty';
+  private get_detail_project_url = 'http://localhost:3001/project/faculty/get_detail_project';
 
   constructor(private _auth: AuthService, private http: HttpClient) { }
 
@@ -23,47 +18,18 @@ export class UtilService {
     .subscribe(
       res => {
         this._auth.stream = res.stream
-        this.fetchSubjects(),
-        this.fetchStudents()
       },
       err => console.log(err)
     )
   }
 
-  fetchSubjects() {
-    this.fetch_subjects()
-    .subscribe(
-      res => {
-        this.status = res.status,
-        this.baskets = res.data,
-        console.log("basket is:", this.baskets)
-      },
-      err => console.log(err)
-    )
+  get_detail_project() {
+    let params = new HttpParams().set('faculty_id', this._auth.id);
+    return this.http.get<any>(this.get_detail_project_url, { params });
   }
 
-  fetchStudents() {
-    this.fetch_students().subscribe(
-      res => this.courses = res,
-      err => console.log(err)
-    )
-  }
-
-  fetch_subjects() {
-    let params = new HttpParams()
-                  .set('faculty_id', this._auth.id)
-                  .set('stream', this._auth.stream);
-    return this.http.get<any>(this.fetch_subjects_url, {params});
-  }
-
-  fetch_students() {
-    let params = new HttpParams()
-                  .set('faculty_id', this._auth.id)
-    return this.http.get<any>(this.fetch_students_url, {params});
-  }
-
-  submit_preferences(data: JSON) {
-    let payload = {faculty_id: this._auth.id, courses: data};
-    return this.http.post<any>(this.submit_preferences_url, payload);
+  post_status_by_faculty(projectId: string, status: string) {
+    let payload = { project_id: projectId, faculty_id: this._auth.id, status: status };
+    return this.http.post<any>(this.post_status_by_faculty_url, payload);
   }
 }
