@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
+  <form class="form-inline">
+      <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
+</nav>
+
+<div class="container m-5 p-5 shadow">
+  <h1>IT</h1>
+  <div class="container m-5 p-5 shadow" *ngFor="let faculty of faculties_it">
+    <h2>{{faculty.name}}</h2>
+    <div *ngFor="let course of faculty.courses">
+      <h4>{{course.name}}</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h1>ECE</h1>
+  <div class="container m-5 p-5 shadow" *ngFor="let faculty of faculties_ece">
+    <h2>{{faculty.name}}</h2>
+    <div class="container m-5 p-5 shadow" *ngFor="let course of faculty.courses">
+      <h4>{{course.name}}</h4>
+    </div>
+  </div>
+</div>

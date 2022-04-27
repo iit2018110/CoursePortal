@@ -32,6 +32,9 @@ export class UtilService {
   private fetch_it_course_students_url = this.ELECTIVE_URL + "fetch_it_course_students";
   private fetch_ece_course_students_url = this.ELECTIVE_URL + "fetch_ece_course_students";
 
+  private fetch_it_faculty_courses_url = this.ELECTIVE_URL + "fetch_it_faculty_courses";
+  private fetch_ece_faculty_courses_url = this.ELECTIVE_URL + "fetch_ece_faculty_courses";
+
   private CORE_URL = 'http://localhost:3001/admin/core/';
 
   private set_sem_type_url = this.CORE_URL + "set_sem_type";
@@ -42,6 +45,9 @@ export class UtilService {
 
   private fetch_core_faculty_preferences_it_url = this.CORE_URL + "fetch_faculty_preferences_it";
   private fetch_core_faculty_preferences_ece_url = this.CORE_URL + "fetch_faculty_preferences_ece";
+
+  private fetch_it_faculty_courses_core_url = this.CORE_URL + "fetch_it_faculty_courses";
+  private fetch_ece_faculty_courses_core_url = this.CORE_URL + "fetch_ece_faculty_courses";
 
   private PROJECT_URL = 'http://localhost:3001/admin/project/';
 
@@ -156,6 +162,16 @@ export class UtilService {
     return this.http.get<any>(this.fetch_ece_course_students_url);
   }
 
+  /**
+   * Faculty Loadchart
+   */
+  fetch_it_faculty_courses() {
+    return this.http.get<any>(this.fetch_it_faculty_courses_url);
+  }
+
+  fetch_ece_faculty_courses() {
+    return this.http.get<any>(this.fetch_ece_faculty_courses_url);
+  }
 
   /**
    * Core.
@@ -184,6 +200,14 @@ export class UtilService {
 
   fetch_core_faculty_preferences_ece() {
     return this.http.get<any>(this.fetch_core_faculty_preferences_ece_url);
+  }
+
+  fetch_it_faculty_courses_core() {
+    return this.http.get<any>(this.fetch_it_faculty_courses_core_url);
+  }
+
+  fetch_ece_faculty_courses_core() {
+    return this.http.get<any>(this.fetch_ece_faculty_courses_core_url);
   }
 
   /**
