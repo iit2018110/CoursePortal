@@ -21,6 +21,8 @@ import { CourseFacultyCoreComponent } from './course-faculty-core/course-faculty
 import { PortalSettingComponent } from './portal-setting/portal-setting.component';
 import { PortalSettingService } from './portal-setting.service';
 import { ProjectManagementComponent } from './project-management/project-management.component';
+import { FacultyLoadchartComponent } from './faculty-loadchart/faculty-loadchart.component';
+import { FacultyLoadchartCoreComponent } from './faculty-loadchart-core/faculty-loadchart-core.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { ProjectManagementComponent } from './project-management/project-managem
     FacultyPreferencesCoreComponent,
     CourseFacultyCoreComponent,
     PortalSettingComponent,
-    ProjectManagementComponent
+    ProjectManagementComponent,
+    FacultyLoadchartComponent,
+    FacultyLoadchartCoreComponent
   ],
   imports: [
     CommonModule,
