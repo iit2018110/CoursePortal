@@ -6,6 +6,10 @@ const { restore_course } = require("../cc/dashboard");
 module.exports.fetch_students = async (req,res) => {
     let facultyId = req.query.faculty_id;
 
+    if(!facultyId) {
+        res.status(400).json("invalid request!");
+    }
+
     let course_students_data = await sequelize.query(`
         select running_courses.id as courseId, running_courses.name as courseName, students.id as studentId, students.name as studentName
         FROM course_students

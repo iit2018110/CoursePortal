@@ -4,6 +4,10 @@ const db = require("../../../utils/database/db");
 module.exports.get_dashboard = async (req, res)=> {
     let basketId = req.query.basket_id;
 
+    if(!basketId) {
+        res.status(400).json("invalid request!");
+    }
+
     let running_course_data =  await db.Running_course.findAndCountAll({
                         attributes: ['id', 'name'],
                         where: {
@@ -42,6 +46,10 @@ module.exports.accept_course = (req, res) => {
     let courseId = req.body.course_id;
     let basketId = req.body.basket_id;
 
+    if(!courseId || !basketId) {
+        res.status(400).json("invalid request!");
+    }
+
     db.Buffer_course_cc.update({status: 'selected'}, {
         where: {
             id: courseId,
@@ -57,6 +65,10 @@ module.exports.accept_course = (req, res) => {
 module.exports.reject_course = (req, res) => {
     let courseId = req.body.course_id;
     let basketId = req.body.basket_id;
+
+    if(!courseId || !basketId) {
+        res.status(400).json("invalid request!");
+    }
 
     db.Buffer_course_cc.update({status: 'rejected'}, {
         where: {
@@ -74,6 +86,10 @@ module.exports.restore_course = (req, res) => {
     let courseId = req.body.course_id;
     let basketId = req.body.basket_id;
 
+    if(!courseId || !basketId) {
+        res.status(400).json("invalid request!");
+    }
+
     db.Buffer_course_cc.update({status: 'pending'}, {
         where: {
             id: courseId,
@@ -88,6 +104,10 @@ module.exports.restore_course = (req, res) => {
 
 module.exports.submit_courses = async (req,res) => {
     let basketId = req.body.basket_id;
+
+    if(!basketId) {
+        res.status(400).json("invalid request!");
+    }
 
     await sequelize.query(`INSERT INTO running_courses (id, name , basket_id) SELECT id, name, basket_id FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);
 

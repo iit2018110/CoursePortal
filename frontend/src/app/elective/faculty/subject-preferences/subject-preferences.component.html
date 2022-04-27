@@ -6,6 +6,13 @@
   </form>
 </nav>
 
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted">
+  <h1>Alloted Courses</h1>
+  <div *ngFor="let course of courses_alloted">
+    <p>{{course.name}}</p>
+  </div>
+</div>
+
 <div class="container m-5 p-5 shadow" *ngIf="_util.status==='non-filled'">
   <h1>Please Choose preferences</h1>
   <form #subjectPreference="ngForm">

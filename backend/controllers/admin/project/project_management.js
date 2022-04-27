@@ -83,6 +83,10 @@ module.exports.get_all_project_detail = async (req, res) => {
 module.exports.delete_project = async (req, res) => {
     let projectId = req.query.project_id;
 
+    if(!projectId) {
+        res.status(400).json("invalid request!");
+    }
+
     await sequelize.query(`DELETE FROM student_project WHERE project_id='${projectId}';`);
     await sequelize.query(`DELETE FROM project WHERE id='${projectId}';`);
 

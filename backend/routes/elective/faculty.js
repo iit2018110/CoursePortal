@@ -8,8 +8,11 @@ const authValidator = require('../../middlewares/validator');
 
 const {login} = require('../../controllers/elective/faculty/auth')
 const {fetch_students} = require('../../controllers/elective/faculty/get_student');
-const { fetch_subjects, submit_preferences } = require('../../controllers/elective/faculty/subject_preference');
-const {profile} = require('../../controllers/elective/faculty/profile');
+const { fetch_subjects, 
+        submit_preferences,
+        get_alloted_courses } = require('../../controllers/elective/faculty/subject_preference');
+
+        const {profile} = require('../../controllers/elective/faculty/profile');
 
 router.post('/login', authValidator.loginValidatorSchema, authValidator.loginValidator, login);
 router.get('/fetch_students', authMiddleware.authValidator, fetch_students)
@@ -18,5 +21,6 @@ router.post('/submit_preferences', authMiddleware.authValidator, submit_preferen
 
 router.get('/profile',authMiddleware.authValidator, profile);
 
+router.get('/get_alloted_courses', authMiddleware.authValidator, get_alloted_courses);
 
 module.exports = router;

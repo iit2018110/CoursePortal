@@ -145,6 +145,11 @@ module.exports.post_status_by_student = async (req, res) => {
     let project_id = req.body.project_id
     let student_id = req.body.student_id
     let status = req.body.status
+
+    if(!project_id || !student_id || !status) {
+        res.status(400).json("invalid request!");
+    }
+
     if (await IsStudentNotAvailable(student_id) == true) {
         return res.status(200).json("Already approved in other project")
     }

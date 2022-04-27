@@ -7,6 +7,14 @@ module.exports.set_portal_timing = async (req, res) => {
     let startTime = req.body.start_time;
     let endTime = req.body.end_time;
 
+    if(!userType || !startTime || !endTime) {
+        res.status(400).json("invalid request!");
+    }
+
+    if(startTime >= endTime) {
+        res.status(400).json("start-time should be lesser than end-time");
+    }
+
     let data_count = await db.Portal_status.count({
         where: {
             user_type: userType
@@ -26,6 +34,10 @@ module.exports.set_portal_timing = async (req, res) => {
 
 module.exports.get_portal_timing = async (req, res) => {
     let userType = req.query.user_type;
+
+    if(!userType) {
+        res.status(400).json("invalid request!");
+    }
 
     if (userType === 'admin') {
         let data = await db.Portal_status.findAll();
