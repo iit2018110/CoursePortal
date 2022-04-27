@@ -84,9 +84,14 @@ module.exports.get_project_by_faculty_id = async (req, res) => {
 }
 
 module.exports.post_status_by_faculty = async (req, res) => {
-    let project_id = req.body.project_id
-    let faculty_id = req.body.faculty_id
-    let status = req.body.status
+    let project_id = req.body.project_id;
+    let faculty_id = req.body.faculty_id;
+    let status = req.body.status;
+
+    if(!project_id || !faculty_id || !status) {
+        res.status(400).json("invalid request!");
+    }
+
     let preStatus = await GetFacultyStatus(project_id, faculty_id)
     if (preStatus.length == 0) {
         return res.status(200).json("No Faculty or Project found")

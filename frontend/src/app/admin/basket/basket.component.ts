@@ -21,14 +21,14 @@ export class BasketComponent implements OnInit {
     console.log('name',basket_name);
     this._util.create_basket(stream,basket_id,basket_name).subscribe(
       res => this.ngOnInit(),
-      err => console.log(err)
+      err => alert(err.error)
     )
   }
 
   addCourse(basket_id: string, course_id: string, course_name: string) {
     this._util.add_course(basket_id,course_id,course_name).subscribe(
       res => this.ngOnInit(),
-      err => console.log(err)
+      err => alert(err.error)
     )
   }
 

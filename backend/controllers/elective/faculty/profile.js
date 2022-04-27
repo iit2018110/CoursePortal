@@ -3,6 +3,10 @@ const db = require('../../../utils/database/db');
 module.exports.profile = (req,res) => {
     let id = req.query.id;
 
+    if(!id) {
+        return res.status(400).json("invalid request");
+    }
+
     db.Faculty.findOne({
         where: {
             id: id

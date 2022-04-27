@@ -52,6 +52,10 @@ module.exports.get_dashboard = async (req, res)=> {
     let id = req.query.student_id;
     let stream = req.query.stream;
 
+    if(!id || !stream) {
+        res.status(400).json("invalid request!");
+    }
+
     let student_pref_data =  await db.Student_preference.findAndCountAll({
         attributes: [['basket_id', 'id'],['basket_name', 'name'],'pref1_course_id','pref1_course_name',
             'pref2_course_id','pref2_course_name','pref3_course_id','pref3_course_name','pref4_course_id','pref4_course_name','pref5_course_id','pref5_course_name'],
@@ -89,6 +93,10 @@ module.exports.get_dashboard = async (req, res)=> {
 module.exports.fetch_alloted_courses = async (req, res)=> {
     let studentId = req.query.student_id;
 
+    if(!studentId) {
+        res.status(400).json("invalid request!");
+    }
+
     let alloted_course_data = await sequelize.query(`
         select baskets.id as  basked_id, baskets.name as basket_name, running_courses.id as course_id, running_courses.name as course_name
         from course_students
@@ -113,6 +121,10 @@ module.exports.choose_preferences = (req, res) => {
     let p4_name = req.body.p4_name;
     let p5_id = req.body.p5_id;
     let p5_name = req.body.p5_name;
+
+    if(!id || !basketId) {
+        res.status(400).json("invalid request!");
+    }
 
     db.Buffer_basket_student.update({
         basket_status: 'opted',
@@ -145,6 +157,10 @@ module.exports.remove_preferences = (req, res) => {
     let id = req.body.student_id;
     let basketId = req.body.basket_id;
 
+    if(!id || !basketId) {
+        res.status(400).json("invalid request!");
+    }
+
     db.Buffer_basket_student.update({
         basket_status: 'non-opted',
         pref1_course_id: null,
@@ -173,6 +189,10 @@ module.exports.remove_preferences = (req, res) => {
 
 module.exports.submit_preferences = async (req, res) => {
     let id = req.body.student_id;
+
+    if(!id) {
+        res.status(400).json("invalid request!");
+    }
 
     await sequelize.query(`INSERT INTO student_preferences (student_id,basket_id,basket_name,pref1_course_id,pref1_course_name,
                            pref2_course_id,pref2_course_name,pref3_course_id,pref3_course_name,pref4_course_id,pref4_course_name,pref5_course_id,pref5_course_name)

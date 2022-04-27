@@ -5,6 +5,10 @@ const db = require('../../../utils/database/db');
 module.exports.set_sem_type = async (req, res) => {
     let semType = req.body.sem_type;
 
+    if (!semType) {
+        res.status(400).json("invalid request!");
+    }
+
     let data_present = await db.Params.count({
         where: {
             key: 'sem_type'

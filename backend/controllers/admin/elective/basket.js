@@ -1,9 +1,23 @@
 const db = require('../../../utils/database/db');
 
-module.exports.create_basket = (req,res) => {
+module.exports.create_basket = async (req,res) => {
     let stream = req.body.stream;
     let id = req.body.basket_id;
     let name = req.body.basket_name;
+
+    if(!stream || !id || !name) {
+        return res.status(400).json("invalid request");
+    }
+
+    let count = await db.Basket.count({
+        where: {
+            id: id
+        }
+    });
+
+    if(count != 0) {
+        return res.status(400).json("basketId already exist!");
+    }
 
     db.Basket.create({
         stream: stream,
@@ -52,10 +66,24 @@ module.exports.fetch_ece_baskets = (req,res) => {
     })
 }
 
-module.exports.add_course = (req, res) => {
+module.exports.add_course = async (req, res) => {
     let basketId = req.body.basket_id;
     let courseId = req.body.course_id;
     let courseName = req.body.course_name;
+
+    if(!basketId || !courseId || !courseName) {
+        return res.status(400).json("invalid request");
+    }
+
+    let count = await db.Course.count({
+        where: {
+            id: courseId
+        }
+    });
+
+    if(count != 0) {
+        return res.status(400).json("courseId already exist!");
+    }
 
     db.Course.create({
         id: courseId,
@@ -72,6 +100,10 @@ module.exports.delete_course = (req,res) => {
     let basketId = req.query.basket_id;
     let courseId = req.query.course_id;
 
+    if(!basketId || !courseId) {
+        res.status(400).json("invalid request!");
+    }
+
     db.Course.destroy({
         where: {
             id: courseId,
@@ -86,6 +118,10 @@ module.exports.delete_course = (req,res) => {
 
 module.exports.delete_basket = (req,res) => {
     let basketId = req.query.basket_id;
+
+    if(!basketId) {
+        res.status(400).json("invalid request!");
+    }
 
     db.Basket.destroy({
         where: {

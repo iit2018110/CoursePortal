@@ -10,6 +10,8 @@ export class UtilService {
   private fetch_students_url = 'http://localhost:3001/elective/faculty/fetch_students';
   private submit_preferences_url = 'http://localhost:3001/elective/faculty/submit_preferences';
 
+  private get_alloted_courses_url = 'http://localhost:3001/elective/faculty/get_alloted_courses';
+
   public baskets!: any;
   public courses!: any;
   public status!: string;
@@ -62,8 +64,15 @@ export class UtilService {
     return this.http.get<any>(this.fetch_students_url, {params});
   }
 
+  get_alloted_courses() {
+    let params = new HttpParams()
+                  .set('faculty_id', this._auth.id)
+    return this.http.get<any>(this.get_alloted_courses_url, {params});
+  }
+
   submit_preferences(data: JSON) {
     let payload = {faculty_id: this._auth.id, courses: data};
     return this.http.post<any>(this.submit_preferences_url, payload);
   }
+
 }

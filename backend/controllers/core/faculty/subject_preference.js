@@ -25,6 +25,10 @@ module.exports.fetch_subjects = async (req, res) => {
     let facultyId = req.query.faculty_id;
     let stream = req.query.stream;
 
+    if(!facultyId || !stream) {
+        res.status(400).json("invalid request!");
+    }
+
     const preferences_count = await db.Core_faculty_preference.count({
         where: {
             faculty_id: facultyId
@@ -62,6 +66,10 @@ module.exports.fetch_subjects = async (req, res) => {
 module.exports.submit_preferences = async (req, res) => {
     let facultyId = req.body.faculty_id;
     let courses = req.body.courses;
+
+    if(!facultyId || !courses) {
+        res.status(400).json("invalid request!");
+    }
 
     for (let c in courses) {
         await db.Core_faculty_preference.create({

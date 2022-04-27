@@ -70,6 +70,11 @@ export class PortalSettingComponent implements OnInit {
   }
 
   setPortalTiming(userType: string, startTime: string, endTime: string) {
+    if(startTime >= endTime) {
+      alert("start-time should be lesser than end-time");
+      return;
+    }
+
     this._portalService.set_portal_timing(userType,startTime,endTime).subscribe(
       res => this.ngOnInit(),
       err => console.log(err)
