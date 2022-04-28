@@ -9,43 +9,45 @@
 <div *ngIf="!approved && canChangeStatus" class="container m-5 p-5 shadow">
   <h2>Create Project</h2>
   <form #subjectPreference="ngForm">
-    <P>{{subjectPreference.value | json}}</P>
-    <input ngModel type="text" placeholder="Project title" [name]="'project_title'">
-    <div class="col-lg-3">
-      <select ngModel [name]="'faculty_id'" class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option value="">Select Faculty</option>
-        <option *ngFor="let faculty of faculties" [ngValue]="faculty.id">
-          {{faculty.name}}
-        </option>
-      </select>
+    <div class="row">
+      <div class="col"><input ngModel type="text" placeholder="Project title" [name]="'project_title'"></div>
+      <div class="col">
+          <select ngModel [name]="'faculty_id'" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option value="">Select Faculty</option>
+          <option *ngFor="let faculty of faculties" [ngValue]="faculty.id">
+              {{faculty.name}}
+          </option>
+          </select>
+      </div>
+      <div class="m-1">
+          Group size:
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio1" [value]="1">
+          <label class="form-check-label" for="inlineRadio1">1</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio2" [value]="2">
+          <label class="form-check-label" for="inlineRadio2">2</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio3" [value]="3">
+          <label class="form-check-label" for="inlineRadio3">3</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio4" [value]="4">
+          <label class="form-check-label" for="inlineRadio4">4</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio5" [value]="5">
+          <label class="form-check-label" for="inlineRadio5">5</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio6" [value]="6">
+          <label class="form-check-label" for="inlineRadio5">6</label>
+          </div>
+      </div>
     </div>
-    <div>
-      Group size:
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio1" [value]="1">
-        <label class="form-check-label" for="inlineRadio1">1</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio2" [value]="2">
-        <label class="form-check-label" for="inlineRadio2">2</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio3" [value]="3">
-        <label class="form-check-label" for="inlineRadio3">3</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio4" [value]="4">
-        <label class="form-check-label" for="inlineRadio4">4</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio5" [value]="5">
-        <label class="form-check-label" for="inlineRadio5">5</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio6" [value]="6">
-        <label class="form-check-label" for="inlineRadio5">6</label>
-      </div>
-
+    <div class="row m-2">
       <P [hidden]="subjectPreference.value.team_size < 1">Team Members:</P>
       <div>
         <input [hidden]="subjectPreference.value.team_size < 1" type="text" name="member1" [value]="_auth.id" readonly>

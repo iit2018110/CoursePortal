@@ -30,7 +30,8 @@ module.exports.get_dashboard = async (req, res)=> {
         return res.status(200).json({status: "buffer", data: buffer_course_data.rows});
     }
 
-    await sequelize.query('INSERT INTO buffer_courses_cc (id, name , basket_id) SELECT id, name, basket_id FROM courses');
+    await sequelize.query(`INSERT INTO buffer_courses_cc (id, name , basket_id) SELECT id, name, basket_id FROM courses
+        WHERE basket_id='${basketId}'`);
 
     let buffer_course_data1 = await db.Buffer_course_cc.findAndCountAll({
                                         attributes: ['id', 'name', 'status'],

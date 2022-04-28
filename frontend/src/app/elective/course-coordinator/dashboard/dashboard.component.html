@@ -13,8 +13,8 @@
         <div *ngFor="let course of this._util.buffer_courses">
             <div *ngIf="course.status==='pending'">
                 <p>{{course.name}}
-                    <button type="button" class="btn btn-success" (click)="acceptCourse(course.id)">Accept</button>
-                    <button type="button" class="btn btn-danger" (click)="rejectCourse(course.id)">Reject</button>
+                    <button type="button" class="btn btn-success m-2" (click)="acceptCourse(course.id)">Accept</button>
+                    <button type="button" class="btn btn-danger m-2" (click)="rejectCourse(course.id)">Reject</button>
                 </p>
             </div>
         </div>
@@ -44,7 +44,7 @@
 </div>
 
 <div class="container shadow m-5 p-5" *ngIf="this._util.status==='running'">
-    
+
     <h2>Running Courses</h2>
     <div class="p-5 shadow">
         <table class="table">
