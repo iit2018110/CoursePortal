@@ -8,7 +8,8 @@ async function course_faculty_data(stream) {
     from core_course_faculties
     join core_courses on core_courses.id=core_course_faculties.course_id
     join faculties on faculties.id=core_course_faculties.faculty_id
-    where core_courses.stream='${stream}';`, { type: Sequelize.QueryTypes.SELECT });
+    where core_courses.stream='${stream}'
+    order by core_courses.semester;`, { type: Sequelize.QueryTypes.SELECT });
 
     let sem_courses = [];
 
@@ -39,12 +40,13 @@ async function course_faculty_data(stream) {
     return sem_courses;
 }
 
-async function buffer_course_faculty_hod_data(stream) {
+async function buffer_course_faculty_hod_data(stream,mod) {
     let query_result = await sequelize.query(`select core_courses.semester as semester, buffer_core_course_faculty_hod.sem_status as sem_status, core_courses.id as course_id, core_courses.name as course_name, faculties.id as faculty_id, faculties.name as faculty_name
     from buffer_core_course_faculty_hod
     join core_courses on core_courses.id=buffer_core_course_faculty_hod.course_id
-    join faculties on faculties.id=buffer_core_course_faculty_hod.faculty_id
-    where core_courses.stream='${stream}';`, { type: Sequelize.QueryTypes.SELECT });
+    left join faculties on faculties.id=buffer_core_course_faculty_hod.faculty_id
+    where core_courses.stream='${stream}' AND mod(core_courses.semester,2)=${mod} 
+    order by core_courses.semester;`, { type: Sequelize.QueryTypes.SELECT });
 
     let sem_courses = [];
 
@@ -104,8 +106,24 @@ module.exports.fetch_courses = async (req, res) => {
         }
     })
 
+    let semType = await db.Params.findOne({
+        attributes: ['value'],
+        where: {
+            key: 'sem_type'
+        }
+    })
+
+    semType = semType.value;
+    let mod;
+
+    if (semType === 'even') {
+        mod = 0;
+    } else {
+        mod = 1;
+    }
+
     if (buffer_course_faculty_hod_count != 0) {
-        let data = await buffer_course_faculty_hod_data(stream);
+        let data = await buffer_course_faculty_hod_data(stream,mod);
         return res.status(200).json({ status: "buffer", data: data });
     }
 
