@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FacultyRoutingModule } from './faculty-routing.module';
-import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -16,7 +15,6 @@ import { TimeGuard } from './time.guard';
 
 @NgModule({
   declarations: [
-    LoginComponent,
     DashboardComponent,
     ProfileComponent
   ],

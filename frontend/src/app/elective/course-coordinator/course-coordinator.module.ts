@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CourseCoordinatorRoutingModule } from './course-coordinator-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { UtilService } from './util.service';
@@ -16,7 +15,6 @@ import { TimeGuard } from './time.guard';
 
 @NgModule({
   declarations: [
-    LoginComponent,
     DashboardComponent,
     ProfileComponent
   ],

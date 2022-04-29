@@ -23,6 +23,8 @@ import { PortalSettingService } from './portal-setting.service';
 import { ProjectManagementComponent } from './project-management/project-management.component';
 import { FacultyLoadchartComponent } from './faculty-loadchart/faculty-loadchart.component';
 import { FacultyLoadchartCoreComponent } from './faculty-loadchart-core/faculty-loadchart-core.component';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { FacultyLoadchartCoreComponent } from './faculty-loadchart-core/faculty-
   imports: [
     CommonModule,
     AdminRoutingModule,
+    FormsModule,
+    MatSelectModule,
     HttpClientModule
   ],
   providers: [

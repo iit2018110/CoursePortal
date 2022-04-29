@@ -266,7 +266,7 @@ module.exports.submit_students_couselling = async (req, res) => {
     }
 
     await sequelize.query(`delete from course_students where stream='${stream}'`);
-    await sequelize.query(`INSERT INTO course_students SELECT * FROM buffer_course_students`);
+    await sequelize.query(`INSERT INTO course_students SELECT * FROM buffer_course_students where stream='${stream}'`);
     await sequelize.query(`delete from buffer_course_students where stream='${stream}'`);
 
     return res.status(200).json("submitted successfully!!");
