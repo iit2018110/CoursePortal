@@ -46,8 +46,4 @@ export class BasketComponent implements OnInit {
     )
   }
 
-  public baskets = [
-    {id: "ML", name: "Machine Learning", courses: ["Deep Learning", "Neural Network", "Pattern Recognization"]},
-    {id: "NS", name: "Network Security", courses: ["Cryptography", "Blockchain"]}
-  ]
 }

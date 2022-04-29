@@ -16,9 +16,8 @@ import { TimeGuard } from './time.guard';
 
 @NgModule({
   declarations: [
-
     DashboardComponent,
-     ProfileComponent
+    ProfileComponent
   ],
   imports: [
     CommonModule,

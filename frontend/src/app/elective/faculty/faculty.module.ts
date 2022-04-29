@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FacultyRoutingModule } from './faculty-routing.module';
-import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SubjectPreferencesComponent } from './subject-preferences/subject-preferences.component';
 import { GetStudentsComponent } from './get-students/get-students.component';
@@ -19,7 +18,6 @@ import { TimeGuard } from './time.guard';
 
 @NgModule({
   declarations: [
-    LoginComponent,
     DashboardComponent,
     SubjectPreferencesComponent,
     GetStudentsComponent,

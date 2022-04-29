@@ -16,7 +16,7 @@ export class AuthService {
   public email!: string;
   public stream!: string; //IT or ECE
 
-  private login_url = 'http://localhost:3001/elective/hod/login';
+  // private login_url = 'http://localhost:3001/elective/hod/login';
   private fetch_profile_url = 'http://localhost:3001/elective/hod/profile';
   private token_verify_url = 'http://localhost:3001/jwt/verify_token';
 
@@ -32,9 +32,9 @@ export class AuthService {
     this.email = decoded_token.email;
   }
 
-  userLogin(email: string, password: string) {
-    return this.http.post<any>(this.login_url, {email: email, password: password});
-  }
+  // userLogin(email: string, password: string) {
+  //   return this.http.post<any>(this.login_url, {email: email, password: password});
+  // }
 
   verifyLoggedIn():Observable<boolean>{
     let token = localStorage.getItem('token_hod');
@@ -64,7 +64,7 @@ export class AuthService {
 
   userLogout() {
     localStorage.removeItem('token_hod');
-    this.router.navigate(['/core/hod/login']);
+    this.router.navigate(['/core/login']);
   }
 
   private get_portal_timing_url = 'http://localhost:3001/admin/get_portal_timing';

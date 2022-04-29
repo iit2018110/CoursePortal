@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 
 import { StudentRoutingModule } from './student-routing.module';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
@@ -19,7 +18,6 @@ import { TimeGuard } from './time.guard';
 
 @NgModule({
   declarations: [
-    LoginComponent,
     ProfileComponent,
     DashboardComponent
   ],

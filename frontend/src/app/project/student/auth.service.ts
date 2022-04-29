@@ -16,7 +16,7 @@ export class AuthService {
   public gpa!: number;
   public degree!: any;
 
-  private login_url = 'http://localhost:3001/elective/student/login';
+  // private login_url = 'http://localhost:3001/elective/student/login';
   private fetch_profile_url = 'http://localhost:3001/elective/student/profile';
   private token_verify_url = 'http://localhost:3001/jwt/verify_token';
 
@@ -33,9 +33,9 @@ export class AuthService {
     this.email = decoded_token.email;
   }
 
-  userLogin(email: string, password: string) {
-    return this.http.post<any>(this.login_url, { email: email, password: password });
-  }
+  // userLogin(email: string, password: string) {
+  //   return this.http.post<any>(this.login_url, { email: email, password: password });
+  // }
 
   verifyLoggedIn(): Observable<boolean> {
     let token = localStorage.getItem('token_student');
@@ -67,7 +67,7 @@ export class AuthService {
 
   userLogout() {
     localStorage.removeItem('token_student');
-    this.router.navigate(['/project/student/login']);
+    this.router.navigate(['/project/login']);
   }
 
   get_portal_timing() {

@@ -5,13 +5,11 @@ import { AuthGuard } from './auth.guard';
 import { CounsellingComponent } from './counselling/counselling.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FacultyAssignComponent } from './faculty-assign/faculty-assign.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PortalStatusComponent } from 'src/app/shared/portal-status/portal-status.component';
 import { TimeGuard } from './time.guard';
 
-const routes: Routes = [{ path: '', redirectTo: 'login' },
-{ path: 'login', component: LoginComponent },
+const routes: Routes = [{ path: '', redirectTo: 'dashboard' },
 { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 { path: 'portal_status', component: PortalStatusComponent, data: { user_type: 'elective_hod' } },
 { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, TimeGuard] },

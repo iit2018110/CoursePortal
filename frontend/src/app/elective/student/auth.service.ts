@@ -65,7 +65,7 @@ export class AuthService {
 
     userLogout() {
       localStorage.removeItem('token_student');
-      this.router.navigate(['/elective/student/login']);
+      this.router.navigate(['/elective/login']);
     }
 
     private get_portal_timing_url = 'http://localhost:3001/admin/get_portal_timing';
