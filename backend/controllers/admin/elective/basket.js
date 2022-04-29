@@ -1,11 +1,13 @@
+const sequelize = require('../../../utils/database/config');
 const db = require('../../../utils/database/db');
 
 module.exports.create_basket = async (req,res) => {
     let stream = req.body.stream;
     let id = req.body.basket_id;
     let name = req.body.basket_name;
+    let faculty_id = req.body.faculty_id;
 
-    if(!stream || !id || !name) {
+    if(!stream || !id || !name || !faculty_id) {
         return res.status(400).json("invalid request");
     }
 
@@ -19,15 +21,28 @@ module.exports.create_basket = async (req,res) => {
         return res.status(400).json("basketId already exist!");
     }
 
-    db.Basket.create({
+    let cc_count = await db.Course_coordinator.count({
+        where: {
+            id: faculty_id
+        }
+    })
+
+    if(cc_count != 0) {
+        return res.status(400).json("Course-coordinator already assined in other basket");
+    }
+
+    await db.Basket.create({
         stream: stream,
         id: id,
         name: name
-    }).then((basket)=>{
-        return res.status(200).json(basket);
-    }).catch((err) => {
-        console.log("err in creating basket", err);
     })
+
+    await sequelize.query(`INSERT INTO course_coordinators (id,name,email,password,stream,basket_id) 
+        SELECT id,name,email,password,stream,'${id}' AS basket_id FROM faculties
+        WHERE faculties.id='${faculty_id}';`);
+
+    return res.status(200).json("basket created successfully");
+
 }
 
 module.exports.fetch_it_baskets = (req,res) => {
@@ -64,6 +79,28 @@ module.exports.fetch_ece_baskets = (req,res) => {
     }).catch((err) => {
         console.log("err in fetching from it basket", err);
     })
+}
+
+module.exports.fetch_it_faculties = async (req, res) => {
+    let faculties = await db.Faculty.findAll({
+                        attributes: ['id','name'],
+                        where: {
+                            stream: 'IT'
+                        }
+                    });
+    
+    res.status(200).json(faculties);
+}
+
+module.exports.fetch_ece_faculties = async (req, res) => {
+    let faculties = await db.Faculty.findAll({
+                        attributes: ['id','name'],
+                        where: {
+                            stream: 'ECE'
+                        }
+                    });
+    
+    res.status(200).json(faculties);
 }
 
 module.exports.add_course = async (req, res) => {
@@ -116,30 +153,30 @@ module.exports.delete_course = (req,res) => {
     })
 }
 
-module.exports.delete_basket = (req,res) => {
+module.exports.delete_basket = async (req,res) => {
     let basketId = req.query.basket_id;
 
     if(!basketId) {
         res.status(400).json("invalid request!");
     }
 
-    db.Basket.destroy({
+    await db.Basket.destroy({
         where: {
             id: basketId
         }
-    }).then(()=>{
-        return res.status(200).json("basket deleted");
-    }).catch((err)=>{
-        console.log("error in deleting basket",err);
-    })
+    });
 
-    db.Course.destroy({
+    await db.Course.destroy({
         where: {
             basket_id: basketId
         }
-    }).then(()=>{
-        return res.status(200).json("subjects of basket deleted");
-    }).catch((err)=>{
-        console.log("error in deleting subjects of basket",err);
-    })
+    });
+
+    await db.Course_coordinator.destroy({
+        where: {
+            basket_id: basketId
+        }
+    });
+
+    res.status(200).json("basket successfully deleted");
 }
