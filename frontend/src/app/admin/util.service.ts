@@ -9,6 +9,9 @@ import { HttpParams } from '@angular/common/http';
 export class UtilService {
   private BASKET_URL = "http://localhost:3001/admin/elective/basket/";
 
+  private fetch_it_faculties_url = this.BASKET_URL + "fetch_it_faculties";
+  private fetch_ece_faculties_url = this.BASKET_URL + "fetch_ece_faculties";
+
   private fetch_it_baskets_url = this.BASKET_URL + "fetch_it_baskets";
   private fetch_ece_baskets_url = this.BASKET_URL + "fetch_ece_baskets";
   private create_basket_url = this.BASKET_URL + "create_basket";
@@ -74,6 +77,14 @@ export class UtilService {
     )
   }
 
+  fetch_it_faculties() {
+    return this.http.get<any>(this.fetch_it_faculties_url);
+  }
+
+  fetch_ece_faculties() {
+    return this.http.get<any>(this.fetch_ece_faculties_url);
+  }
+
   fetch_it_baskets() {
     return this.http.get<IBasket[]>(this.fetch_it_baskets_url);
   }
@@ -82,8 +93,8 @@ export class UtilService {
     return this.http.get<IBasket[]>(this.fetch_ece_baskets_url);
   }
 
-  create_basket(stream: string, basket_id: string, basket_name: string) {
-    let payload = { stream: stream, basket_id: basket_id, basket_name: basket_name };
+  create_basket(stream: string, basket_id: string, basket_name: string, faculty_id: string) {
+    let payload = { stream: stream, basket_id: basket_id, basket_name: basket_name, faculty_id: faculty_id };
     console.log("payload", payload);
     return this.http.post<any>(this.create_basket_url, payload);
   }

@@ -15,13 +15,14 @@
         <input class="m-2" type="text" #id placeholder="Basket Id">
         <input class="m-2" type="text" #name placeholder="Basket Name">
         <mat-form-field appearance="outline">
-          <mat-label>1st preference</mat-label>
-          <mat-select #preference1>
-            <!-- <mat-option *ngFor="let course of basket.courses" [value]="course">
-            </mat-option> -->
+          <mat-label>Choose Course Coordinator</mat-label>
+          <mat-select #faculty>
+            <mat-option *ngFor="let faculty of it_faculties" [value]="faculty.id">
+              {{faculty.name}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
-        <button class="m-2" type="button" (click)="addBasket('IT',id.value,name.value)" class="btn btn-warning">Create Basket</button>
+        <button class="m-2" type="button" (click)="addBasket('IT',id.value,name.value,faculty.value)" class="btn btn-warning">Create Basket</button>
     </div>
 
     <div class="container shadow p-5 m-5" *ngFor="let basket of _util.it_baskets">
@@ -46,7 +47,14 @@
     <div style="text-align: center;" id="ece">
         <input class="m-2" type="text" #basket_id placeholder="Basket Id">
         <input class="m-2" type="text" #basket_name placeholder="Basket Name">
-        <button class="m-2" type="button" (click)="addBasket('ECE',basket_id.value,basket_name.value)" class="btn btn-warning">Create Basket</button>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose Course Coordinator</mat-label>
+          <mat-select #faculty>
+            <mat-option *ngFor="let faculty of ece_faculties" [value]="faculty.id">
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="m-2" type="button" (click)="addBasket('ECE',basket_id.value,basket_name.value,faculty.value)" class="btn btn-warning">Create Basket</button>
     </div>
 
     <div class="container shadow p-5 m-5" *ngFor="let basket of _util.ece_baskets">
