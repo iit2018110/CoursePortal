@@ -6,7 +6,7 @@
   </form>
 </nav>
 
-<div class="container m-5 p-5 shadow" *ngIf="courses_alloted">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length > 0">
   <h1>Alloted Courses</h1>
   <div *ngFor="let course of courses_alloted">
     <p>{{course.name}}</p>

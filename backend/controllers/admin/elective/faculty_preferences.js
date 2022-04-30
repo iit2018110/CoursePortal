@@ -4,11 +4,12 @@ const db = require('../../../utils/database/db');
 
 async function faculty_preferences_data (stream) {
     let data = await sequelize.query(`
-        select faculties.id as faculty_id, faculties.name as faculty_name, courses.id as course_id, courses.name as course_name, faculty_preferences.preference_value 
+        select faculties.id as faculty_id, faculties.name as faculty_name, courses.id as course_id, courses.name as course_name, 
+        faculty_preferences.preference_value 
         from faculties
         left join faculty_preferences on faculty_preferences.faculty_id=faculties.id
         left join courses on faculty_preferences.course_id=courses.id
-        where faculties.stream='${stream}';`, {type: Sequelize.QueryTypes.SELECT});
+        where faculties.stream='${stream}' AND faculty_preferences.preference_value<10;`, {type: Sequelize.QueryTypes.SELECT});
 
     let faculties = [];
     for(let i = 0; i < data.length; i++) {

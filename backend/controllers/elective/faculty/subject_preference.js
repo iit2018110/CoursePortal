@@ -7,7 +7,7 @@ function faculty_preferences_data(facultyId) {
                                 faculty_preferences.preference_value 
                                 FROM faculty_preferences
                                 JOIN courses ON faculty_preferences.course_id=courses.id
-                                WHERE faculty_preferences.faculty_id='${facultyId}'`, { type: Sequelize.QueryTypes.SELECT });
+                                WHERE faculty_preferences.faculty_id='${facultyId}' AND faculty_preferences.preference_value<10;`, { type: Sequelize.QueryTypes.SELECT });
     
     return data;
 }
@@ -24,7 +24,7 @@ module.exports.fetch_subjects = async (req,res) => {
         where: {
             faculty_id: facultyId        
         }
-    })
+    });
 
     if(preferences_count != 0) {
         let data = await faculty_preferences_data(facultyId);
@@ -47,6 +47,22 @@ module.exports.fetch_subjects = async (req,res) => {
     }).catch((err) => {
         console.log("err in fetching from basket", err);
     })
+}
+
+module.exports.reset_preferences = async (req, res) => {
+    let facultyId = req.query.faculty_id;
+
+    if(!facultyId) {
+        res.status(400).json("invalid request!");
+    }
+
+    await db.Faculty_preference.destroy({
+        where: {
+            faculty_id: facultyId        
+        }
+    });
+
+    return res.status(200).json("preference reset successfully");
 }
 
 module.exports.submit_preferences = async (req, res) => {
