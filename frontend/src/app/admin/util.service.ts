@@ -57,8 +57,8 @@ export class UtilService {
   private get_all_project_detail_url = this.PROJECT_URL + "get_all_project_detail";
   private delete_project_url = this.PROJECT_URL + "delete_project";
 
-  public it_baskets!: IBasket[];
-  public ece_baskets!: IBasket[];
+  public it_baskets!: any;
+  public ece_baskets!: any;
 
   constructor(private http: HttpClient) { }
 
@@ -86,11 +86,11 @@ export class UtilService {
   }
 
   fetch_it_baskets() {
-    return this.http.get<IBasket[]>(this.fetch_it_baskets_url);
+    return this.http.get<any>(this.fetch_it_baskets_url);
   }
 
   fetch_ece_baskets() {
-    return this.http.get<IBasket[]>(this.fetch_ece_baskets_url);
+    return this.http.get<any>(this.fetch_ece_baskets_url);
   }
 
   create_basket(stream: string, basket_id: string, basket_name: string, faculty_id: string) {

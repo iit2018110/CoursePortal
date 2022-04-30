@@ -29,29 +29,29 @@ db.Core_course_faculty = require('../../models/core_course_faculty');
 db.Params = require('../../models/params');
 
 
-db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
-db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+// db.Basket.hasMany(db.Course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
+// db.Course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 // db.Running_course.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
-db.Basket.hasMany(db.Running_course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
-db.Running_course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+// db.Basket.hasMany(db.Running_course, {foreignKey: 'basket_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
+// db.Running_course.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 // db.Buffer_course_cc.belongsTo(db.Course, {foreignKey: 'id', targetKey: 'id'});
 // db.Buffer_course_cc.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 // db.Buffer_basket_hod.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'})
 // db.Buffer_course_faculty_hod.belongsTo(db.Course, {foreignKey: 'course_id', targetKey: 'id'});
 // db.Buffer_course_faculty_hod.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 // db.Buffer_course_faculty_hod.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'id'});
-db.Course_faculty.belongsTo(db.Running_course, {foreignKey: 'course_id', targetKey: 'id'});
-db.Course_faculty.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-db.Course_faculty.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'id'});
+// db.Course_faculty.belongsTo(db.Running_course, {foreignKey: 'course_id', targetKey: 'id'});
+// db.Course_faculty.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+// db.Course_faculty.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'id'});
 // db.Buffer_basket_student.belongsTo(db.Student, {foreignKey: 'student_id', targetKey: 'id'});
-db.Buffer_basket_student.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
-db.Student_preference.belongsTo(db.Student, {foreignKey: 'student_id', targetKey: 'id'});
-db.Student_preference.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+// db.Buffer_basket_student.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
+// db.Student_preference.belongsTo(db.Student, {foreignKey: 'student_id', targetKey: 'id'});
+// db.Student_preference.belongsTo(db.Basket, {foreignKey: 'basket_id', targetKey: 'id'});
 // db.project.hasMany(db.Student_project, {foreignKey: 'project_id', sourceKey: 'id', onDelete: 'CASCADE', hooks: true});
 // db.Student_project.belongsTo(db.project, {foreignKey: 'project_id', targetKey: 'id'});
-db.Running_course.hasMany(db.Faculty_preference, {foreignKey: 'course_id', sourceKey: 'id', onDelete: 'CASCADE'});
-db.Faculty_preference.belongsTo(db.Running_course, {foreignKey:'course_id',targetKey: 'id'});
-db.Faculty.hasMany(db.Faculty_preference, {foreignKey: 'faculty_id', sourceKey: 'id'});
-db.Faculty_preference.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'id'});
+// db.Running_course.hasMany(db.Faculty_preference, {foreignKey: 'course_id', sourceKey: 'id', onDelete: 'CASCADE'});
+// db.Faculty_preference.belongsTo(db.Running_course, {foreignKey:'course_id',targetKey: 'id'});
+// db.Faculty.hasMany(db.Faculty_preference, {foreignKey: 'faculty_id', sourceKey: 'id'});
+// db.Faculty_preference.belongsTo(db.Faculty, {foreignKey: 'faculty_id', targetKey: 'id'});
 
 module.exports = db;
