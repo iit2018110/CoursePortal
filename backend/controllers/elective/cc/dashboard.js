@@ -43,6 +43,22 @@ module.exports.get_dashboard = async (req, res)=> {
     return res.status(200).json({status: "buffer", data: buffer_course_data1.rows});
 }
 
+module.exports.reset_courses = async (req, res) => {
+    let basketId = req.body.basket_id;
+
+    if(!basketId) {
+        res.status(400).json("invalid request!");
+    }
+
+    await db.Running_course.destroy({
+        where: {
+            basket_id: basketId
+        }
+    });
+
+    return res.status(200).json("courses reset successfully");
+}
+
 module.exports.accept_course = (req, res) => {
     let courseId = req.body.course_id;
     let basketId = req.body.basket_id;

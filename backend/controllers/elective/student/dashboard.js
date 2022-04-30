@@ -213,3 +213,19 @@ module.exports.submit_preferences = async (req, res) => {
         return res.status(400).json("error in submitting from student");
     })                       
 }
+
+module.exports.reset_preferences = async (req, res) => {
+    let id = req.body.student_id;
+
+    if(!id) {
+        res.status(400).json("invalid request!");
+    }
+
+    db.Student_preference.destroy({
+        where: {
+            student_id: id
+        }
+    });
+
+    return res.status(200).json("preference reset successfully");
+}
