@@ -15,5 +15,6 @@ router.put('/restore_course', authMiddleware.authValidator, Dashboard.restore_co
 router.post('/submit_courses', authMiddleware.authValidator, Dashboard.submit_courses);
 router.get('/profile', authMiddleware.authValidator, profile);
 
+router.delete('/reset_courses', authMiddleware.authValidator, Dashboard.reset_courses);
 
 module.exports = router;
