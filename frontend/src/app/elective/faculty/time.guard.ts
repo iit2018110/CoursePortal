@@ -17,6 +17,11 @@ export class TimeGuard implements CanActivate {
           return true;
         }
 
+        let token_cc = localStorage.getItem('token_cc');
+        if(token_cc) {
+          return true;
+        }
+
         let currTime = new Date().toLocaleString();
         let startTime = new Date(res.start_time).toLocaleString();
         let endTime = new Date(res.end_time).toLocaleString();

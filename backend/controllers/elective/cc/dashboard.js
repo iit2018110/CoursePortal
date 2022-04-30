@@ -128,17 +128,14 @@ module.exports.submit_courses = async (req,res) => {
 
     await sequelize.query(`INSERT INTO running_courses (id, name , basket_id) SELECT id, name, basket_id FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);
 
-    db.Buffer_course_cc.destroy({
+    //await sequelize.query(`DELETE FROM buffer_courses_cc WHERE basket_id='${basketId}'`);
+    await db.Buffer_course_cc.destroy({
         where: {
             basket_id: basketId
         }
     })
-    .then(()=>{
-        return res.status(200).json("successfully submittd!!");
-    }).catch((err)=>{
-        console.log("error in submitting from course-coordinator",err);
-        return res.status(400).json("error in submitting from course-coordinator");
-    }) 
+    
+    return res.status(200).json("successfully submittd!!");
 }
 
 // onSubmit: delete from buffer
