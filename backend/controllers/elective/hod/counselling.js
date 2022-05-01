@@ -122,7 +122,7 @@ module.exports.fetch_basket_preferences = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let course_students_count = await db.Course_student.count({
@@ -144,7 +144,7 @@ module.exports.students_counselling = async (req, res) => {
     let stream = req.body.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let student_preferences_data = await get_student_preferences_data(stream);
@@ -262,7 +262,7 @@ module.exports.submit_students_couselling = async (req, res) => {
     let stream = req.body.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await sequelize.query(`delete from course_students where stream='${stream}'`);

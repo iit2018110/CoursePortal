@@ -86,7 +86,7 @@ module.exports.fetch_courses = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     const course_faculty = await db.Core_course_faculty.findAndCountAll({
@@ -141,7 +141,7 @@ module.exports.fetch_faculties = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream){
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let query_result = await sequelize.query(`select core_courses.id as course_id, core_faculty_preferences.faculty_id as id,faculties.name as name
@@ -180,7 +180,7 @@ module.exports.assign_courses = async (req, res) => {
     let data = req.body.data;
 
     if(!data) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     for (let i = 0; i < data.length; i++) {
@@ -198,18 +198,18 @@ module.exports.assign_courses = async (req, res) => {
 }
 
 module.exports.unassign_courses = async (req, res) => {
-    let basketId = req.body.basket_id;
+    let semester = req.body.semester;
 
-    if(!basketId) {
-        res.status(400).json("invalid request!");
+    if(!semester) {
+        return res.status(400).json("invalid request!");
     }
 
-    await db.Buffer_course_faculty_hod.update({
+    await db.Buffer_core_course_faculty_hod.update({
         sem_status: 'un-assigned',
         faculty_id: null,
     }, {
         where: {
-            basket_id: basketId
+            semester: semester
         }
     })
 
@@ -220,7 +220,7 @@ module.exports.submit_assigned_courses = async (req,res) => {
     let stream = req.body.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await sequelize.query(`INSERT INTO core_course_faculties (course_id, faculty_id, semester, stream)

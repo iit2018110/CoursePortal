@@ -53,7 +53,7 @@ module.exports.get_dashboard = async (req, res)=> {
     let stream = req.query.stream;
 
     if(!id || !stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let student_pref_data =  await db.Student_preference.findAndCountAll({
@@ -94,7 +94,7 @@ module.exports.fetch_alloted_courses = async (req, res)=> {
     let studentId = req.query.student_id;
 
     if(!studentId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let alloted_course_data = await sequelize.query(`
@@ -123,7 +123,7 @@ module.exports.choose_preferences = (req, res) => {
     let p5_name = req.body.p5_name;
 
     if(!id || !basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Buffer_basket_student.update({
@@ -158,7 +158,7 @@ module.exports.remove_preferences = (req, res) => {
     let basketId = req.body.basket_id;
 
     if(!id || !basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Buffer_basket_student.update({
@@ -191,7 +191,7 @@ module.exports.submit_preferences = async (req, res) => {
     let id = req.body.student_id;
 
     if(!id) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await sequelize.query(`INSERT INTO student_preferences (student_id,basket_id,basket_name,pref1_course_id,pref1_course_name,
@@ -218,7 +218,7 @@ module.exports.reset_preferences = async (req, res) => {
     let id = req.query.student_id;
 
     if(!id) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Student_preference.destroy({
