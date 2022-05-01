@@ -1,45 +1,995 @@
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" class="btn btn-secondary btn m-2" routerLink="../portal_setting">Portal Setting</button>
-  <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
-</nav>
-
+<app-navbar [name]="_auth.name" [email]="_auth.email"></app-navbar>
 <div class="container m-5 shadow p-5">
-  <h1>DashBoard</h1>
-
-  <div class="container m-3 shadow p-5">
-    <h1 style="text-align: center;">Electives</h1>
-    <ul style="text-align: center;">
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/basket">Baskets Management</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/running_courses">Running courses</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/faculties_preference">Faculties preferences</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/courses_faculty">Faculty in courses</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/student_preferences">Students Preferences</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/elective/course_students">Students in courses</li>
-      <li class="btn btn-success m-2" routerLink="/admin/elective/faculty_loadchart">Faculty Loadchart</li>
-    </ul>
-  </div>
-
-  <div class="container m-3 shadow p-5">
-    <h1 style="text-align: center;">Projects</h1>
-    <ul style="text-align: center;">
-      <li class="btn btn-primary m-2" routerLink="/admin/project/project_management">Project Management</li>
-    </ul>
-  </div>
-
-  <div class="container m-3 shadow p-5">
-    <h1 style="text-align: center;">Core</h1>
-    <div style="text-align: center;">
-      Choose current semsesters :
-      <button type="button" class="btn btn-secondary m-2" [disabled]="semType==='odd'" (click)="setSemType('odd')">Odd</button>
-      <button type="button" class="btn btn-secondary m-2" [disabled]="semType==='even'" (click)="setSemType('even')">Even</button>
+    <h1 style="font-size: xxx-large; font-weight: 500; color: antiquewhite;">DashBoard</h1>
+    <div class="card text-center">
+        <div class="card-header" style="background-color:black;">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active" name="Electives" (click)=" dashboardNavClicked($event) ">Electives</button>
+                </li>
+                <li class="nav-item ">
+                    <button class="nav-link " name="Projects" (click)="dashboardNavClicked($event) ">Project</button>
+                </li>
+                <li class="nav-item ">
+                    <button class="nav-link " name="Core" (click)="dashboardNavClicked($event) ">Core</button>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body " style="background-color:white; ">
+            <div *ngIf="electives ">
+                <ul style="text-align: center; ">
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/basket " (click)="basketsManagemement()">Baskets Management</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/running_courses " (click)="runningCourses()">Running courses</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/faculties_preference " (click)="facultyPreferences()">Faculties preferences</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/courses_faculty " (click)="facultyCourses()">Faculty in courses</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/student_preferences " (click)="studentPreferences()">Students Preferences</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/course_students " (click)="studentsCourses()">Students in courses</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/elective/faculty_loadchart " (click)="facultyLoadchart()">Faculty Loadchart</li>
+                </ul>
+            </div>
+            <div *ngIf="projects ">
+                <ul style="text-align: center; ">
+                    <li class="btn btn-dark m-2 " routerLink="/admin/project/project_management " (click)="projectManagment()">Project Management</li>
+                </ul>
+            </div>
+            <div *ngIf="core">
+                <div style="text-align: center;color: black; font-size: large; ">
+                    Current semsester :
+                    <button type="button" *ngIf="oddButton" #oddToggle class="btn btn-dark" (click)="setSemType( 'even',$event) ">Odd</button>
+                    <button type="button" *ngIf="!oddButton" class="btn btn-dark" (click)="setSemType( 'odd',$event) ">Even</button><span style="font-size:small"> (Click to Change)</span>
+                </div>
+                <ul style="text-align: center; ">
+                    <li class="btn btn-dark m-2 " routerLink="/admin/core/faculties_preference " (click)="coreFacultyPreferences()">Faculties preferences</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/core/courses_faculty " (click)="coreFacultyCourses()">Faculty in courses</li>
+                    <li class="btn btn-dark m-2 " routerLink="/admin/core/faculty_loadchart " (click)="coreFacultyLoadchart()">Faculty Loadchart</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <ul style="text-align: center;">
-      <li class="btn btn-primary m-2" routerLink="/admin/core/faculties_preference">Faculties preferences</li>
-      <li class="btn btn-primary m-2" routerLink="/admin/core/courses_faculty">Faculty in courses</li>
-      <li class="btn btn-success m-2" routerLink="/admin/core/faculty_loadchart">Faculty Loadchart</li>
-    </ul>
-  </div>
+    <div *ngIf="basketsManagement" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>BASKETS</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body " style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <div style="text-align: center;" id="it">
+                            <div class="input-group">
+                                <input type="text" class="form-control" #id placeholder="Basket Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" #name placeholder="Basket Name" aria-label="Course Name" aria-describedby="basic-addon2">
+                                <mat-form-field class="form-control" appearance="outline">
+                                    <mat-label>Choose Course Coordinator</mat-label>
+                                    <mat-select #faculty>
+                                        <mat-option *ngFor="let faculty of it_faculties" [value]="faculty.id">{{faculty.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button class="m-2" type="button" (click)="addBasket('IT',id.value,name.value,faculty.value)" class="btn btn-warning">Create Basket</button>
+                            </div>
+
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of _util.it_baskets">
+                                    <h2>{{basket.id}} {{basket.name}}</h2>
+                                    <div class="row col" *ngFor="let course of basket.courses">
+                                        <div class="col m-2">
+                                            <p>{{course.id}} {{course.name}}</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="button" (click)="removeCourse(basket.id,course.id)" class="rounded-circle btn btn-outline-danger">
+                                          <i class="fa fa-trash"></i></button></div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" #id placeholder="Course Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control" #name placeholder=" Course Name " aria-label="Course Name" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button type="button " class="btn btn-outline-success " (click)="addCourse(basket.id, id.value, name.value) ">
+                                            <i class="fa fa-plus "></i>
+                                          </button> </div>
+                                    </div>
+                                    <div class=" pt-2">
+                                        <button type="button " class="btn btn-outline-danger " (click)="deleteBasket(basket.id) ">Delete Basket</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div *ngIf="ece ">
+                        <h1>ECE</h1>
+                        <div style="text-align: center; " id="ece ">
+                            <div class="input-group">
+                                <input type="text" class="form-control" #id placeholder="Basket Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" #name placeholder="Basket Name" aria-label="Course Name" aria-describedby="basic-addon2">
+                                <mat-form-field class="form-control" appearance="outline">
+                                    <mat-label>Choose Course Coordinator</mat-label>
+                                    <mat-select #faculty>
+                                        <mat-option *ngFor="let faculty of ece_faculties" [value]="faculty.id">{{faculty.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button class="m-2 " type="button " (click)="addBasket( 'ECE',id.value,name.value,faculty.value) " class="btn btn-warning ">Create Basket</button>
+                            </div>
+
+                        </div>
+                        <div class="container ">
+                            <div class="row ">
+                                <div class="col-5 shadow p-3 m-3 " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of _util.ece_baskets ">
+                                    <h2>{{basket.name}}</h2>
+                                    <div class="row " *ngFor="let course of basket.courses ">
+                                        <div class="col m-2 ">
+                                            <p>{{course.name}}</p>
+                                        </div>
+                                        <div class="col m-2 "><button type="button " (click)="removeCourse(basket.id,course.id) " class="rounded-circle btn btn-outline-danger ">
+                                          <i class="fa fa-trash "></i></button></div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" #id placeholder="Course Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control" #name placeholder=" Course Name " aria-label="Course Name" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button type="button " class="btn btn-outline-success " (click)="addCourse(basket.id, id.value, name.value) ">
+                                          <i class="fa fa-plus "></i>
+                                        </button> </div>
+                                    </div>
+                                    <div class=" pt-2">
+                                        <button type="button " class="btn btn-outline-danger " (click)="deleteBasket(basket.id) ">Delete Basket</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <div *ngIf="runningCourse" style=" color:black; font-size: large; background-color:white; ">
+        <div class="container m-5 p-5 shadow">
+            <h1>STREAM</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body " style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of it_courses">
+                                    <h2>{{basket.name}}</h2>
+                                    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+                                        ** Course-coordinator didn't select course yet! **
+                                    </p>
+                                    <ul>
+                                        <li *ngFor="let course of basket.running_courses">
+                                            {{course.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ece ">
+                        <h2>ECE</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of ece_courses">
+                                    <h2>{{basket.name}}</h2>
+                                    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+                                        ** Course-coordinator didn't select course yet! **
+                                    </p>
+                                    <ul>
+                                        <li *ngFor="let course of basket.running_courses">
+                                            {{course.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="facultypreferences" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>FACULTY PREFERENCES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body" style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    background-size:cover;" *ngFor="let faculty of faculties_it">
+                                        <h3>{{faculty.name}}</h3>
+                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                            ** Preferences has not been submitted yet! **
+                                        </p>
+                                        <table class="table">
+                                            <thead *ngIf="faculty.courses.length>0">
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Preference</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.preference_value}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="ece">
+                        <h2>ECE</h2>
+                        <div style="text-align: center;" id="ece">
+                            <div class="container">
+                                <div class="row">
+                                    <p *ngIf="faculties_ece.length===0" class="text-danger">
+                                        ** No Faculties are there in this branch **
+                                    </p>
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                  background-size:cover;" *ngFor="let faculty of faculties_ece">
+                                        <h3>{{faculty.name}}</h3>
+                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                            ** Preferences has not been submitted yet! **
+                                        </p>
+                                        <table class="table">
+                                            <thead *ngIf="faculty.courses.length>0">
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Preference</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.preference_value}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="facultycourses" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>FACULTY IN COURSES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body" style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <p *ngIf="baskets_it.length===0" class="text-danger">
+                            ** HOD didn't assined faculty yet! **
+                        </p>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                  background-size:cover;" *ngFor="let basket of baskets_it">
+                                        <h3>{{basket.name}}</h3>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Faculty</th>
+                                                    <th>Seat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.faculty.name}}</td>
+                                                    <td>{{course.seats}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="ece ">
+                        <h2>ECE</h2>
+                        <p *ngIf="baskets_ece.length===0" class="text-danger">
+                            ** HOD didn't assined faculty yet! **
+                        </p>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of baskets_ece">
+                                        <h3>{{basket.name}}</h3>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Faculty</th>
+                                                    <th>Seat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.faculty.name}}</td>
+                                                    <td>{{course.seats}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="studentpreferences" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>STUDENT PREFERENCES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body" style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <div style="text-align: center;" id="it">
+
+                            <table class="table shadow m-2">
+                                <thead>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Basket Name</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of it_students" class=" border-5 border-dark">
+                                        <td class=" border-5 border-dark">{{student.id}}</td>
+                                        <td class=" border-5 border-dark">{{student.name}}</td>
+                                        <td class=" border-5 border-dark" *ngIf="student.baskets.length===0" class="text-danger">
+                                            preferences not yet submitted!
+                                        </td>
+                                        <td>
+                                            <table class="table shadow " style="color: antiquewhite; background-image:url('assets/images/highlight.jpeg'); background-repeat: no-repeat;
+                                            background-size:cover;">
+                                                <thead>
+                                                    <th></th>
+                                                    <th></th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let basket of student.baskets">
+                                                        <td>{{basket.name}}</td>
+                                                        <td>
+                                                            <table class="table" style="color: aliceblue;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1st preference: {{basket.pref1_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2nd preference: {{basket.pref2_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3rd preference: {{basket.pref3_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="ece">
+                        <p *ngIf="ece_students.length<=0" class="text-danger">
+                            *No ECE Student have filled the preference
+                        </p>
+                        <h2 *ngIf="ece_students.length>0">ECE</h2>
+                        <div style="text-align: center;" *ngIf="ece_students.length>0" id="ece">
+                            <table class="table shadow m-2">
+                                <thead>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Basket Name</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of it_students" class=" border-5 border-dark">
+                                        <td class=" border-5 border-dark">{{student.id}}</td>
+                                        <td class=" border-5 border-dark">{{student.name}}</td>
+                                        <td class=" border-5 border-dark" *ngIf="student.baskets.length===0" class="text-danger">
+                                            preferences not yet submitted!
+                                        </td>
+                                        <td>
+                                            <table class="table shadow " style="color: antiquewhite; background-image:url('assets/images/highlight.jpeg'); background-repeat: no-repeat;
+                                            background-size:cover;">
+                                                <thead>
+                                                    <th></th>
+                                                    <th></th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let basket of student.baskets">
+                                                        <td>{{basket.name}}</td>
+                                                        <td>
+                                                            <table class="table" style="color: aliceblue;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1st preference: {{basket.pref1_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2nd preference: {{basket.pref2_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3rd preference: {{basket.pref3_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="studentscourses" style=" color:black; font-size: large; background-color:white; ">
+        <div class="container m-5 p-5 shadow">
+            <h1>STUDENT IN COURSES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body " style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <p *ngIf="it_baskets.length===0" class="text-danger">
+                            ** Counselling not done yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                              background-size:cover;" *ngFor="let basket of it_baskets">
+                                    <h2>{{basket.name}}</h2>
+                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Basket doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+
+                                        <div *ngFor="let student of course.students">
+                                            <p>{{student.id}} => {{student.name}}</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ece">
+                        <h2>ECE</h2>
+                        <p *ngIf="ece_baskets.length===0" class="text-danger">
+                            ** Counselling not done yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                            background-size:cover;" *ngFor="let basket of ece_baskets">
+                                    <h2>{{basket.name}}</h2>
+                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Basket doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+
+                                        <div *ngFor="let student of course.students">
+                                            <p>{{student.id}} => {{student.name}}</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="facultyloadchart" style=" color:black; font-size: large; background-color:white; ">
+        <div class="container m-5 p-5 shadow">
+            <h1>FACULTY LOADCHART</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body " style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <p *ngIf="faculties_it2.length===0" class="text-danger">
+                            ** No faculties yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                            background-size:cover;" *ngFor="let basket of faculties_it2">
+                                    <h2>{{basket.name}}</h2>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Faculty doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ece">
+                        <h2>ECE</h2>
+                        <p *ngIf="faculties_ece2.length===0" class="text-danger">
+                            **No Faculties yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                          background-size:cover;" *ngFor="let basket of faculties_ece2">
+                                    <h2>{{basket.name}}</h2>
+                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Faculty doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="projectmanagment" style=" color:black; font-size: large; background-color:white; ">
+        <div class="container">
+            <div class="row m-5 p-5 shadow">
+                <div class="col-5" *ngFor="let faculty of faculties">
+                    <h1>{{faculty.name}}</h1>
+                    <div class="container m-5 p-5 shadow" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                    background-size:cover;">
+                        <h2>Approved</h2>
+                        <div *ngFor="let project of faculty.projects">
+                            <div *ngIf="project.project_status==='approved'">
+                                <div class="container p-2 shadow">
+                                    <p>Project Title: {{project.project_title}}</p>
+                                    <p>Team members: </p>
+                                    <p *ngFor="let student of project.students">
+                                        Student: {{student.student_id}} Status: {{student.student_status}}
+                                    </p>
+                                    <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container m-5 p-5 shadow  " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                    background-size:cover;">
+                        <h2>Pending</h2>
+                        <div *ngFor="let project of faculty.projects ">
+                            <div *ngIf="project.project_status==='pending' ">
+                                <div class="container m-5 p-5 shadow ">
+                                    <p>Project Title: {{project.project_title}}</p>
+                                    <p>Team members: </p>
+                                    <p *ngFor="let student of project.students ">
+                                        Student: {{student.student_id}} Status: {{student.student_status}}
+                                    </p>
+                                    <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container m-5 p-5 shadow " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                    background-size:cover;">
+                        <h2>Rejected</h2>
+                        <div *ngFor="let project of faculty.projects ">
+                            <div *ngIf="project.project_status==='rejected' ">
+                                <div class="container m-5 p-5 shadow ">
+                                    <p>Project Title: {{project.project_title}}</p>
+                                    <p>Team members: </p>
+                                    <p *ngFor="let student of project.students ">
+                                        Student: {{student.student_id}} Status: {{student.student_status}}
+                                    </p>
+                                    <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="corefacultypreferences" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>FACULTY PREFERENCES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body" style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow m-4 col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    background-size:cover;" *ngFor="let faculty of core_faculties_it">
+                                        <h2>{{faculty.name}}</h2>
+                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                            ** Preferences has not been submitted yet! **
+                                        </p>
+                                        <table class="table">
+                                            <thead *ngIf="faculty.courses.length>0">
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Preference</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.preference_value}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="ece">
+                        <h2>ECE</h2>
+                        <div style="text-align: center;" id="ece">
+                            <div class="container">
+                                <div class="row">
+                                    <p *ngIf="core_faculties_ece.length===0" class="text-danger">
+                                        ** No Faculties are there in this branch **
+                                    </p>
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                  background-size:cover;" *ngFor="let faculty of core_faculties_ece">
+                                        <h2>{{faculty.name}}</h2>
+                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                            ** Preferences has not been submitted yet! **
+                                        </p>
+                                        <table class="table">
+                                            <thead *ngIf="faculty.courses.length>0">
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Preference</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.preference_value}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="corefacultycourses" style=" color:black; font-size: large; background-color:white; ">
+
+        <div class="container m-sm-2 shadow-lg p-3">
+            <h1>FACULTY IN COURSES</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body" style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <p *ngIf="core_baskets_it.length===0" class="text-danger">
+                            ** HOD didn't assined faculty yet! **
+                        </p>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                  background-size:cover;" *ngFor="let basket of core_baskets_it">
+                                        <h3>{{basket.name}}</h3>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Faculty</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.faculty.name}}</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="ece ">
+                        <h2>ECE</h2>
+                        <p *ngIf="core_baskets_ece.length===0" class="text-danger">
+                            ** HOD didn't assined faculty yet! **
+                        </p>
+                        <div style="text-align: center;" id="it">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                background-size:cover;" *ngFor="let basket of core_baskets_ece">
+                                        <h3>{{basket.name}}</h3>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Faculty</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.name}}</td>
+                                                    <td>{{course.faculty.name}}</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="corefacultyloadchart" style=" color:black; font-size: large; background-color:white; ">
+        <div class="container m-5 p-5 shadow">
+            <h1>FACULTY LOADCHART</h1>
+            <div class="card col-11 text-center">
+                <div class="card-header" style="background-color:blue;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" name="IT" (click)=" ITClicked($event) ">IT</button>
+                        </li>
+                        <li class="nav-item ">
+                            <button class="nav-link " name="ECE" (click)="ITClicked($event) ">ECE  </button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body " style="background-color:white; ">
+                    <div *ngIf="it ">
+                        <h2>IT</h2>
+                        <p *ngIf="faculties_it2.length===0" class="text-danger">
+                            ** No faculties yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                          background-size:cover;" *ngFor="let basket of core_loadchart_it">
+                                    <h2>{{basket.name}}</h2>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Faculty doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ece">
+                        <h2>ECE</h2>
+                        <p *ngIf="faculties_ece2.length===0" class="text-danger">
+                            **No Faculties yet! **
+                        </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                        background-size:cover;" *ngFor="let basket of core_faculties_ece">
+                                    <h2>{{basket.name}}</h2>
+                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
+                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                        **Faculty doesnot have any courses **
+                                    </p>
+
+                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
+                                        {{course.name}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

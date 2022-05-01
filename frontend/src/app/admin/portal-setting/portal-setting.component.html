@@ -1,152 +1,183 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
-  <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
+    <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Profile
+        </button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
 </nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" style=" margin-left: 100px; color: black; font-size: x-large;" id="exampleModalLabel">PROFILE INFORMATION</h5>
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+              <img src="assets/images/close.jpeg" style="width:15px; height:15;" aria-hidden="true">
+            </button>
+            </div>
+            <button type="button" class="btn btn-outline-primary"><h2>Name: {{_auth.name}}</h2></button>
+            <button type="button" class="btn btn-outline-success"><h2>Email: {{_auth.email}}</h2> </button>
+        </div>
+    </div>
+</div>
 <div class="container m-5 p-5 shadow">
-<h1>Current Timing</h1>
-<div class="row">
-  <div class="row m-2 p-5 shadow">
-    <h1>Elective</h1>
-    <div class="col">
-      <h3>Role: </h3>
-      <p>Course coordinator:</p>
-      <p>HOD: </p>
-      <p>Faculty: </p>
-      <p>Student: </p>
-    </div>
+    <h1 style="color: aliceblue; font-size:xxx-large; font-weight: 500;">Current Timing</h1>
+    <div class="card text-center">
+        <div class="card-header" style="background-color:black;">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active" name="Electives" (click)=" dashboardNavClicked($event) ">Electives</button>
+                </li>
+                <li class="nav-item ">
+                    <button class="nav-link " name="Projects" (click)="dashboardNavClicked($event) ">Project</button>
+                </li>
+                <li class="nav-item ">
+                    <button class="nav-link " name="Core" (click)="dashboardNavClicked($event) ">Core</button>
+                </li>
+            </ul>
+        </div>
+        <div class="" *ngIf="electives" style="  border:10px; color: black;">
+            <div class="row m-5 p-5 shadow" style="background-image: url('assets/images/time.jpg'); font-size: larger; font-weight: 500;">
+                <h1>Elective</h1>
+                <div class="col text-black" style="">
+                    <h2>Role: </h2>
+                    <p>Course coordinator:</p>
+                    <p>HOD: </p>
+                    <p>Faculty: </p>
+                    <p>Student: </p>
+                </div>
 
-    <div class="col">
-      <h3>Start Time: </h3>
-      <p>{{elective_cc_start ? (elective_cc_start | date: 'short') : null  }}</p>
-      <p>{{elective_hod_start ? (elective_hod_start | date: 'short') : null  }}</p>
-      <p>{{elective_faculty_start ? (elective_faculty_start | date: 'short') : null  }}</p>
-      <p>{{elective_student_start ? (elective_student_start | date: 'short') : null  }}</p>
-    </div>
-    
-    <div class="col">
-      <h3>End Time: </h3>
-      <p>{{elective_cc_end ? (elective_cc_end | date: 'short') : null  }}</p>
-      <p>{{elective_hod_end ? (elective_hod_end | date: 'short') : null  }}</p>
-      <p>{{elective_faculty_end ? (elective_faculty_end | date: 'short') : null  }}</p>
-      <p>{{elective_student_end ? (elective_student_end | date: 'short') : null  }}</p>
-    </div>
-       
-  </div>
+                <div class="col">
+                    <h2>Start Time: </h2>
+                    <p>{{elective_cc_start ? (elective_cc_start | date: 'short') : null }}</p>
+                    <p>{{elective_hod_start ? (elective_hod_start | date: 'short') : null }}</p>
+                    <p>{{elective_faculty_start ? (elective_faculty_start | date: 'short') : null }}</p>
+                    <p>{{elective_student_start ? (elective_student_start | date: 'short') : null }}</p>
+                </div>
 
-  <div class="row m-2 p-5 shadow">
-    <h1>Project</h1>
-    <div class="col">
-      <h3>Role: </h3>
-      <p>Faculty: </p>
-      <p>Student: </p>
-    </div>
+                <div class="col">
+                    <h2>End Time: </h2>
+                    <p>{{elective_cc_end ? (elective_cc_end | date: 'short') : null }}</p>
+                    <p>{{elective_hod_end ? (elective_hod_end | date: 'short') : null }}</p>
+                    <p>{{elective_faculty_end ? (elective_faculty_end | date: 'short') : null }}</p>
+                    <p>{{elective_student_end ? (elective_student_end | date: 'short') : null }}</p>
+                </div>
 
-    <div class="col">
-      <h3>Start Time: </h3>
-      <p>{{project_faculty_start ? (project_faculty_start | date: 'short') : null  }}</p>
-      <p>{{project_student_start ? (project_student_start | date: 'short') : null  }}</p>
-    </div>
-    
-    <div class="col">
-      <h3>End Time: </h3>
-      <p>{{project_faculty_end ? (project_faculty_end | date: 'short') : null  }}</p>
-      <p>{{project_student_end ? (project_student_end | date: 'short') : null  }}</p>
-    </div>
-  </div>
+            </div>
 
-  <div class="row m-2 p-5 shadow">
-    <h1>Core</h1>
-    <div class="col">
-      <h3>Role: </h3>
-      <p>HOD: </p>
-      <p>Faculty: </p>
-    </div>
+            <div class="container col-10">
+                <h2>Course coordinator:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #eccs type="datetime-local" value="">
+                    <input class="form-control" #ecce type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('elective_cc',eccs.value,ecce.value)">set</button>
 
-    <div class="col">
-      <h3>Start Time: </h3>
-      <p>{{core_hod_start ? (core_hod_start | date: 'short') : null  }}</p>
-      <p>{{core_faculty_start ? (core_faculty_start | date: 'short') : null  }} </p>
-    </div>
-    
-    <div class="col">
-      <h3>End Time: </h3>
-      <p>{{core_hod_end ? (core_hod_end | date: 'short') : null  }}</p>
-      <p>{{core_faculty_end ? (core_faculty_end | date: 'short') : null  }}</p>
-    </div>
-  </div>
-</div>
-</div>
+                </div>
+                <h2>HOD:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #ehs type="datetime-local" value="">
+                    <input class="form-control" #ehe type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('elective_hod',ehs.value,ehe.value)">set</button>
 
-<div class="container m-5 p-5 shadow">
-<h1>Set Timing</h1>
-<div class="container m-2 p-5 shadow">
-  <h1>Elective</h1>
-  <div class="container">
-    <h2>Course coordinator:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #eccs type="datetime-local" value=""></div>
-      <div class="col">End: <input #ecce type="datetime-local" value=""></div>
-      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_cc',eccs.value,ecce.value)">set</button></div>
-    </div>
-    <h2>HOD:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #ehs type="datetime-local" value=""></div>
-      <div class="col">End: <input #ehe type="datetime-local" value=""></div>
-      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_hod',ehs.value,ehe.value)">set</button></div>
-    </div>
-    <h2>Faculty:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #efs type="datetime-local" value=""></div>
-      <div class="col">End: <input #efe type="datetime-local" value=""></div>
-      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_faculty',efs.value,efe.value)">set</button></div>
+                </div>
+                <h2>Faculty:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #efs type="datetime-local" value="">
+                    <input class="form-control" #efe type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('elective_faculty',efs.value,efe.value)">set</button>
 
-    </div>
-    <h2>Student:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #ess type="datetime-local" value=""></div>
-      <div class="col">End: <input #ese type="datetime-local" value=""></div>
-      <div class="col"> <button type="button" class="btn btn-primary" (click)="setPortalTiming('elective_student',ess.value,ese.value)">set</button></div>
-    </div>
-  </div>
-</div>
+                </div>
+                <h2>Student:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #ess type="datetime-local" value="">
+                    <input class="form-control" #ese type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('elective_student',ess.value,ese.value)">set</button>
 
-<div class="container m-2 p-5 shadow">
-  <h1>Project</h1>
-  <div class="container">
-    <h2>Faculty:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #pfs type="datetime-local" value=""></div>
-      <div class="col">End: <input #pfe type="datetime-local" value=""></div>
-      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('project_faculty',pfs.value,pfe.value)">set</button></div>
+                </div>
+            </div>
+        </div>
 
-    </div>
-    <h2>Student:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #pss type="datetime-local" value=""></div>
-      <div class="col">End: <input #pse type="datetime-local" value=""></div>
-      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('project_student',pss.value,pse.value)">set</button></div>
-    </div>
-  </div>
-</div>
+        <div class="" style=" border:10px; color: black;" *ngIf="projects">
+            <div class="row m-5 p-5 shadow" style="background-image: url('assets/images/time.jpg'); font-size: larger; font-weight: 500;">
+                <h1>Project</h1>
+                <div class="col text-black" style="">
+                    <h2>Role: </h2>
+                    <p>Faculty: </p>
+                    <p>Student: </p>
+                </div>
 
-<div class="container m-2 p-5 shadow">
-  <h1>Core</h1>
-  <div class="container">
-    <h2>HOD:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #chs type="datetime-local" value=""></div>
-      <div class="col">End: <input #che type="datetime-local" value=""></div>
-      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('core_hod',chs.value,che.value)">set</button></div>
+                <div class="col">
+                    <h2>Start Time: </h2>
+                    <p>{{project_faculty_start ? (project_faculty_start | date: 'short') : null }}</p>
+                    <p>{{project_student_start ? (project_student_start | date: 'short') : null }}</p>
+                </div>
+
+                <div class="col">
+                    <h2>End Time: </h2>
+                    <p>{{project_faculty_end ? (project_faculty_end | date: 'short') : null }}</p>
+                    <p>{{project_student_end ? (project_student_end | date: 'short') : null }}</p>
+                </div>
+            </div>
+
+            <div class="container col-10">
+                <h2>Faculty:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #pfs type="datetime-local" value="">
+                    <input class="form-control" #pfe type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('project_faculty',pfs.value,pfe.value)">set</button>
+
+                </div>
+                <h2>Student:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #pss type="datetime-local" value="">
+                    <input class="form-control" #pse type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('project_student',pss.value,pse.value)">set</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="" style=" border:10px; color: black;" *ngIf="core">
+            <div class="row m-5 p-5 shadow" style="background-image: url('assets/images/time.jpg');;">
+                <h1>Core</h1>
+                <div class="row text-black" style="font-size: larger; font-weight: 500;">
+
+                    <div class="col">
+                        <h2>Role: </h2>
+                        <p>HOD: </p>
+                        <p>Faculty: </p>
+                    </div>
+
+                    <div class="col">
+                        <h2>Start Time: </h2>
+                        <p>{{core_hod_start ? (core_hod_start | date: 'short') : null }}</p>
+                        <p>{{core_faculty_start ? (core_faculty_start | date: 'short') : null }} </p>
+                    </div>
+
+                    <div class="col">
+                        <h2>End Time: </h2>
+                        <p>{{core_hod_end ? (core_hod_end | date: 'short') : null }}</p>
+                        <p>{{core_faculty_end ? (core_faculty_end | date: 'short') : null }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container col-10">
+                <h2>HOD:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #chs type="datetime-local" value="">
+                    <input class="form-control" #che type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('core_hod',chs.value,che.value)">set</button>
+
+                </div>
+                <h2>Faculty:</h2>
+                <div class="row mb-5 input-group">
+                    <input class="form-control" #cfs type="datetime-local" value="">
+                    <input class="form-control" #cfe type="datetime-local" value="">
+                    <button type="button" class="btn btn-success form-control" (click)="setPortalTiming('core_faculty',cfs.value,cfe.value)">set</button>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <h2>Faculty:</h2>
-    <div class="row mb-5">
-      <div class="col">Start: <input #cfs type="datetime-local" value=""></div>
-      <div class="col">End: <input #cfe type="datetime-local" value=""></div>
-      <div class="col"><button type="button" class="btn btn-primary" (click)="setPortalTiming('core_faculty',cfs.value,cfe.value)">set</button></div>
-    </div>
-  </div>
-</div>
 </div>

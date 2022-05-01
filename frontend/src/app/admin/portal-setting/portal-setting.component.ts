@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { PortalSettingService } from '../portal-setting.service';
@@ -26,12 +27,16 @@ export class PortalSettingComponent implements OnInit {
   project_faculty_end = 0;
   project_student_start = 0;
   project_student_end = 0;
+  electives=true;
+  projects=false;
+  core=false;
 
 
-  constructor(public _auth: AuthService, public _portalService: PortalSettingService) { }
+  constructor(public _auth: AuthService, public toastr: ToastrService, public _portalService: PortalSettingService) { }
 
   ngOnInit(): void {
     this.getPortalTiming();
+    this._auth.decodeJWT();
   }
 
   getPortalTiming() {
@@ -71,13 +76,37 @@ export class PortalSettingComponent implements OnInit {
 
   setPortalTiming(userType: string, startTime: string, endTime: string) {
     if(startTime >= endTime) {
-      alert("start-time should be lesser than end-time");
+      this.toastr.error("Start-time should be lesser than End-time");
       return;
     }
 
     this._portalService.set_portal_timing(userType,startTime,endTime).subscribe(
-      res => this.ngOnInit(),
+      res => {
+        this.ngOnInit()
+        this.toastr.success("Expiry Date: " + endTime.split('T')[0],'Time Successfully Set');
+      },
       err => console.log(err)
     )
+  }
+  dashboardNavClicked(event:any){
+    var element = document.getElementsByClassName("active")[0];
+    element.classList?.remove("active");
+    event.target.classList.add("active");
+    console.log(event.target.name)
+    this.electives = false
+    this.projects = false
+    this.core = false
+    switch(event.target.name) {
+      case "Electives":
+        this.electives = true
+        break;
+      case "Projects":
+        this.projects = true
+
+        break;
+      case "Core":
+        this.core = true
+        break;
+    }
   }
 }
