@@ -31,9 +31,9 @@ export class PortalStatusComponent implements OnInit {
   getPortalTiming() {
     this._util.get_portal_timing(this.userType).subscribe(
       res => {
-        this.currTime = new Date().toLocaleString();
-        this.startTime = new Date(res.start_time).toLocaleString();
-        this.endTime = new Date(res.end_time).toLocaleString();
+        this.currTime = new Date().getTime();
+        this.startTime = new Date(res.start_time).getTime();
+        this.endTime = new Date(res.end_time).getTime();
       },
       err => console.log(err)
     )

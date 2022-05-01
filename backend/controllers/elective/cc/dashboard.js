@@ -44,7 +44,7 @@ module.exports.get_dashboard = async (req, res)=> {
 }
 
 module.exports.reset_courses = async (req, res) => {
-    let basketId = req.body.basket_id;
+    let basketId = req.query.basket_id;
 
     if(!basketId) {
         res.status(400).json("invalid request!");
@@ -121,12 +121,13 @@ module.exports.restore_course = (req, res) => {
 
 module.exports.submit_courses = async (req,res) => {
     let basketId = req.body.basket_id;
+    let stream = req.body.stream;
 
     if(!basketId) {
         res.status(400).json("invalid request!");
     }
 
-    await sequelize.query(`INSERT INTO running_courses (id, name , basket_id) SELECT id, name, basket_id FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);
+    await sequelize.query(`INSERT INTO running_courses (id, name , basket_id, stream) SELECT id, name, basket_id, '${stream}' as stream FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);
 
     //await sequelize.query(`DELETE FROM buffer_courses_cc WHERE basket_id='${basketId}'`);
     await db.Buffer_course_cc.destroy({

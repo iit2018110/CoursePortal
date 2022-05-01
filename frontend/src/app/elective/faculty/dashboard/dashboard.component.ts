@@ -34,9 +34,9 @@ export class DashboardComponent implements OnInit {
           this.cc_functionality = true;
           return;
         }
-        let currTime = new Date().toLocaleString();
-        let startTime = new Date(res.start_time).toLocaleString();
-        let endTime = new Date(res.end_time).toLocaleString();
+        let currTime = new Date().getTime();
+        let startTime = new Date(res.start_time).getTime();
+        let endTime = new Date(res.end_time).getTime();
 
         if (currTime >= startTime && currTime <= endTime) {
           this.cc_functionality = true;
@@ -53,9 +53,9 @@ export class DashboardComponent implements OnInit {
           this.faculty_functionality = true;
           return;
         }
-        let currTime = new Date().toLocaleString();
-        let startTime = new Date(res.start_time).toLocaleString();
-        let endTime = new Date(res.end_time).toLocaleString();
+        let currTime = new Date().getTime();
+        let startTime = new Date(res.start_time).getTime();
+        let endTime = new Date(res.end_time).getTime();
 
         if (currTime >= startTime && currTime <= endTime) {
           this.faculty_functionality = true;

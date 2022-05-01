@@ -178,6 +178,6 @@ fetchDashboard() {
   }
 
   submit_courses() {
-    return this.http.post<any>(this.submit_courses_url, {basket_id: this._auth.basket_id});
+    return this.http.post<any>(this.submit_courses_url, {basket_id: this._auth.basket_id, stream: this._auth.stream});
   }
 }

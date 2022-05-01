@@ -63,7 +63,7 @@ module.exports.fetch_it_courses = async (req,res)=> {
 }
 
 module.exports.fetch_ece_courses = async (req,res)=> {
-    let courses_data = await get_baskets_data('IT');
+    let courses_data = await get_baskets_data('ECE');
 
     return res.status(200).json(courses_data);
     // db.Basket.findAll({
