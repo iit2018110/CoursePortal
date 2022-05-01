@@ -10,7 +10,8 @@ const {login} = require('../../controllers/elective/faculty/auth')
 const {fetch_students} = require('../../controllers/elective/faculty/get_student');
 const { fetch_subjects, 
         submit_preferences,
-        get_alloted_courses } = require('../../controllers/elective/faculty/subject_preference');
+        get_alloted_courses,
+        reset_preferences } = require('../../controllers/elective/faculty/subject_preference');
 
         const {profile} = require('../../controllers/elective/faculty/profile');
 
@@ -22,5 +23,7 @@ router.post('/submit_preferences', authMiddleware.authValidator, submit_preferen
 router.get('/profile',authMiddleware.authValidator, profile);
 
 router.get('/get_alloted_courses', authMiddleware.authValidator, get_alloted_courses);
+
+router.delete('/reset_preferences', authMiddleware.authValidator, reset_preferences);
 
 module.exports = router;

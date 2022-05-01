@@ -9,6 +9,8 @@ export class UtilService {
   private fetch_subjects_url = 'http://localhost:3001/core/faculty/fetch_subjects';
   private submit_preferences_url = 'http://localhost:3001/core/faculty/submit_preferences';
 
+  private reset_preferences_url = 'http://localhost:3001/core/faculty/reset_preferences'
+
   public courses!: any;
   public status!: string;
 
@@ -48,5 +50,11 @@ export class UtilService {
   submit_preferences(data: JSON) {
     let payload = {faculty_id: this._auth.id, courses: data};
     return this.http.post<any>(this.submit_preferences_url, payload);
+  }
+
+  reset_preferences() {
+    let params = new HttpParams()
+                  .set('faculty_id', this._auth.id);
+    return this.http.delete<any>(this.reset_preferences_url, {params});
   }
 }

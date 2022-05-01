@@ -16,5 +16,7 @@ router.put('/remove_preferences', authMiddleware.authValidator, Dashboard.remove
 router.post('/submit_preferences', authMiddleware.authValidator, Dashboard.submit_preferences);
 router.get('/profile', authMiddleware.authValidator, profile);
 
+router.delete('/reset_preferences', authMiddleware.authValidator, Dashboard.reset_preferences);
+
 
 module.exports = router;

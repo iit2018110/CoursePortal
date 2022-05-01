@@ -215,7 +215,7 @@ module.exports.submit_preferences = async (req, res) => {
 }
 
 module.exports.reset_preferences = async (req, res) => {
-    let id = req.body.student_id;
+    let id = req.query.student_id;
 
     if(!id) {
         res.status(400).json("invalid request!");

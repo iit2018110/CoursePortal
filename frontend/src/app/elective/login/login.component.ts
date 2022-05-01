@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
             let token_cc = localStorage.getItem('token_cc');
             if (token_cc) {
-              this.router.navigate(['/elective/cc/dashboard']);
+              this.router.navigate(['/elective/faculty/dashboard']);
             }
 
             let token_faculty = localStorage.getItem('token_faculty');
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/elective/hod/dashboard']);
           } else if (userType == 'cc') {
             localStorage.setItem('token_cc', res);
-            this.router.navigate(['/elective/cc/dashboard']);
+            this.router.navigate(['/elective/faculty/dashboard']);
           } else if (userType == 'faculty') {
             localStorage.setItem('token_faculty', res);
             this.router.navigate(['/elective/faculty/dashboard']);

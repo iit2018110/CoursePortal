@@ -13,9 +13,18 @@ export class TimeGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this._auth.get_portal_timing().pipe(
       map((res) => {
-        let currTime = new Date().toLocaleString();
-        let startTime = new Date(res.start_time).toLocaleString();
-        let endTime = new Date(res.end_time).toLocaleString();
+        if(!res) {
+          return true;
+        }
+
+        let token_cc = localStorage.getItem('token_cc');
+        if(token_cc) {
+          return true;
+        }
+
+        let currTime = new Date().getTime();
+        let startTime = new Date(res.start_time).getTime();
+        let endTime = new Date(res.end_time).getTime();
 
         if (currTime >= startTime && currTime <= endTime) {
           return true;
