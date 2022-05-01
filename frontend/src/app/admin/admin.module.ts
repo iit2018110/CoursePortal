@@ -1,3 +1,4 @@
+import { NavbarComponent } from './../navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -5,7 +6,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './auth.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { BasketComponent } from './basket/basket.component';
 import { UtilService } from './util.service';
@@ -43,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     PortalSettingComponent,
     ProjectManagementComponent,
     FacultyLoadchartComponent,
-    FacultyLoadchartCoreComponent
+    FacultyLoadchartCoreComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -62,6 +64,6 @@ import { MatSelectModule } from '@angular/material/select';
       useClass: TokenInterceptorService,
       multi: true
     }
-  ]
+  ],
 })
 export class AdminModule { }

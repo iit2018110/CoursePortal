@@ -13,5 +13,28 @@
     padding: 15px;
     box-shadow: 2px 3px 10px rgb(0, 0, 0, 0.3);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: url("assets/images/main.png");
+    text-align: center;
+    color: aquamarine;
+    text-decoration: double;
+    align-items: center;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
