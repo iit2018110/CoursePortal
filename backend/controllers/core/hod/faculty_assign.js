@@ -45,7 +45,7 @@ async function buffer_course_faculty_hod_data(stream,mod) {
     from buffer_core_course_faculty_hod
     join core_courses on core_courses.id=buffer_core_course_faculty_hod.course_id
     left join faculties on faculties.id=buffer_core_course_faculty_hod.faculty_id
-    where core_courses.stream='${stream}' AND mod(core_courses.semester,2)=${mod} 
+    where core_courses.stream='${stream}' AND mod(core_courses.semester,2)='${mod}' 
     order by core_courses.semester;`, { type: Sequelize.QueryTypes.SELECT });
 
     let sem_courses = [];
@@ -231,4 +231,16 @@ module.exports.submit_assigned_courses = async (req,res) => {
     await sequelize.query(`DELETE FROM buffer_core_course_faculty_hod WHERE stream='${stream}'`);
 
     return res.status(200).json("submitted successfully!!");
+}
+
+module.exports.reset_assigned_courses = async (req,res) => {
+    let stream = req.query.stream;
+
+    if(!stream) {
+        return res.status(400).json("invalid request!");
+    }
+
+    await sequelize.query(`DELETE FROM core_course_faculties WHERE stream='${stream}'`); 
+                           
+    return res.status(200).json("reset successfully!!");
 }

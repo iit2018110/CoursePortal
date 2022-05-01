@@ -50,4 +50,11 @@ export class DashboardComponent implements OnInit {
       err => console.log(err)
     )
   }
+
+  onCourseFacultyReset(){
+    this._util.reset_assigned_courses().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
 }
