@@ -1,18 +1,78 @@
-
-
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
-    <form class="form-inline">
-        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-    </form>
+  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+  <form class="form-inline">
+    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+  </form>
 </nav>
 
 <div class="container m-5 p-5 shadow" style="width: fit-content; text-align: center;">
-    <div class="row m-5" style="text-align: center;">
-<button type="button" class="btn btn-primary" routerLink="../subject_preference">Subject Preferences</button>
+  <div class="row m-5" style="text-align: center;">
+    <button type="button" class="btn btn-primary" routerLink="../subject_preference">Subject Preferences</button>
+  </div>
+  <div class="row m-5">
+    <button type="button" class="btn btn-primary" routerLink="../get_students">Students Alloted</button>
+  </div>
 </div>
-<div class="row m-5">
-<button type="button" class="btn btn-primary" routerLink="../get_students">Students Alloted</button>
-</div>
+
+<div class="container m-5 p-5 shadow" *ngIf="isCC">
+  <h1>Running Courses</h1>
+  <div>
+    <div class="container shadow m-5 p-5" *ngIf="this._util.cc_status==='buffer'">
+      <div class="row m-5 p-5 shadow">
+        <h2>Pending:</h2>
+        <div *ngFor="let course of this._util.buffer_courses">
+          <div *ngIf="course.status==='pending'">
+            <p>{{course.name}}
+              <button type="button" class="btn btn-success m-2" (click)="acceptCourse(course.id)">Accept</button>
+              <button type="button" class="btn btn-danger m-2" (click)="rejectCourse(course.id)">Reject</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row m-5 p-5 shadow">
+        <h3>Accepted:</h3>
+        <div *ngFor="let course of this._util.buffer_courses">
+          <div *ngIf="course.status==='selected'">
+            <p>{{course.name}}
+              <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row m-5 p-5 shadow">
+        <h3>Rejected</h3>
+        <div *ngFor="let course of this._util.buffer_courses">
+          <div *ngIf="course.status==='rejected'">
+            <p>{{course.name}}
+              <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="submitCourses()">Submit</button>
+    </div>
+  </div>
+
+  <div class="container shadow m-5 p-5" *ngIf="this._util.cc_status==='running'">
+
+    <h2>Running Courses</h2>
+    <div class="p-5 shadow">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of this._util.running_courses">
+            <td>{{course.id}}</td>
+            <td>{{course.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button *ngIf="cc_functionality" type="button" class="btn btn-danger btn-block" (click)="resetRunningCoursesCC()">Reset</button>
+    </div>
+  </div>
 </div>

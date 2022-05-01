@@ -69,7 +69,7 @@
 </div>
 
 
-<div class="container m-5 p-5 shadow" *ngIf="_util.status==='filled'">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length === 0 &&_util.status==='filled'">
   <table class="table">
   <thead>
      <tr>
@@ -84,6 +84,7 @@
     </tr>
   </tbody>
 </table>
+<button type="button" class="btn btn-danger btn-block" (click)="resetPreferences()">Reset</button>
 </div>
 
 <!-- <div class="container m-5 p-5 shadow" *ngIf="_util.status==='filled'">

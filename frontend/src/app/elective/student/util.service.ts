@@ -14,6 +14,8 @@ export class UtilService {
   private submit_preferences_url = 'http://localhost:3001/elective/student/submit_preferences';
   private fetch_alloted_courses_url = 'http://localhost:3001/elective/student/fetch_alloted_courses'
 
+  private reset_preferences_url = 'http://localhost:3001/elective/student/reset_preferences'
+
   public status!: string; //running or buffer
   public buffer_baskets!: IBufferStudentPreferenceBasket[];
   public baskets!: IStudentPreferenceBasket[];
@@ -84,5 +86,11 @@ export class UtilService {
 
   submit_preferences() {
     return this.http.post<any>(this.submit_preferences_url, {student_id: this._auth.id});
+  }
+
+  reset_preferences() {
+    let params = new HttpParams()
+                  .set('student_id', this._auth.id);
+    return this.http.delete<any>(this.reset_preferences_url, {params})
   }
 }

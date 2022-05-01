@@ -38,4 +38,10 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  onReset() {
+    this._util.reset_preferences().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
 }
