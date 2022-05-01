@@ -1,81 +1,83 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard" style="visibility: hidden;">Dashboard</button>
+  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard"
+    style="visibility: hidden;">Dashboard</button>
   <form class="form-inline">
-      <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
   </form>
 </nav>
 
 <div class="container m-5 p-5 shadow" *ngIf="_util.status==='non-filled'">
   <h1>Please Choose preferences</h1>
   <form #subjectPreference="ngForm">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Subject</th>
-            <th scope="col">Preference1</th>
-            <th scope="col">Preference2</th>
-            <th scope="col">Preference3</th>
-            <th scope="col">Preference4</th>
-            <th scope="col">Preference5</th>
-          </tr>
-        </thead>
-          <tbody style="border: 0ch">
-            <tr *ngFor="let course of _util.courses">
-                  <td>{{course.name}}</td>
-                  <td>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio1" [value]="1">
-                      <label class="form-check-label" for="inlineRadio1">1</label>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio2" [value]="2">
-                      <label class="form-check-label" for="inlineRadio2">2</label>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio3" [value]="3" >
-                      <label class="form-check-label" for="inlineRadio3">3</label>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio4" [value]="4">
-                      <label class="form-check-label" for="inlineRadio4">4</label>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio5" [value]="5" >
-                      <label class="form-check-label" for="inlineRadio5">5</label>
-                    </div>
-                  </td>
-            </tr>
-          </tbody>
-      </table>
-      <input type="submit" class="btn btn-primary" value="Submit Preference" (click)="onSubmit(subjectPreference.value)">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Preference1</th>
+          <th scope="col">Preference2</th>
+          <th scope="col">Preference3</th>
+          <th scope="col">Preference4</th>
+          <th scope="col">Preference5</th>
+        </tr>
+      </thead>
+      <tbody style="border: 0ch">
+        <tr *ngFor="let course of _util.courses">
+          <td>{{course.name}}</td>
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio1" [value]="1">
+              <label class="form-check-label" for="inlineRadio1">1</label>
+            </div>
+          </td>
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio2" [value]="2">
+              <label class="form-check-label" for="inlineRadio2">2</label>
+            </div>
+          </td>
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio3" [value]="3">
+              <label class="form-check-label" for="inlineRadio3">3</label>
+            </div>
+          </td>
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio4" [value]="4">
+              <label class="form-check-label" for="inlineRadio4">4</label>
+            </div>
+          </td>
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio5" [value]="5">
+              <label class="form-check-label" for="inlineRadio5">5</label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <input type="submit" class="btn btn-primary" value="Submit Preference" (click)="onSubmit(subjectPreference.value)">
   </form>
 </div>
 
 
 <div class="container m-5 p-5 shadow" *ngIf="_util.status==='filled'">
   <table class="table">
-  <thead>
-     <tr>
-      <th>Course</th>
-      <th>Preference</th>
-     </tr>
-   </thead>
-   <tbody>
-    <tr *ngFor="let course of _util.courses">
-      <td>{{course.name}}</td>
-      <td>{{course.preference_value}}</td>
-    </tr>
-  </tbody>
-</table>
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Preference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of _util.courses">
+        <td>{{course.name}}</td>
+        <td>{{course.preference_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-danger" (click)="resetPreferences()">Reset Preferences</button>
 </div>
 
 <!-- <div class="container m-5 p-5 shadow" *ngIf="_util.status==='filled'">
