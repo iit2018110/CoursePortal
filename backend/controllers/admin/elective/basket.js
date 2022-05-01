@@ -138,7 +138,7 @@ module.exports.fetch_it_faculties = async (req, res) => {
         }
     });
 
-    res.status(200).json(faculties);
+    return res.status(200).json(faculties);
 }
 
 module.exports.fetch_ece_faculties = async (req, res) => {
@@ -149,7 +149,7 @@ module.exports.fetch_ece_faculties = async (req, res) => {
         }
     });
 
-    res.status(200).json(faculties);
+    return res.status(200).json(faculties);
 }
 
 module.exports.add_course = async (req, res) => {
@@ -227,5 +227,5 @@ module.exports.delete_basket = async (req, res) => {
         }
     });
 
-    res.status(200).json("basket successfully deleted");
+    return res.status(200).json("basket successfully deleted");
 }

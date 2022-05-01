@@ -198,18 +198,18 @@ module.exports.assign_courses = async (req, res) => {
 }
 
 module.exports.unassign_courses = async (req, res) => {
-    let basketId = req.body.basket_id;
+    let semester = req.body.semester;
 
-    if(!basketId) {
+    if(!semester) {
         return res.status(400).json("invalid request!");
     }
 
-    await db.Buffer_course_faculty_hod.update({
+    await db.Buffer_core_course_faculty_hod.update({
         sem_status: 'un-assigned',
         faculty_id: null,
     }, {
         where: {
-            basket_id: basketId
+            semester: semester
         }
     })
 

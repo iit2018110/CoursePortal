@@ -30,7 +30,7 @@ module.exports.set_sem_type = async (req, res) => {
         })
     }
 
-    res.status(200).json("sem_type updated");
+    return res.status(200).json("sem_type updated");
 }
 
 module.exports.get_sem_type = async (req, res) => {
