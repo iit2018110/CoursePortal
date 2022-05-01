@@ -5,7 +5,7 @@ module.exports.get_dashboard = async (req, res)=> {
     let basketId = req.query.basket_id;
 
     if(!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let running_course_data =  await db.Running_course.findAndCountAll({
@@ -47,7 +47,7 @@ module.exports.reset_courses = async (req, res) => {
     let basketId = req.query.basket_id;
 
     if(!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await db.Running_course.destroy({
@@ -64,7 +64,7 @@ module.exports.accept_course = (req, res) => {
     let basketId = req.body.basket_id;
 
     if(!courseId || !basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Buffer_course_cc.update({status: 'selected'}, {
@@ -84,7 +84,7 @@ module.exports.reject_course = (req, res) => {
     let basketId = req.body.basket_id;
 
     if(!courseId || !basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Buffer_course_cc.update({status: 'rejected'}, {
@@ -104,7 +104,7 @@ module.exports.restore_course = (req, res) => {
     let basketId = req.body.basket_id;
 
     if(!courseId || !basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Buffer_course_cc.update({status: 'pending'}, {
@@ -124,7 +124,7 @@ module.exports.submit_courses = async (req,res) => {
     let stream = req.body.stream;
 
     if(!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await sequelize.query(`INSERT INTO running_courses (id, name , basket_id, stream) SELECT id, name, basket_id, '${stream}' as stream FROM buffer_courses_cc WHERE basket_id='${basketId}' AND status='selected'`);

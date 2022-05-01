@@ -39,10 +39,10 @@ async function faculty_preferences_data (stream) {
 
 module.exports.fetch_faculty_preferences_it = async (req, res) => {
     let data = await faculty_preferences_data('IT');
-    res.status(200).json(data);
+    return res.status(200).json(data);
 }
 
 module.exports.fetch_faculty_preferences_ece = async (req, res) => {
     let data = await faculty_preferences_data('ECE');
-    res.status(200).json(data);
+    return res.status(200).json(data);
 }
