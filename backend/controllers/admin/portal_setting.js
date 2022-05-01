@@ -8,11 +8,11 @@ module.exports.set_portal_timing = async (req, res) => {
     let endTime = req.body.end_time;
 
     if(!userType || !startTime || !endTime) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     if(startTime >= endTime) {
-        res.status(400).json("start-time should be lesser than end-time");
+        return res.status(400).json("start-time should be lesser than end-time");
     }
 
     let data_count = await db.Portal_status.count({

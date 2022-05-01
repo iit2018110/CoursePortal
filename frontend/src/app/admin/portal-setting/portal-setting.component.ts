@@ -75,10 +75,16 @@ export class PortalSettingComponent implements OnInit {
   }
 
   setPortalTiming(userType: string, startTime: string, endTime: string) {
+    if(!startTime || !endTime) {
+      this.toastr.error("Start-time or End-time should not be empty");
+      return;
+    }
+    
     if(startTime >= endTime) {
       this.toastr.error("Start-time should be lesser than End-time");
       return;
     }
+    
 
     this._portalService.set_portal_timing(userType,startTime,endTime).subscribe(
       res => {
