@@ -147,7 +147,7 @@ module.exports.post_status_by_student = async (req, res) => {
     let status = req.body.status
 
     if(!project_id || !student_id || !status) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     if (await IsStudentNotAvailable(student_id) == true) {

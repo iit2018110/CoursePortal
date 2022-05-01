@@ -40,7 +40,7 @@ module.exports.fetch_basket_subjects = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let data = await basket_courses_data(stream);
@@ -53,7 +53,7 @@ module.exports.run_course = async (req, res) => {
     let courseId = req.body.course_id;
 
     if(!stream || !basketId || !courseId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let total_seats = await sequelize.query(`SELECT total_seats FROM running_courses WHERE basket_id='${basketId}' AND id='${courseId}'`);
@@ -79,7 +79,7 @@ module.exports.stop_course = async (req, res) => {
     let courseId = req.body.course_id;
 
     if(!stream || !basketId || !courseId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Running_course.update({

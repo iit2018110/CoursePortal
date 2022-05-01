@@ -36,7 +36,7 @@ module.exports.get_portal_timing = async (req, res) => {
     let userType = req.query.user_type;
 
     if(!userType) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     if (userType === 'admin') {

@@ -187,7 +187,7 @@ module.exports.delete_course = (req, res) => {
     let courseId = req.query.course_id;
 
     if (!basketId || !courseId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Course.destroy({
@@ -206,7 +206,7 @@ module.exports.delete_basket = async (req, res) => {
     let basketId = req.query.basket_id;
 
     if (!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await db.Basket.destroy({
