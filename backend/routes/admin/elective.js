@@ -9,6 +9,7 @@ const courseFaculty = require('../../controllers/admin/elective/course_faculty')
 const studentPreferences = require('../../controllers/admin/elective/student_preferences');
 const courseStudents = require('../../controllers/admin/elective/course_students');
 const facultyLoadChart = require('../../controllers/admin/elective/faculty_loadchart');
+const reset = require('../../controllers/admin/elective/reset');
 
 router.use('/basket', basket);
 
@@ -29,5 +30,7 @@ router.get('/fetch_ece_course_students', authMiddleware.authValidator, courseStu
 
 router.get('/fetch_it_faculty_courses', authMiddleware.authValidator, facultyLoadChart.fetch_it_faculty_courses);
 router.get('/fetch_ece_faculty_courses', authMiddleware.authValidator, facultyLoadChart.fetch_ece_faculty_courses);
+
+router.delete('/reset_elective', authMiddleware.authValidator, reset.reset_elective);
 
 module.exports = router;

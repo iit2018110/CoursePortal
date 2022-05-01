@@ -92,3 +92,10 @@ module.exports.delete_project = async (req, res) => {
 
     res.status(200).json("successfully deleted!");
 }
+
+module.exports.reset_project = async (req,res) => {
+    await sequelize.query(`truncate table student_project;`)
+    await sequelize.query(`truncate table project;`)
+    
+    res.status(200).json("successfull reset!");
+}
