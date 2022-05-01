@@ -138,7 +138,7 @@ module.exports.fetch_it_faculties = async (req, res) => {
         }
     });
 
-    res.status(200).json(faculties);
+    return res.status(200).json(faculties);
 }
 
 module.exports.fetch_ece_faculties = async (req, res) => {
@@ -149,7 +149,7 @@ module.exports.fetch_ece_faculties = async (req, res) => {
         }
     });
 
-    res.status(200).json(faculties);
+    return res.status(200).json(faculties);
 }
 
 module.exports.add_course = async (req, res) => {
@@ -187,7 +187,7 @@ module.exports.delete_course = (req, res) => {
     let courseId = req.query.course_id;
 
     if (!basketId || !courseId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     db.Course.destroy({
@@ -206,7 +206,7 @@ module.exports.delete_basket = async (req, res) => {
     let basketId = req.query.basket_id;
 
     if (!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await db.Basket.destroy({
@@ -227,5 +227,5 @@ module.exports.delete_basket = async (req, res) => {
         }
     });
 
-    res.status(200).json("basket successfully deleted");
+    return res.status(200).json("basket successfully deleted");
 }

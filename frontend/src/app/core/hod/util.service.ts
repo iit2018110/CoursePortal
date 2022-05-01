@@ -73,8 +73,8 @@ export class UtilService {
     return this.http.put<any>(this.assign_courses_url, payload);
   }
 
-  unassign_courses(basketId: string) {
-    let payload = {basket_id: basketId};
+  unassign_courses(semester: any) {
+    let payload = {semester: semester};
     return this.http.put<any>(this.unassign_courses_url, payload);
   }
 

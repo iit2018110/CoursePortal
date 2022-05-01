@@ -89,7 +89,7 @@ module.exports.post_status_by_faculty = async (req, res) => {
     let status = req.body.status;
 
     if(!project_id || !faculty_id || !status) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let preStatus = await GetFacultyStatus(project_id, faculty_id)
