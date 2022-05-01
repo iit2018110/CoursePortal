@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of _util.it_baskets">
-                                    <h2>{{basket.id}} {{basket.name}}</h2>
+                                    <h2>({{basket.id}}) {{basket.name}}</h2> <p>Course-coordinator: {{basket.cc_name}}</p>
                                     <div class="row col" *ngFor="let course of basket.courses">
                                         <div class="col m-2">
                                             <p>{{course.id}} {{course.name}}</p>
