@@ -11,6 +11,7 @@ module.exports.reset_elective = async (req, res) => {
     await sequelize.query(`truncate table buffer_course_faculty_hod;`)
     await sequelize.query(`truncate table buffer_basket_students;`)
     await sequelize.query(`truncate table buffer_baskets_hod;`)
+    await sequelize.query(`truncate table student_preferences;`)
     await sequelize.query(`truncate table faculty_preferences;`)
     await sequelize.query(`truncate table running_courses;`)
     
