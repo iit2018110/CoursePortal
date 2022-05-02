@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  onReset(basketId: string) {
-    this._util.unassign_courses(basketId).subscribe(
+  onReset(semester: any) {
+    this._util.unassign_courses(semester).subscribe(
       res => this.ngOnInit(),
       err => console.log(err)
     )
@@ -46,6 +46,13 @@ export class DashboardComponent implements OnInit {
 
   onSubmit() {
     this._util.submit_assigned_courses().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
+  onCourseFacultyReset(){
+    this._util.reset_assigned_courses().subscribe(
       res => this.ngOnInit(),
       err => console.log(err)
     )

@@ -92,7 +92,7 @@ module.exports.fetch_baskets = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     const course_faculty = await db.Course_faculty.findAndCountAll({
@@ -132,7 +132,7 @@ module.exports.fetch_faculties = async (req, res) => {
     let stream = req.query.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let query_result = await sequelize.query(`select running_courses.id as course_id, faculty_preferences.faculty_id as id,faculties.name
@@ -171,7 +171,7 @@ module.exports.assign_courses = async (req, res) => {
     let data = req.body.data;
 
     if(!data) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     for (let i = 0; i < data.length; i++) {
@@ -193,7 +193,7 @@ module.exports.unassign_courses = async (req, res) => {
     let basketId = req.body.basket_id;
 
     if(!basketId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await db.Buffer_course_faculty_hod.update({
@@ -213,7 +213,7 @@ module.exports.submit_assigned_courses = async (req,res) => {
     let stream = req.body.stream;
 
     if(!stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await sequelize.query(`INSERT INTO course_faculties (course_id, faculty_id, basket_id, stream)
@@ -231,4 +231,16 @@ module.exports.submit_assigned_courses = async (req,res) => {
     await sequelize.query(`DELETE FROM buffer_course_faculty_hod WHERE stream='${stream}'`);
 
     return res.status(200).json("submitted successfully!!");
+}
+
+module.exports.reset_assigned_courses = async (req,res) => {
+    let stream = req.query.stream;
+
+    if(!stream) {
+        return res.status(400).json("invalid request!");
+    }
+
+    await sequelize.query(`DELETE FROM course_faculties WHERE stream='${stream}'`); 
+                           
+    return res.status(200).json("reset successfully!!");
 }

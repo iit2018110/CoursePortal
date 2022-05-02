@@ -14,7 +14,7 @@ function faculty_preferences_data(facultyId) {
 
 async function get_course_data(stream, mod) {
     let data = sequelize.query(`
-    SELECT id,name from core_courses WHERE mod(semester,2)=${mod} AND stream='${stream}'
+    SELECT id,name from core_courses WHERE mod(semester,2)='${mod}' AND stream='${stream}'
     ORDER BY semester`, 
     { type: Sequelize.QueryTypes.SELECT });
 
@@ -26,7 +26,7 @@ module.exports.fetch_subjects = async (req, res) => {
     let stream = req.query.stream;
 
     if(!facultyId || !stream) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     const preferences_count = await db.Core_faculty_preference.count({
@@ -60,7 +60,7 @@ module.exports.fetch_subjects = async (req, res) => {
 
     let course_data = await get_course_data(stream, mod);
 
-    res.status(200).json({status: "non-filled", data: course_data});
+    return res.status(200).json({status: "non-filled", data: course_data});
 }
 
 module.exports.submit_preferences = async (req, res) => {
@@ -68,7 +68,7 @@ module.exports.submit_preferences = async (req, res) => {
     let courses = req.body.courses;
 
     if(!facultyId || !courses) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     for (let c in courses) {
@@ -86,7 +86,7 @@ module.exports.reset_preferences = async (req,res) => {
     let facultyId = req.query.faculty_id;
 
     if(!facultyId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     await db.Core_faculty_preference.destroy({
@@ -96,4 +96,19 @@ module.exports.reset_preferences = async (req,res) => {
     })
 
     return res.status(200).json("reset preferences successfully");
+}
+
+module.exports.get_alloted_courses = async (req,res) => {
+    let facultyId = req.query.faculty_id;
+
+    if(!facultyId) {
+        return res.status(400).json("invalid request!");
+    }
+
+    let result = await sequelize.query(`SELECT core_course_faculties.course_id AS id, core_courses.name AS name 
+        FROM core_course_faculties
+        JOIN core_courses ON core_course_faculties.course_id=core_courses.id
+        WHERE core_course_faculties.faculty_id='${facultyId}'`, {type: Sequelize.QueryTypes.SELECT});
+
+    return res.status(200).json(result);
 }
