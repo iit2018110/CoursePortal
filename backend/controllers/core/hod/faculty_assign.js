@@ -232,3 +232,15 @@ module.exports.submit_assigned_courses = async (req,res) => {
 
     return res.status(200).json("submitted successfully!!");
 }
+
+module.exports.reset_assigned_courses = async (req,res) => {
+    let stream = req.query.stream;
+
+    if(!stream) {
+        return res.status(400).json("invalid request!");
+    }
+
+    await sequelize.query(`DELETE FROM core_course_faculties WHERE stream='${stream}'`); 
+                           
+    return res.status(200).json("reset successfully!!");
+}

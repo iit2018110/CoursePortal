@@ -5,8 +5,8 @@ const authMiddleware = require('../../middlewares/auth');
 const semType = require('../../controllers/admin/core/sem_type');
 const facultyPreferences = require('../../controllers/admin/core/faculty_preferences');
 const courseFaculty = require('../../controllers/admin/core/course_faculty');
-
 const facultyLoadChart = require('../../controllers/admin/core/faculty_loadchart');
+const reset = require('../../controllers/admin/core/reset')
 
 router.put('/set_sem_type', authMiddleware.authValidator, semType.set_sem_type);
 router.get('/get_sem_type', authMiddleware.authValidator, semType.get_sem_type);
@@ -29,8 +29,9 @@ router.get('/fetch_course_faculty_ece', authMiddleware.authValidator, courseFacu
 router.get('/fetch_it_faculty_courses', authMiddleware.authValidator, facultyLoadChart.fetch_it_faculty_courses);
 router.get('/fetch_ece_faculty_courses', authMiddleware.authValidator, facultyLoadChart.fetch_ece_faculty_courses);
 
+/**
+ * reset
+ */
+router.delete('/reset_core', authMiddleware.authValidator, reset.reset_core);
 
 module.exports = router;
-
-
-
