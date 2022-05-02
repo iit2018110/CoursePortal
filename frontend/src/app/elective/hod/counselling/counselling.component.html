@@ -10,15 +10,16 @@
   <h1>{{basket.name}}</h1>
   <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
     <h2>{{course.name}}</h2>
-    <h3>Students who had choosen this course.</h3>
-    <ul title="Student who preffered this course">
+    <h3 *ngIf="_util.counselling_status === 'unsubmitted'">Students who had choosen this course:</h3>
+    <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3>
+    <ul>
       <li *ngFor="let student of course.students">
         <p>{{student.id}}</p>
       </li>
     </ul>
 
     <div *ngIf="!isEmpty(_util.course_students)">
-      <h3>Students to whom this course is alloted.</h3>
+      <h3>Students elligible for course:</h3>
       <ul>
         <li *ngFor="let student of _util.course_students[course.id]">
           {{student}}

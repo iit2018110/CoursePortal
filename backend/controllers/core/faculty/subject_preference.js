@@ -110,5 +110,5 @@ module.exports.get_alloted_courses = async (req,res) => {
         JOIN core_courses ON core_course_faculties.course_id=core_courses.id
         WHERE core_course_faculties.faculty_id='${facultyId}'`, {type: Sequelize.QueryTypes.SELECT});
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
 }
