@@ -6,6 +6,7 @@
   </form>
 </nav>
 
+
 <div class="container m-5 p-5 shadow" *ngFor="let basket of _util.basket_preferences">
   <h1>{{basket.name}}</h1>
   <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
@@ -14,7 +15,7 @@
     <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3>
     <ul>
       <li *ngFor="let student of course.students">
-        <p>{{student.id}}</p>
+        <p>{{student.id}} - {{student.name}}</p>
       </li>
     </ul>
 
@@ -27,10 +28,11 @@
       </ul>
     </div>
 
-    <button *ngIf="_util.counselling_status === 'submitted'" class="btn btn-danger" (click)="onReset()">Reset</button>
   </div>
 </div>
+<button *ngIf="_util.counselling_status === 'submitted'" class="btn btn-danger" (click)="onReset()">Reset</button>
 
 
-<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="startCounselling()">Start Counselling</button>
-<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+
+<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="startCounselling()">Preview counselling</button>
+<button [hidden]="_util.counselling_status==='submitted'" type="button" class="btn btn-primary" (click)="onSubmit()">Submit counselling</button>
