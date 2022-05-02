@@ -11,6 +11,7 @@ export class UtilService {
   private fetch_subjects_url = 'http://localhost:3001/elective/faculty/fetch_subjects';
   private fetch_students_url = 'http://localhost:3001/elective/faculty/fetch_students';
   private submit_preferences_url = 'http://localhost:3001/elective/faculty/submit_preferences';
+  private reset_preferences_url = 'http://localhost:3001/elective/faculty/reset_preferences'
 
   private get_alloted_courses_url = 'http://localhost:3001/elective/faculty/get_alloted_courses';
 
@@ -21,7 +22,7 @@ export class UtilService {
   private reject_course_url = 'http://localhost:3001/elective/cc/reject_course';
   private restore_course_url = 'http://localhost:3001/elective/cc/restore_course';
   private submit_courses_url = 'http://localhost:3001/elective/cc/submit_courses';
-
+  private reset_courses_url = 'http://localhost:3001/elective/cc/reset_courses';
 
   public baskets!: any;
   public courses!: any;
@@ -159,6 +160,12 @@ fetchDashboard() {
     return this.http.post<any>(this.submit_preferences_url, payload);
   }
 
+  reset_preferences() {
+    let params = new HttpParams()
+                  .set('faculty_id', this._auth.id);
+    return this.http.delete<any>(this.reset_preferences_url, {params});
+  }
+
   /**
    * Course coordinator functionality
    */
@@ -179,5 +186,11 @@ fetchDashboard() {
 
   submit_courses() {
     return this.http.post<any>(this.submit_courses_url, {basket_id: this._auth.basket_id, stream: this._auth.stream});
+  }
+
+  reset_running_courses() {
+    let params = new HttpParams()
+                  .set('basket_id', this._auth.basket_id)
+    return this.http.delete<any>(this.reset_courses_url, {params});
   }
 }

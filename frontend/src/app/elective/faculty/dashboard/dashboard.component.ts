@@ -93,4 +93,10 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  resetRunningCoursesCC() {
+    this._util.reset_running_courses().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
 }

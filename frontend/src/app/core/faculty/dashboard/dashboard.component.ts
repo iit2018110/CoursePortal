@@ -8,11 +8,20 @@ import { UtilService } from '../util.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  public courses_alloted!: any;
 
   constructor(public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
     this._util.init();
+    this.getAllotedCourses();
+  }
+
+  getAllotedCourses() {
+    this._util.get_alloted_courses().subscribe(
+      res => this.courses_alloted = res,
+      err => console.log(err)
+    )
   }
 
   onSubmit(data: JSON) {
@@ -22,6 +31,13 @@ export class DashboardComponent implements OnInit {
       err => console.log(err)
     )
     console.log(data);
+  }
+
+  resetPreferences() {
+    this._util.reset_preferences().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
   }
 
 }

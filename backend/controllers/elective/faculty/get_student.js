@@ -7,7 +7,7 @@ module.exports.fetch_students = async (req,res) => {
     let facultyId = req.query.faculty_id;
 
     if(!facultyId) {
-        res.status(400).json("invalid request!");
+        return res.status(400).json("invalid request!");
     }
 
     let course_students_data = await sequelize.query(`

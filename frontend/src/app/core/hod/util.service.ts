@@ -11,7 +11,7 @@ export class UtilService {
   private assign_courses_url = 'http://localhost:3001/core/hod/assign_courses';
   private unassign_courses_url = 'http://localhost:3001/core/hod/unassign_courses';
   private submit_assigned_courses_url = 'http://localhost:3001/core/hod/submit_assigned_courses';
-
+  private reset_course_faculty_url = 'http://localhost:3001/core/hod/reset_assigned_courses';
   public status!: string;
   public selected_baskets!: any;
   public buffer_baskets!: any;
@@ -73,8 +73,8 @@ export class UtilService {
     return this.http.put<any>(this.assign_courses_url, payload);
   }
 
-  unassign_courses(basketId: string) {
-    let payload = {basket_id: basketId};
+  unassign_courses(semester: any) {
+    let payload = {semester: semester};
     return this.http.put<any>(this.unassign_courses_url, payload);
   }
 
@@ -83,4 +83,9 @@ export class UtilService {
     return this.http.post<any>(this.submit_assigned_courses_url, payload);
   }
 
+  reset_assigned_courses(){
+    let params = new HttpParams()
+                      .set('stream', this._auth.stream);
+    return this.http.delete<any>(this.reset_course_faculty_url, {params});
+  }
 }
