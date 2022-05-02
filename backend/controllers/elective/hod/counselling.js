@@ -271,3 +271,14 @@ module.exports.submit_students_couselling = async (req, res) => {
 
     return res.status(200).json("submitted successfully!!");
 }
+
+module.exports.reset_course_students = async (req,res) => {
+    let stream = req.query.stream;
+
+    if(!stream) {
+        return res.status(400).json("invalid request!");
+    }
+    await sequelize.query(`delete from course_students where stream='${stream}'`);
+                           
+    return res.status(200).json("reset successfully!!");
+}

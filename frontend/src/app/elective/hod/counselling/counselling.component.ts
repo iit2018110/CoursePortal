@@ -37,4 +37,13 @@ export class CounsellingComponent implements OnInit {
       err => console.log(err)
     )
   }
+
+  onReset(){
+    this._util.reset_course_students().subscribe(
+      res => {
+        this.ngOnInit();
+      },
+      err => console.log(err)
+    )
+  }
 }
