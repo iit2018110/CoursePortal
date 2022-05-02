@@ -8,5 +8,5 @@ module.exports.reset_core = async (req, res) => {
     await sequelize.query(`truncate table buffer_core_course_faculty_hod;`)
     await sequelize.query(`truncate table core_faculty_preferences;`)
     
-    res.status(200).json("successfull reset!");
+    return res.status(200).json("successfull reset!");
 }
