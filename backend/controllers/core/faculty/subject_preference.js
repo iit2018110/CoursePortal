@@ -14,7 +14,7 @@ function faculty_preferences_data(facultyId) {
 
 async function get_course_data(stream, mod) {
     let data = sequelize.query(`
-    SELECT id,name from core_courses WHERE mod(semester,2)=${mod} AND stream='${stream}'
+    SELECT id,name from core_courses WHERE mod(semester,2)='${mod}' AND stream='${stream}'
     ORDER BY semester`, 
     { type: Sequelize.QueryTypes.SELECT });
 

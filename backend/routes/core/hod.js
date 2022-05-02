@@ -9,6 +9,6 @@ router.get('/fetch_faculties',authMiddleware.authValidator, facultyAssign.fetch_
 router.put('/assign_courses',authMiddleware.authValidator, facultyAssign.assign_courses);
 router.put('/unassign_courses',authMiddleware.authValidator, facultyAssign.unassign_courses);
 router.post('/submit_assigned_courses',authMiddleware.authValidator, facultyAssign.submit_assigned_courses);
-
+router.delete('/reset_assigned_courses',authMiddleware.authValidator, facultyAssign.reset_assigned_courses);
 
 module.exports = router;

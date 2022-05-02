@@ -26,4 +26,5 @@ router.get('/fetch_basket_subjects',authMiddleware.authValidator, courseSetting.
 router.put('/run_course',authMiddleware.authValidator, courseSetting.run_course);
 router.put('/stop_course',authMiddleware.authValidator, courseSetting.stop_course);
 
+router.delete('/reset_assigned_courses',authMiddleware.authValidator, facultyAssign.reset_assigned_courses);
 module.exports = router;

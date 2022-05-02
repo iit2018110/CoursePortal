@@ -21,6 +21,7 @@ export class UtilService {
   private run_course_url = 'http://localhost:3001/elective/hod/run_course';
   private stop_course_url = 'http://localhost:3001/elective/hod/stop_course';
 
+  private reset_course_faculty_url = 'http://localhost:3001/elective/hod/reset_assigned_courses';
 
   public status!: string;
   public selected_baskets!: any;
@@ -158,5 +159,11 @@ export class UtilService {
   stop_course(basketId: string, courseId: string) {
     let payload = {stream: this._auth.stream, basket_id: basketId, course_id: courseId};
     return this.http.put<any>(this.stop_course_url, payload);
+  }
+
+  reset_assigned_courses(){
+    let params = new HttpParams()
+                      .set('stream', this._auth.stream);
+    return this.http.delete<any>(this.reset_course_faculty_url, {params});
   }
 }
