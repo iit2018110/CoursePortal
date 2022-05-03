@@ -50,6 +50,7 @@
                       </tr>
                     </tbody>
                   </table>
+
                 </td>
               </tr>
             </tbody>
@@ -60,7 +61,7 @@
   </table>
 </div>
 
-<div class="container m-5 p-5 shadow"  *ngIf="ece_students?.length>0">
+<div class="container m-5 p-5 shadow" *ngIf="ece_students?.length>0">
   <h1>ECE</h1>
   <table class="table">
     <thead>
@@ -125,72 +126,4 @@
       </tr>
     </tbody>
   </table>
-      </div>
-
-          <div class="container m-5 p-5 shadow" *ngIf="ece_students.length>0">
-            <h1>ECE</h1>
-            <table class="table">
-              <thead>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Basket Name</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let student of ece_students">
-                  <td>{{student.id}}</td>
-                  <td>{{student.name}}</td>
-                  <td *ngIf="student.baskets.length===0" class="text-danger">
-                    preferences not yet submitted!
-                  </td>
-                  <td>
-                    <table class="table">
-                      <thead>
-                        <th></th>
-                        <th></th>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let basket of student.baskets">
-                          <td>{{basket.name}}</td>
-                          <td>
-                            <table class="table">
-                              <tbody>
-                                <tr>
-                                  <td>1st preference: {{basket.pref1_name}}</td>
-                                </tr>
-                                <tr>
-                                  <td>2nd preference: {{basket.pref2_name}}</td>
-                                </tr>
-                                <tr>
-                                  <td>3rd preference: {{basket.pref3_name}}</td>
-                                </tr>
-                                <tr>
-                                  <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>
-                                </tr>
-                                <tr>
-                                  <td [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- <div >
-    <h2>{{student.id}}-----{{student.name}}</h2>
-    <p *ngIf="student.baskets?.length===0" class="text-danger">
-      preferences not yet submitted!
-    </p>
-    <div *ngFor="let basket of student.baskets">
-      <h2>{{basket.name}}</h2>
-      <p>1st preference: {{basket.pref1_name}}</p>
-      <p>2nd preference: {{basket.pref2_name}}</p>
-      <p>3rd preference: {{basket.pref3_name}}</p>
-      <p [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</p>
-      <p [hidden]="!basket.pref5_id">5th preference: {{basket.pref5_name}}</p>
-    </div>
-  </div> -->
-          </div>
+</div>

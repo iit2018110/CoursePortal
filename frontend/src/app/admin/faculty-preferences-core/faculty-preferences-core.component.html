@@ -47,7 +47,7 @@
       <tbody>
         <tr *ngFor="let course of faculty.courses">
           <td>{{course.name}}</td>
-          <td>{{course.preference_value}}</td>
+          <td>{{course.preference_value | ordinal}}</td>
         </tr>
       </tbody>
     </table>
