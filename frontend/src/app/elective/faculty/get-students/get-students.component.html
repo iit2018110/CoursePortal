@@ -10,6 +10,7 @@
   <h1>Subjects</h1>
   <div class="container m-2 p-5 shadow" *ngFor="let course of _util.courses">
     <h2>{{course.name}}</h2>
+    <a href="javascript:void(0)" (click)="downloadCSV(course.students, course.name)">Download Students</a>
     <table class="table">
       <thead>
         <tr>

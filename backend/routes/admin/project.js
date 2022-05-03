@@ -6,6 +6,7 @@ const projectManagement = require('../../controllers/admin/project/project_manag
 
 router.get('/get_all_project_detail', authMiddleware.authValidator, projectManagement.get_all_project_detail);
 router.delete('/delete_project', authMiddleware.authValidator, projectManagement.delete_project);
+
 router.delete('/reset_project', authMiddleware.authValidator, projectManagement.reset_project);
 
 

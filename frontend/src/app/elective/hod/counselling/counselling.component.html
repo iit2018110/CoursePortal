@@ -11,6 +11,7 @@
   <h1>{{basket.name}}</h1>
   <div class="container shadow m-2 p-2" *ngFor="let course of basket.courses">
     <h2>{{course.name}}</h2>
+    <a *ngIf="_util.counselling_status === 'submitted'" href="javascript:void(0)" (click)="downloadCSV(course.students, course.name)">Download Students</a>
     <h3 *ngIf="_util.counselling_status === 'unsubmitted'">Students who had choosen this course:</h3>
     <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3>
     <ul>

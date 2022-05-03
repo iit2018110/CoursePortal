@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+
+import { StudentOption } from 'src/app/csv_options/options'
 @Component({
   selector: 'app-get-students',
   templateUrl: './get-students.component.html',
@@ -15,4 +18,7 @@ export class GetStudentsComponent implements OnInit {
     this._util.init();
   }
 
+  downloadCSV(studentList: any, courseName: string) {
+    new AngularCsv(studentList, courseName , StudentOption);
+  }
 }
