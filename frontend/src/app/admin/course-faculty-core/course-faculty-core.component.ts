@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { CoreCourseFacultyOption } from 'src/app/csv_options/options';
 import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
@@ -27,6 +29,18 @@ export class CourseFacultyCoreComponent implements OnInit {
       res => this.baskets_ece = res,
       err => console.log(err)
     )
+  }
+
+  downloadCSV(baskets: any) {
+    let data = [];
+    for (let i = 0; i < baskets.length; i++) {
+      let basket = baskets[i];
+      for (let j = 0; j < basket.courses.length; j++) {
+        let course = basket.courses[j];
+        data.push({courseId : course.id, courseName: course.name, facultyName: course.faculty.name});
+      }
+    }
+    new AngularCsv(data, "Course details" , CoreCourseFacultyOption);
   }
 
 }

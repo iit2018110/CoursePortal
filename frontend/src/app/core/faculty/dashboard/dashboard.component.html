@@ -7,10 +7,10 @@
   </form>
 </nav>
 
-<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length > 0">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted?.length > 0">
   <h1>Alloted Courses</h1>
   <div *ngFor="let course of courses_alloted">
-    <p>{{course.name}}</p>
+    <p>{{course.id}} - {{course.name}}</p>
   </div>
 </div>
 
@@ -20,7 +20,8 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Subject</th>
+          <th scope="col">Course Id</th>
+          <th scope="col">Course Name</th>
           <th scope="col">Preference1</th>
           <th scope="col">Preference2</th>
           <th scope="col">Preference3</th>
@@ -30,6 +31,7 @@
       </thead>
       <tbody style="border: 0ch">
         <tr *ngFor="let course of _util.courses">
+          <td>{{course.id}}</td>
           <td>{{course.name}}</td>
           <td>
             <div class="form-check form-check-inline">
@@ -69,16 +71,18 @@
 </div>
 
 
-<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length === 0 &&_util.status==='filled'">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted?.length === 0 &&_util.status==='filled'">
   <table class="table">
     <thead>
       <tr>
-        <th>Course</th>
+        <th>Course Id</th>
+        <th>Course Name</th>
         <th>Preference</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let course of _util.courses">
+        <td>{{course.id}}</td>
         <td>{{course.name}}</td>
         <td>{{course.preference_value}}</td>
       </tr>

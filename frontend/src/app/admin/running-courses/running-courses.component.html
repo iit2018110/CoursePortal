@@ -10,7 +10,7 @@
   <h1>Stream: IT</h1>
   <div *ngFor="let basket of it_courses">
     <h2>{{basket.name}}</h2>
-    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+    <p *ngIf="basket.running_courses?.length === 0" class="text-danger">
       ** Course-coordinator didn't select course yet! **
     </p>
     <ul>
@@ -25,7 +25,7 @@
   <h1>Stream: ECE</h1>
   <div *ngFor="let basket of ece_courses">
     <h2>{{basket.name}}</h2>
-    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+    <p *ngIf="basket.running_courses?.length === 0" class="text-danger">
       ** Course-coordinator didn't select course yet! **
     </p>
     <ul>

@@ -23,6 +23,8 @@ export class UtilService {
 
   private reset_course_faculty_url = 'http://localhost:3001/elective/hod/reset_assigned_courses';
 
+  private reset_course_students_url = 'http://localhost:3001/elective/hod/reset_course_students';
+
   public status!: string;
   public selected_baskets!: any;
   public buffer_baskets!: any;
@@ -165,5 +167,11 @@ export class UtilService {
     let params = new HttpParams()
                       .set('stream', this._auth.stream);
     return this.http.delete<any>(this.reset_course_faculty_url, {params});
+  }
+
+  reset_course_students(){
+    let params = new HttpParams()
+                      .set('stream', this._auth.stream);
+    return this.http.delete<any>(this.reset_course_students_url, {params});
   }
 }
