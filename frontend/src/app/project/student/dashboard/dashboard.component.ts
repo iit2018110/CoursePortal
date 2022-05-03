@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
   checkChangeStatus() {
     for (let i = 0; i < this.projects.length; i++) {
       let project = this.projects[i];

@@ -1,164 +1,242 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
-  <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
+    <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
 </nav>
-
-<div *ngIf="_util.status==='buffer'" class="shadow m-5 p-5">
-  <div class="m-2 p-5 shadow">
-    <h1>Opted</h1>
-    <div class="container">
-      <div *ngFor="let basket of _util.buffer_baskets">
-        <div *ngIf="basket.status==='opted'" class="p-3" style="border: 2px solid black;">
-          <h2>{{basket.name}}</h2>
-          <div class="row">
-
-            <div class="row" *ngFor="let course of basket.courses">
-              <p>{{course.name}} ------------ {{course.faculty.name}}</p>
-            </div>
-            <div class="p-5" style="width: fit-content;">
-              <div>
-                <label>1st preference:</label>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                  <option value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
-                </select>
-              </div>
-              <div [hidden]="basket.courses.length < 2">
-                <label>2nd preference:</label>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                  <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
-                </select>
-              </div>
-              <div [hidden]="basket.courses.length < 3">
-                <label>3rd preference:</label>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                  <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
-                </select>
-              </div>
-              <div [hidden]="basket.courses.length < 4">
-                <label>4th preference:</label>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                  <option value="course.faculty.id" selected>{{basket.pref4_course_name}}</option>
-                </select>
-              </div>
-              <div [hidden]="basket.courses.length < 5">
-                <label>5th preference:</label>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
-                  <option value="course.faculty.id" selected>{{basket.pref5_course_name}}</option>
-                </select>
-              </div>
-            </div>
-
-          </div>
-          <button type="button" class="btn btn-danger" (click)="onDelete(basket.id)">Delete</button>
-        </div>
-      </div>
+<div class="m-5 card col-11 text-center">
+    <div class="card-header" style="background-color:black;">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" name="opted" *ngIf="_util.status==='buffer'" (click)=" ITClicked($event) ">Opted</button>
+            </li>
+            <li class="nav-item ">
+                <button class="nav-link " name="notopted" *ngIf="_util.status==='buffer'" (click)="ITClicked($event) ">Not Opted  </button>
+            </li>
+            <li class="nav-item ">
+                <button class="nav-link " name="alloted" *ngIf="_util.alloted_courses?.length > 0" (click)="ITClicked($event) ">Not Opted  </button>
+            </li>
+        </ul>
     </div>
-  </div>
+    <div *ngIf="opted ">
+        <h2 style="font-size:xx-large; color:black; margin: 2%;">OPTED</h2>
+        <div style="text-align: center; color: black;">
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let basket of _util.buffer_baskets">
+                        <div class="container shadow m-4 col-5 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                        background-size:cover;" *ngIf="basket.status==='opted'">
+                            <h2>{{basket.name}}</h2>
 
-  <div class="m-5 p-5 shadow">
-    <h1>Not Opted</h1>
-    <div class="container">
-      <div *ngFor="let basket of _util.buffer_baskets">
-        <div *ngIf="basket.status==='non-opted'" class="p-3" style="border: 2px solid black;">
-          <h2>{{basket.name}}</h2>
-          <div class="row">
-            <div class="row" *ngFor="let course of basket.courses">
-              <p>{{course.name}} ------------ {{course.faculty.name}}</p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Faculty Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let course of basket.courses">
+                                        <td>{{course.name}}</td>
+                                        <td>{{course.faculty.name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="container">
+                                <div class="">
+                                    <div class="row">
+                                        <label class="col-5">1st preference:</label>
+                                        <select class="col-7 form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option class="col-3"  value="course.faculty.id" selected>{{basket.pref1_course_name}}</option>
+                  </select>
+                                    </div>
+                                    <div class="row" [hidden]="basket.courses.length < 2">
+                                        <label class="col-5">2nd preference:</label>
+                                        <select class="col-7  form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option value="course.faculty.id" selected>{{basket.pref2_course_name}}</option>
+                  </select>
+                                    </div>
+                                    <div [hidden]="basket.courses.length < 3">
+                                        <label class="col-5">3rd preference:</label>
+                                        <select class="col-7 form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option value="course.faculty.id" selected>{{basket.pref3_course_name}}</option>
+                  </select>
+                                    </div>
+                                    <div [hidden]="basket.courses.length < 4">
+                                        <label class="col-5">4th preference:</label>
+                                        <select class="col-7  form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option value="course.faculty.id" selected>{{basket.pref4_course_name}}</option>
+                  </select>
+                                    </div>
+                                    <div [hidden]="basket.courses.length < 5">
+                                        <label class="col-5">5th preference:</label>
+                                        <select class="col-7 form-select-sm" aria-label=".form-select-sm example" disabled>
+                    <option value="course.faculty.id" selected>{{basket.pref5_course_name}}</option>
+                  </select>
+                                    </div>
+                                </div>
+                                <button type="button" class=" col-12 m-2 btn btn-outline-danger" (click)="onDelete(basket.id)">Delete</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row p-5" style="width: min-content;">
-              <mat-form-field appearance="outline">
-                <mat-label>1st preference</mat-label>
-                <mat-select #preference1>
-                  <mat-option *ngFor="let course of basket.courses" [value]="course"
-                    [disabled]="course.id === preference2.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
-                    {{course.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline"  [hidden]="basket.courses.length < 2">
-                <mat-label>2nd preference</mat-label>
-                <mat-select #preference2>
-                  <mat-option *ngFor="let course of basket.courses" [value]="course"
-                    [disabled]="course.id === preference1.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
-                    {{course.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline"  [hidden]="basket.courses.length < 3">
-                <mat-label>3rd preference</mat-label>
-                <mat-select #preference3>
-                  <mat-option *ngFor="let course of basket.courses" [value]="course"
-                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference4.value?.id || course.id === preference5.value?.id">
-                    {{course.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
 
-              <mat-form-field appearance="outline" [hidden]="basket.courses.length < 4">
-                <mat-label>4th preference</mat-label>
-                <mat-select #preference4>
-                  <mat-option *ngFor="let course of basket.courses" [value]="course"
-                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference3.value?.id|| course.id === preference5.value?.id">
-                    {{course.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" [hidden]="basket.courses.length < 5">
-                <mat-label>5th preference</mat-label>
-                <mat-select #preference5>
-                  <mat-option *ngFor="let course of basket.courses" [value]="course"
-                    [disabled]="course.id === preference1.value?.id || course.id === preference2.value?.id || course.id === preference3.value?.id || course.id === preference4.value?.id">
-                    {{course.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <button type="button" class="btn btn-success"
-            (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value?.id,preference2.value?.name,preference3.value?.id,preference3.value?.name,preference4.value?.id,preference4.value?.name,preference5.value?.id,preference5.value?.name)">Create</button>
         </div>
-      </div>
+        <button type="button " class=" m-2 col-10 btn btn-success btn-lg " (click)="onSubmit() "> Submit </button>
     </div>
-  </div>
+    <div *ngIf="notopted ">
+        <h2 style="font-size:xx-large; margin: 2%; color:black;">NOT OPTED</h2>
+        <div style="text-align: center; color: black;">
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let basket of _util.buffer_baskets">
+                        <div class="container shadow m-4 col-5 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                      background-size:cover;" *ngIf="basket.status==='non-opted'">
+                            <h2>{{basket.name}}</h2>
 
-  <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()"> Submit </button>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Course Name</th>
+                                        <th>Faculty Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let course of basket.courses">
+                                        <td>{{course.name}}</td>
+                                        <td>{{course.faculty.name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <mat-form-field class="col-6 " appearance="outline">
+                                <mat-label>1st preference</mat-label>
+                                <mat-select #preference1>
+                                    <mat-option *ngFor="let course of basket.courses " [value]="course " [disabled]="course.id===preference2.value?.id || course.id===preference3.value?.id || course.id===preference4.value?.id || course.id===preference5.value?.id ">
+                                        {{course.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="col-6 " appearance="outline" [hidden]="basket.courses.length < 2 ">
+                                <mat-label>2nd preference</mat-label>
+                                <mat-select #preference2>
+                                    <mat-option *ngFor="let course of basket.courses " [value]="course " [disabled]="course.id===preference1.value?.id || course.id===preference3.value?.id || course.id===preference4.value?.id || course.id===preference5.value?.id ">
+                                        {{course.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="col-6 " appearance="outline" [hidden]="basket.courses.length < 3 ">
+                                <mat-label>3rd preference</mat-label>
+                                <mat-select #preference3>
+                                    <mat-option *ngFor="let course of basket.courses " [value]="course " [disabled]="course.id===preference1.value?.id || course.id===preference2.value?.id || course.id===preference4.value?.id || course.id===preference5.value?.id ">
+                                        {{course.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
+                            <mat-form-field class="col-6 " appearance="outline" [hidden]="basket.courses.length < 4 ">
+                                <mat-label>4th preference</mat-label>
+                                <mat-select #preference4>
+                                    <mat-option *ngFor="let course of basket.courses " [value]="course " [disabled]="course.id===preference1.value?.id || course.id===preference2.value?.id || course.id===preference3.value?.id|| course.id===preference5.value?.id ">
+                                        {{course.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-6 " appearance="outline" [hidden]="basket.courses.length < 5 ">
+                                <mat-label>5th preference</mat-label>
+                                <mat-select #preference5>
+                                    <mat-option *ngFor="let course of basket.courses " [value]="course " [disabled]="course.id===preference1.value?.id || course.id===preference2.value?.id || course.id===preference3.value?.id || course.id===preference4.value?.id ">
+                                        {{course.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <button type="button " class="col-12 btn btn-outline-success " (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value?.id,preference2.value?.name,preference3.value?.id,preference3.value?.name,preference4.value?.id,preference4.value?.name,preference5.value?.id,preference5.value?.name) ">Create</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="alloted ">
+        <h2 style="font-size:xx-large; color:black; margin: 2%;">ALLOTED COURSES</h2>
+        <div style="text-align: center; color: black;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Basket</th>
+                        <th>Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of _util.alloted_courses">
+                        <td>{{course.basket_name}}</td>
+                        <td>{{course.course_name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 
-<div *ngIf="_util.alloted_courses?.length > 0" class="container m-2 p-5 shadow">
-  <h1>Alloted Courses</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Basket</th>
-        <th>Course</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let course of _util.alloted_courses">
-        <td>{{course.basket_name}}</td>
-        <td>{{course.course_name}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<div class="container m-5 p-5 shadow" *ngIf="_util.alloted_courses?.length === 0 && _util.status==='filled'">
-  <div class="container m-2 p-5 shadow mb-5">
-    <h1>Choosed Preferences: </h1>
-    <div class="mb-5" *ngFor="let basket of _util.baskets">
-      <h2>{{basket.name}}</h2>
-      <p>1st preference: {{basket.pref1_course_name}}</p>
-      <p [hidden]="!basket.pref2_course_name">2nd preference: {{basket.pref2_course_name}}</p>
-      <p [hidden]="!basket.pref3_course_name">3rd preference: {{basket.pref3_course_name}}</p>
-      <p [hidden]="!basket.pref4_course_name">4th preference: {{basket.pref4_course_name}}</p>
-      <p [hidden]="!basket.pref5_course_name">5th preference: {{basket.pref5_course_name}}</p>
+
+
+<div *ngIf="_util.alloted_courses?.length === 0 && _util.status==='filled'" class="m-4 p-4 bg-dark" style=" color:white; font-size: large;">
+
+    <div class=" m-2 shadow-lg p-3">
+        <h1>PREFERENCES</h1>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="container shadow col-5 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                              background-size:cover;" *ngFor="let basket of _util.baskets">
+                        <h2 style="font-size: large; color: black;">{{basket.name}}</h2>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Preference</th>
+                                    <th>Course Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr [hidden]="!basket.pref1_course_name">
+                                    <td>1st</td>
+                                    <td>{{basket.pref1_course_name}}</td>
+                                </tr>
+                                <tr [hidden]="!basket.pref2_course_name">
+                                    <td>2nd</td>
+                                    <td>{{basket.pref2_course_name}}</td>
+                                </tr>
+                                <tr [hidden]="!basket.pref3_course_name">
+                                    <td>3rd</td>
+                                    <td>{{basket.pref3_course_name}}</td>
+                                </tr>
+                                <tr [hidden]="!basket.pref4_course_name">
+                                    <td>4th</td>
+                                    <td>{{basket.pref4_course_name}}</td>
+                                </tr>
+                                <tr [hidden]="!basket.pref5_course_name">
+                                    <td>5th</td>
+                                    <td>{{basket.pref5_course_name}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="m-3 col-12 btn btn-outline-danger" (click)="onReset()">Reset preferences</button>
+
+        </div>
     </div>
-  </div>
-  <button type="button" class="btn btn-danger" (click)="onReset()">Reset preferences</button>
 </div>
