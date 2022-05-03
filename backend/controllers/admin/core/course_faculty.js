@@ -8,7 +8,8 @@ async function course_faculty_data(stream) {
     from core_course_faculties
     join core_courses on core_courses.id=core_course_faculties.course_id
     join faculties on faculties.id=core_course_faculties.faculty_id
-    where core_course_faculties.stream='${stream}';`, { type: Sequelize.QueryTypes.SELECT });
+    where core_course_faculties.stream='${stream}'
+    order by core_courses.semester;`, { type: Sequelize.QueryTypes.SELECT });
 
     let baskets = [];
 

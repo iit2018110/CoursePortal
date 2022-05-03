@@ -99,13 +99,7 @@ module.exports.fetch_courses = async (req, res) => {
         let data = await course_faculty_data(stream);
         return res.status(200).json({ status: "selected", data: data });
     }
-    //
-    const buffer_course_faculty_hod_count = await db.Buffer_core_course_faculty_hod.count({
-        where: {
-            stream: stream
-        }
-    })
-
+    
     let semType = await db.Params.findOne({
         attributes: ['value'],
         where: {
@@ -121,6 +115,12 @@ module.exports.fetch_courses = async (req, res) => {
     } else {
         mod = 1;
     }
+
+    const buffer_course_faculty_hod_count = await db.Buffer_core_course_faculty_hod.count({
+        where: {
+            stream: stream
+        }
+    })
 
     if (buffer_course_faculty_hod_count != 0) {
         let data = await buffer_course_faculty_hod_data(stream,mod);

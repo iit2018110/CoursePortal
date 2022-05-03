@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { StudentOption } from 'src/app/csv_options/options';
 import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 
@@ -45,5 +47,9 @@ export class CounsellingComponent implements OnInit {
       },
       err => console.log(err)
     )
+  }
+
+  downloadCSV(studentList: any, courseName: string) {
+    new AngularCsv(studentList, courseName , StudentOption);
   }
 }

@@ -1,55 +1,67 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
   <button type="button" class="btn btn-warning m-2" routerLink="../../dashboard">Dashboard</button>
   <form class="form-inline">
-      <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
-      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    <button type="button" class="btn btn-secondary m-2" routerLink="../../profile">Profile</button>
+    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
   </form>
 </nav>
 
 <div class="container m-5 p-5 shadow">
   <h1>IT</h1>
-  <p *ngIf="baskets_it.length===0" class="text-danger">
+  <p *ngIf="baskets_it?.length===0" class="text-danger">
     ** HOD didn't assined faculty yet! **
   </p>
-  <div class="shadow m-2 p-2 mb-5" *ngFor="let basket of baskets_it">
-    <h3>{{basket.name}}</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Course</th>
-          <th>Faculty</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let course of basket.courses">
-            <td>{{course.name}}</td>
-            <td>{{course.faculty.name}}</td> 
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="container m-5 p-5 shadow">
-  <h1>ECE</h1>
-  <p *ngIf="baskets_ece.length===0" class="text-danger">
-    ** HOD didn't assined faculty yet! **
-  </p>
-  <div class="shadow m-2 p-2 mb-5" *ngFor="let basket of baskets_ece">
-      <h3>{{basket.name}}</h3>
+  <div class="container m-5 p-5 shadow" *ngIf="baskets_it?.length > 0">
+    <h1>Alloted faculty details</h1>
+    <a href="javascript:void(0)" (click)="downloadCSV(baskets_it)">Download details</a>
+    <div class="shadow m-2 p-2 mb-5" *ngFor="let basket of baskets_it">
+      <h3>Semester: {{basket.semester}}</h3>
       <table class="table">
         <thead>
           <tr>
-            <th>Course</th>
+            <th>Course Id</th>
+            <th>Course Name</th>
             <th>Faculty</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let course of basket.courses">
-              <td>{{course.name}}</td>
-              <td>{{course.faculty.name}}</td>
+            <td>{{course.id}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.faculty.name}}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="container m-5 p-5 shadow">
+  <h1>ECE</h1>
+  <p *ngIf="baskets_ece?.length===0" class="text-danger">
+    ** HOD didn't assined faculty yet! **
+  </p>
+  <div class="container m-5 p-5 shadow" *ngIf="baskets_ece?.length > 0">
+    <h1>Alloted faculty details</h1>
+    <a href="javascript:void(0)" (click)="downloadCSV(baskets_ece)">Download details</a>
+    <div class="shadow m-2 p-2 mb-5" *ngFor="let basket of baskets_ece">
+      <h3>{{basket.name}}</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Faculty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of basket.courses">
+            <td>{{course.id}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.faculty.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
