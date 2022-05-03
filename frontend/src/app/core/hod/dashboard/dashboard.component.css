@@ -1,0 +1,8 @@
+.nav-link {
+    color: rgb(250, 250, 250);
+    font-size: large;
+}
+
+.nav-link .active .item {
+    color: black;
+}

@@ -1,3 +1,4 @@
+import { OpenDialogService } from './../../../open-dialog.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { CoreCourseFacultyOption } from 'src/app/csv_options/options';
@@ -10,10 +11,30 @@ import { UtilService } from '../util.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(public _auth: AuthService, public _util: UtilService) { }
+  constructor(public _auth: AuthService, public _util: UtilService,public opendialog:OpenDialogService) { }
+
+  assigned:boolean = true;
+  unassigned:boolean = false;
 
   ngOnInit(): void {
     this._util.init();
+  }
+  menuClicked(event:any){
+    var element = document.getElementsByClassName("active")[0];
+    element.classList?.remove("active");
+    event.target.classList.add("active");
+    console.log(event.target.name)
+    this.unassigned = false
+    this.assigned = false
+    switch(event.target.name) {
+      case "assigned":
+        this.assigned = true
+        break;
+      case "unassigned":
+        this.unassigned = true
+        break;
+
+    }
   }
 
   getFaculties(courseId: string) {
@@ -46,7 +67,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  onSubmit() {
+    onSubmit() {
     this._util.submit_assigned_courses().subscribe(
       res => this.ngOnInit(),
       err => console.log(err)

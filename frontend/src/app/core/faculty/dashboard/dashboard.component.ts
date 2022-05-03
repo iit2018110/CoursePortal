@@ -10,6 +10,10 @@ import { UtilService } from '../util.service';
 export class DashboardComponent implements OnInit {
   public courses_alloted!: any;
 
+  allotedcourses: boolean = true;
+  choosepreferences:boolean = false;
+  preferences:boolean = false;
+
   constructor(public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {

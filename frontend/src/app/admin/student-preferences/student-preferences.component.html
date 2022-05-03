@@ -101,10 +101,10 @@
                                 <td>1st preference: {{basket.pref1_name}}</td>
                               </tr>
                               <tr>
-                                <td>2nd preference: {{basket.pref2_name}}</td>
+                                <td [hidden]="!basket.pref2_id">2nd preference: {{basket.pref2_name}}</td>
                               </tr>
                               <tr>
-                                <td>3rd preference: {{basket.pref3_name}}</td>
+                                <td [hidden]="!basket.pref3_id">3rd preference: {{basket.pref3_name}}</td>
                               </tr>
                               <tr>
                                 <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>

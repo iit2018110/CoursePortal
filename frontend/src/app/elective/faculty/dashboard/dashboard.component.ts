@@ -10,13 +10,20 @@ export class DashboardComponent implements OnInit {
   public isCC = false;
   public cc_functionality = false;
   public faculty_functionality = false;
+  public courses_alloted!: any;
+
+  subjectpreferences: boolean = true;
+  studentsalloted:boolean = false;
+  runningcourses:boolean = false;
 
   constructor(public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
     this.checkCC();
+    this.getAllotedCourses();
     this.check_cc_functionality();
     this.check_faculty_functionality();
+    this._util.init()
   }
 
   checkCC() {
@@ -95,6 +102,50 @@ export class DashboardComponent implements OnInit {
 
   resetRunningCoursesCC() {
     this._util.reset_running_courses().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
+  btnClicked(btn:string){
+    this.subjectpreferences = false;
+    this.studentsalloted = false;
+    this.runningcourses  = false;
+
+    switch(btn){
+      case 'subjectpreferences':
+        this.subjectpreferences = true;
+        break;
+
+      case 'studentsalloted':
+        this.studentsalloted = true;
+        break;
+
+      case 'runningcourses':
+        this.runningcourses = true;
+        break;
+    }
+
+  }
+
+  getAllotedCourses() {
+    this._util.get_alloted_courses().subscribe(
+      res => this.courses_alloted = res,
+      err => console.log(err)
+    )
+  }
+
+  onSubmit(data: JSON) {
+    this._util.submit_preferences(data)
+    .subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+    console.log(data);
+  }
+
+  resetPreferences() {
+    this._util.reset_preferences().subscribe(
       res => this.ngOnInit(),
       err => console.log(err)
     )

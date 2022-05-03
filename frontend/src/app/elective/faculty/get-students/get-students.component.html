@@ -1,29 +1,29 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
-  <form class="form-inline">
-      <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-      <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
+    <button type="button" class="btn btn-warning m-2" routerLink="../dashboard">Dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
 </nav>
 
 <div class="container shadow m-5 p-5">
-  <h1>Subjects</h1>
-  <div class="container m-2 p-5 shadow" *ngFor="let course of _util.courses">
-    <h2>{{course.name}}</h2>
-    <a href="javascript:void(0)" (click)="downloadCSV(course.students, course.name)">Download Students</a>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Roll Number</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of course.students">
-          <td>{{student.id}}</td>
-          <td>{{student.name}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <h1>Subjects</h1>
+    <div class="container m-2 p-5 shadow" *ngFor="let course of _util.courses">
+        <h2>{{course.name}}</h2>
+        <a href="javascript:void(0)" (click)="downloadCSV(course.students, course.name)">Download Students</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of course.students">
+                    <td>{{student.id}}</td>
+                    <td>{{student.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
