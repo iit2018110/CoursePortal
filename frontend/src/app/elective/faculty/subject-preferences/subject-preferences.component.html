@@ -6,7 +6,7 @@
   </form>
 </nav>
 
-<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length > 0">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted?.length > 0">
   <h1>Alloted Courses</h1>
   <div *ngFor="let course of courses_alloted">
     <p>{{course.name}}</p>
@@ -69,7 +69,7 @@
 </div>
 
 
-<div class="container m-5 p-5 shadow" *ngIf="courses_alloted.length === 0 &&_util.status==='filled'">
+<div class="container m-5 p-5 shadow" *ngIf="courses_alloted?.length === 0 &&_util.status==='filled'">
   <table class="table">
   <thead>
      <tr>
@@ -80,7 +80,7 @@
    <tbody>
     <tr *ngFor="let course of _util.baskets">
       <td>{{course.name}}</td>
-      <td>{{course.preference_value}}</td>
+      <td>{{course.preference_value | ordinal}}</td>
     </tr>
   </tbody>
 </table>

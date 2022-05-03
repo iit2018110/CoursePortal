@@ -27,4 +27,6 @@ router.put('/run_course',authMiddleware.authValidator, courseSetting.run_course)
 router.put('/stop_course',authMiddleware.authValidator, courseSetting.stop_course);
 
 router.delete('/reset_assigned_courses',authMiddleware.authValidator, facultyAssign.reset_assigned_courses);
+
+router.delete('/reset_course_students',authMiddleware.authValidator, counselling.reset_course_students);
 module.exports = router;

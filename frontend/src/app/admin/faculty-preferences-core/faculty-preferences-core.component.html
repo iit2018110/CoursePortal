@@ -10,11 +10,11 @@
     <h1>IT</h1>
     <div class="container shadow p-5" *ngFor="let faculty of faculties_it">
         <h3>{{faculty.name}}</h3>
-        <p *ngIf="faculty.courses.length===0" class="text-danger">
+        <p *ngIf="faculty.courses?.length===0" class="text-danger">
             ** Preferences has not been submitted yet! **
         </p>
         <table class="table">
-            <thead *ngIf="faculty.courses.length>0">
+            <thead *ngIf="faculty.courses?.length>0">
                 <tr>
                     <th>Course Name</th>
                     <th>Preference</th>
@@ -23,7 +23,7 @@
             <tbody>
                 <tr *ngFor="let course of faculty.courses">
                     <td>{{course.name}}</td>
-                    <td>{{course.preference_value}}</td>
+                    <td>{{course.preference_value | ordinal}}</td>
                 </tr>
             </tbody>
         </table>
@@ -34,11 +34,11 @@
     <h1>ECE</h1>
     <div class="container shadow p-5" *ngFor="let faculty of faculties_ece">
         <h3>{{faculty.name}}</h3>
-        <p *ngIf="faculty.courses.length===0" class="text-danger">
+        <p *ngIf="faculty.courses?.length===0" class="text-danger">
             ** Preferences has not been submitted yet! **
         </p>
         <table class="table">
-            <thead *ngIf="faculty.courses.length>0">
+            <thead *ngIf="faculty.courses?.length>0">
                 <tr>
                     <th>Course Name</th>
                     <th>Preference</th>
