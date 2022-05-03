@@ -64,7 +64,6 @@
                 </div>
                 <div class="card-body " style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
                         <div style="text-align: center;" id="it">
                             <div class="input-group">
                                 <input type="text" class="form-control" #id placeholder="Basket Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -84,15 +83,29 @@
                             <div class="row">
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of _util.it_baskets">
-                                    <h2>({{basket.id}}) {{basket.name}}</h2> <p>Course-coordinator: {{basket.cc_name}}</p>
-                                    <div class="row col" *ngFor="let course of basket.courses">
-                                        <div class="col m-2">
-                                            <p>{{course.id}} {{course.name}}</p>
-                                        </div>
-                                        <div class="col-3">
-                                            <button type="button" (click)="removeCourse(basket.id,course.id)" class="rounded-circle btn btn-outline-danger">
-                                          <i class="fa fa-trash"></i></button></div>
-                                    </div>
+                                    <div class="container"><h2>({{basket.id}}) {{basket.name}}</h2> <p>Course-coordinator: {{basket.cc_name}}</p></div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let course of basket.courses">
+                                                <td>
+                                                    {{course.id}}
+                                                </td>
+                                                <td>{{course.name}}</td>
+                                                <td>
+                                                    <button type="button" (click)="removeCourse(basket.id,course.id)" class="rounded-circle btn btn-outline-danger">
+                                                <i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
                                     <div class="input-group">
                                         <input type="text" class="form-control" #id placeholder="Course Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                         <input type="text" class="form-control" #name placeholder=" Course Name " aria-label="Course Name" aria-describedby="basic-addon2">
@@ -110,7 +123,6 @@
 
                     </div>
                     <div *ngIf="ece ">
-                        <h1>ECE</h1>
                         <div style="text-align: center; " id="ece ">
                             <div class="input-group">
                                 <input type="text" class="form-control" #id placeholder="Basket Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -128,16 +140,31 @@
                         </div>
                         <div class="container ">
                             <div class="row ">
-                                <div class="col-5 shadow p-3 m-3 " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                <div class="col-5 shadow p-4 m-4 " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of _util.ece_baskets ">
-                                    <h2>{{basket.name}}</h2>
-                                    <div class="row " *ngFor="let course of basket.courses ">
-                                        <div class="col m-2 ">
-                                            <p>{{course.name}}</p>
-                                        </div>
-                                        <div class="col m-2 "><button type="button " (click)="removeCourse(basket.id,course.id) " class="rounded-circle btn btn-outline-danger ">
-                                          <i class="fa fa-trash "></i></button></div>
-                                    </div>
+                                    <h2>({{basket.id}}) {{basket.name}}</h2>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let course of basket.courses">
+                                                <td>
+                                                    {{course.id}}
+                                                </td>
+                                                <td>{{course.name}}</td>
+                                                <td>
+                                                    <button type="button" (click)="removeCourse(basket.id,course.id)" class="rounded-circle btn btn-outline-danger">
+                                                <i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
                                     <div class="input-group">
                                         <input type="text" class="form-control" #id placeholder="Course Id" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                         <input type="text" class="form-control" #name placeholder=" Course Name " aria-label="Course Name" aria-describedby="basic-addon2">
@@ -163,7 +190,7 @@
     </div>
 
     <div *ngIf="runningCourse" style=" color:black; font-size: large; background-color:white; ">
-        <div class="container m-5 p-5 shadow">
+        <div class="container m-sm-2 shadow-lg p-3">
             <h1>STREAM</h1>
             <div class="card col-11 text-center">
                 <div class="card-header" style="background-color:blue;">
@@ -179,39 +206,56 @@
                 </div>
                 <div class="card-body " style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
                         <div class="container">
                             <div class="row">
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of it_courses">
-                                    <h2>{{basket.name}}</h2>
-                                    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+                                    <h2>({{basket.id}}) {{basket.name}}</h2>
+                                    <p *ngIf="basket.running_courses?.length === 0" class="text-danger">
                                         ** Course-coordinator didn't select course yet! **
                                     </p>
-                                    <ul>
-                                        <li *ngFor="let course of basket.running_courses">
-                                            {{course.name}}
-                                        </li>
-                                    </ul>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let course of basket.running_courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="ece ">
-                        <h2>ECE</h2>
                         <div class="container">
                             <div class="row">
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of ece_courses">
-                                    <h2>{{basket.name}}</h2>
-                                    <p *ngIf="basket.running_courses.length === 0" class="text-danger">
+                                    <h2>({{basket.id}}) {{basket.name}}</h2>
+                                    <p *ngIf="basket.running_courses?.length === 0" class="text-danger">
                                         ** Course-coordinator didn't select course yet! **
                                     </p>
-                                    <ul>
-                                        <li *ngFor="let course of basket.running_courses">
-                                            {{course.name}}
-                                        </li>
-                                    </ul>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let course of basket.running_courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -241,25 +285,26 @@
                 </div>
                 <div class="card-body" style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
                         <div style="text-align: center;" id="it">
                             <div class="container">
                                 <div class="row">
-                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    <div class="container shadow col-12 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                     background-size:cover;" *ngFor="let faculty of faculties_it">
-                                        <h3>{{faculty.name}}</h3>
-                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                        <h2>{{faculty.name}}</h2>
+                                        <p *ngIf="faculty.courses?.length===0" class="text-danger">
                                             ** Preferences has not been submitted yet! **
                                         </p>
                                         <table class="table">
-                                            <thead *ngIf="faculty.courses.length>0">
+                                            <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
+                                                    <th>Course ID</th>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.preference_value}}</td>
                                                 </tr>
@@ -272,28 +317,29 @@
                         </div>
                     </div>
                     <div *ngIf="ece">
-                        <h2>ECE</h2>
                         <div style="text-align: center;" id="ece">
                             <div class="container">
                                 <div class="row">
-                                    <p *ngIf="faculties_ece.length===0" class="text-danger">
+                                    <p *ngIf="faculties_ece?.length===0" class="text-danger">
                                         ** No Faculties are there in this branch **
                                     </p>
-                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    <div class="container shadow col-12 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let faculty of faculties_ece">
-                                        <h3>{{faculty.name}}</h3>
-                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                        <h2>{{faculty.name}}</h2>
+                                        <p *ngIf="faculty.courses?.length===0" class="text-danger">
                                             ** Preferences has not been submitted yet! **
                                         </p>
                                         <table class="table">
-                                            <thead *ngIf="faculty.courses.length>0">
+                                            <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
+                                                    <th>Course ID</th>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.preference_value}}</td>
                                                 </tr>
@@ -327,26 +373,30 @@
                 </div>
                 <div class="card-body" style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
-                        <p *ngIf="baskets_it.length===0" class="text-danger">
+                        <p *ngIf="baskets_it?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
-                        <div style="text-align: center;" id="it">
+
+                        <div *ngIf="baskets_it?.length > 0" style="text-align: center;" id="it">
                             <div class="container">
-                                <div class="row">
-                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCourseFaculty(baskets_it)"><i class="fa fa-download"></i></a>
+                                
+                                <div class="row mt-3">
+                                    <div class="container shadow col-12 col-lg-8 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let basket of baskets_it">
                                         <h3>{{basket.name}}</h3>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Course</th>
+                                                    <th>Course Id</th>
+                                                    <th>Course Name</th>
                                                     <th>Faculty</th>
                                                     <th>Seat</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.faculty.name}}</td>
                                                     <td>{{course.seats}}</td>
@@ -360,26 +410,29 @@
                         </div>
                     </div>
                     <div *ngIf="ece ">
-                        <h2>ECE</h2>
-                        <p *ngIf="baskets_ece.length===0" class="text-danger">
+                        <p *ngIf="baskets_ece?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
-                        <div style="text-align: center;" id="it">
+                        <div *ngIf="baskets_ece?.length > 0" style="text-align: center;" id="ece">
                             <div class="container">
+                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCourseFaculty(baskets_it)"><i class="fa fa-download"></i></a>
+                                
                                 <div class="row">
-                                    <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    <div class="container shadow col-12 col-lg-8 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of baskets_ece">
                                         <h3>{{basket.name}}</h3>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Course</th>
+                                                    <th>Course ID</th>
+                                                    <th>Course Name</th>
                                                     <th>Faculty</th>
                                                     <th>Seat</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.faculty.name}}</td>
                                                     <td>{{course.seats}}</td>
@@ -415,7 +468,6 @@
                 </div>
                 <div class="card-body" style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
                         <div style="text-align: center;" id="it">
 
                             <table class="table shadow m-2">
@@ -428,7 +480,7 @@
                                     <tr *ngFor="let student of it_students" class=" border-5 border-dark">
                                         <td class=" border-5 border-dark">{{student.id}}</td>
                                         <td class=" border-5 border-dark">{{student.name}}</td>
-                                        <td class=" border-5 border-dark" *ngIf="student.baskets.length===0" class="text-danger">
+                                        <td class=" border-5 border-dark" *ngIf="student.baskets?.length===0" class="text-danger">
                                             preferences not yet submitted!
                                         </td>
                                         <td>
@@ -448,10 +500,10 @@
                                                                         <td>1st preference: {{basket.pref1_name}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>2nd preference: {{basket.pref2_name}}</td>
+                                                                        <td [hidden]="!basket.pref2_id">2nd preference: {{basket.pref2_name}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>3rd preference: {{basket.pref3_name}}</td>
+                                                                        <td [hidden]="!basket.pref3_id">3rd preference: {{basket.pref3_name}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>
@@ -474,11 +526,10 @@
 
 
                     <div *ngIf="ece">
-                        <p *ngIf="ece_students.length<=0" class="text-danger">
+                        <p *ngIf="ece_students?.length<=0" class="text-danger">
                             *No ECE Student have filled the preference
                         </p>
-                        <h2 *ngIf="ece_students.length>0">ECE</h2>
-                        <div style="text-align: center;" *ngIf="ece_students.length>0" id="ece">
+                        <div style="text-align: center;" *ngIf="ece_students?.length>0" id="ece">
                             <table class="table shadow m-2">
                                 <thead>
                                     <th>Student ID</th>
@@ -486,10 +537,10 @@
                                     <th>Basket Name</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let student of it_students" class=" border-5 border-dark">
+                                    <tr *ngFor="let student of ece_students" class=" border-5 border-dark">
                                         <td class=" border-5 border-dark">{{student.id}}</td>
                                         <td class=" border-5 border-dark">{{student.name}}</td>
-                                        <td class=" border-5 border-dark" *ngIf="student.baskets.length===0" class="text-danger">
+                                        <td class=" border-5 border-dark" *ngIf="student.baskets?.length===0" class="text-danger">
                                             preferences not yet submitted!
                                         </td>
                                         <td>
@@ -509,10 +560,10 @@
                                                                         <td>1st preference: {{basket.pref1_name}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>2nd preference: {{basket.pref2_name}}</td>
+                                                                        <td [hidden]="!basket.pref2_id">2nd preference: {{basket.pref2_name}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>3rd preference: {{basket.pref3_name}}</td>
+                                                                        <td [hidden]="!basket.pref3_id">3rd preference: {{basket.pref3_name}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td [hidden]="!basket.pref4_id">4th preference: {{basket.pref4_name}}</td>
@@ -540,7 +591,7 @@
     </div>
 
     <div *ngIf="studentscourses" style=" color:black; font-size: large; background-color:white; ">
-        <div class="container m-5 p-5 shadow">
+        <div class="container m-sm-2 shadow-lg p-3">
             <h1>STUDENT IN COURSES</h1>
             <div class="card col-11 text-center">
                 <div class="card-header" style="background-color:blue;">
@@ -556,8 +607,7 @@
                 </div>
                 <div class="card-body " style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
-                        <p *ngIf="it_baskets.length===0" class="text-danger">
+                        <p *ngIf="it_baskets?.length===0" class="text-danger">
                             ** Counselling not done yet! **
                         </p>
                         <div class="container">
@@ -565,29 +615,33 @@
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                               background-size:cover;" *ngFor="let basket of it_baskets">
                                     <h2>{{basket.name}}</h2>
-                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <!-- <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3> -->
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Basket doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-
-                                        <div *ngFor="let student of course.students">
-                                            <p>{{student.id}} => {{student.name}}</p>
-
-                                        </div>
-
-                                    </div>
-
+                                    <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Course ID</th>
+                                            <th>Course Name</th>
+                                            <th>Student List</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                            <td>{{course.id}}</td>
+                                            <td>{{course.name}}</td>
+                                            <td><a href="javascript:void(0)" (click)="downloadCSVCourseStudent(course.students, course.name)"><i class="fa fa-download fa-lg"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="ece">
-                        <h2>ECE</h2>
-                        <p *ngIf="ece_baskets.length===0" class="text-danger">
+                        <p *ngIf="ece_baskets?.length===0" class="text-danger">
                             ** Counselling not done yet! **
                         </p>
                         <div class="container">
@@ -596,7 +650,7 @@
                             background-size:cover;" *ngFor="let basket of ece_baskets">
                                     <h2>{{basket.name}}</h2>
                                     <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Basket doesnot have any courses **
                                     </p>
 
@@ -622,7 +676,7 @@
     </div>
 
     <div *ngIf="facultyloadchart" style=" color:black; font-size: large; background-color:white; ">
-        <div class="container m-5 p-5 shadow">
+        <div class="container m-sm-2 shadow-lg p-3">
             <h1>FACULTY LOADCHART</h1>
             <div class="card col-11 text-center">
                 <div class="card-header" style="background-color:blue;">
@@ -638,8 +692,7 @@
                 </div>
                 <div class="card-body " style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
-                        <p *ngIf="faculties_it2.length===0" class="text-danger">
+                        <p *ngIf="faculties_it2?.length===0" class="text-danger">
                             ** No faculties yet! **
                         </p>
                         <div class="container">
@@ -647,7 +700,7 @@
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                             background-size:cover;" *ngFor="let basket of faculties_it2">
                                     <h2>{{basket.name}}</h2>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
 
@@ -661,8 +714,7 @@
                         </div>
                     </div>
                     <div *ngIf="ece">
-                        <h2>ECE</h2>
-                        <p *ngIf="faculties_ece2.length===0" class="text-danger">
+                        <p *ngIf="faculties_ece2?.length===0" class="text-danger">
                             **No Faculties yet! **
                         </p>
                         <div class="container">
@@ -671,7 +723,7 @@
                           background-size:cover;" *ngFor="let basket of faculties_ece2">
                                     <h2>{{basket.name}}</h2>
                                     <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
 
@@ -717,7 +769,7 @@
                         <h2>Pending</h2>
                         <div *ngFor="let project of faculty.projects ">
                             <div *ngIf="project.project_status==='pending' ">
-                                <div class="container m-5 p-5 shadow ">
+                                <div class="container m-2 p-5 shadow ">
                                     <p>Project Title: {{project.project_title}}</p>
                                     <p>Team members: </p>
                                     <p *ngFor="let student of project.students ">
@@ -768,18 +820,17 @@
                 </div>
                 <div class="card-body" style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
                         <div style="text-align: center;" id="it">
                             <div class="container">
                                 <div class="row">
                                     <div class="container shadow m-4 col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                     background-size:cover;" *ngFor="let faculty of core_faculties_it">
                                         <h2>{{faculty.name}}</h2>
-                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                        <p *ngIf="faculty.courses?.length===0" class="text-danger">
                                             ** Preferences has not been submitted yet! **
                                         </p>
                                         <table class="table">
-                                            <thead *ngIf="faculty.courses.length>0">
+                                            <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
@@ -799,21 +850,20 @@
                         </div>
                     </div>
                     <div *ngIf="ece">
-                        <h2>ECE</h2>
                         <div style="text-align: center;" id="ece">
                             <div class="container">
                                 <div class="row">
-                                    <p *ngIf="core_faculties_ece.length===0" class="text-danger">
+                                    <p *ngIf="core_faculties_ece?.length===0" class="text-danger">
                                         ** No Faculties are there in this branch **
                                     </p>
                                     <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let faculty of core_faculties_ece">
                                         <h2>{{faculty.name}}</h2>
-                                        <p *ngIf="faculty.courses.length===0" class="text-danger">
+                                        <p *ngIf="faculty.courses?.length===0" class="text-danger">
                                             ** Preferences has not been submitted yet! **
                                         </p>
                                         <table class="table">
-                                            <thead *ngIf="faculty.courses.length>0">
+                                            <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
@@ -854,8 +904,7 @@
                 </div>
                 <div class="card-body" style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
-                        <p *ngIf="core_baskets_it.length===0" class="text-danger">
+                        <p *ngIf="core_baskets_it?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
                         <div style="text-align: center;" id="it">
@@ -887,8 +936,7 @@
                         </div>
                     </div>
                     <div *ngIf="ece ">
-                        <h2>ECE</h2>
-                        <p *ngIf="core_baskets_ece.length===0" class="text-danger">
+                        <p *ngIf="core_baskets_ece?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
                         <div style="text-align: center;" id="it">
@@ -925,7 +973,7 @@
     </div>
 
     <div *ngIf="corefacultyloadchart" style=" color:black; font-size: large; background-color:white; ">
-        <div class="container m-5 p-5 shadow">
+        <div class="container m-sm-2 shadow-lg p-3">
             <h1>FACULTY LOADCHART</h1>
             <div class="card col-11 text-center">
                 <div class="card-header" style="background-color:blue;">
@@ -941,8 +989,7 @@
                 </div>
                 <div class="card-body " style="background-color:white; ">
                     <div *ngIf="it ">
-                        <h2>IT</h2>
-                        <p *ngIf="faculties_it2.length===0" class="text-danger">
+                        <p *ngIf="faculties_it2?.length===0" class="text-danger">
                             ** No faculties yet! **
                         </p>
                         <div class="container">
@@ -950,7 +997,7 @@
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                           background-size:cover;" *ngFor="let basket of core_loadchart_it">
                                     <h2>{{basket.name}}</h2>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
 
@@ -964,8 +1011,7 @@
                         </div>
                     </div>
                     <div *ngIf="ece">
-                        <h2>ECE</h2>
-                        <p *ngIf="faculties_ece2.length===0" class="text-danger">
+                        <p *ngIf="faculties_ece2?.length===0" class="text-danger">
                             **No Faculties yet! **
                         </p>
                         <div class="container">
@@ -974,7 +1020,7 @@
                         background-size:cover;" *ngFor="let basket of core_faculties_ece">
                                     <h2>{{basket.name}}</h2>
                                     <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
+                                    <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
 
