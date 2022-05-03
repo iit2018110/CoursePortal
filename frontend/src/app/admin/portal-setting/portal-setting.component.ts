@@ -75,6 +75,7 @@ export class PortalSettingComponent implements OnInit {
   }
 
   setPortalTiming(userType: string, startTime: string, endTime: string) {
+    console.log("Ji")
     if(startTime >= endTime) {
       this.toastr.error("Start-time should be lesser than End-time");
       return;

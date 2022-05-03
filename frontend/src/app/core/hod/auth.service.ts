@@ -21,7 +21,8 @@ export class AuthService {
   private token_verify_url = 'http://localhost:3001/jwt/verify_token';
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+   }
 
   decodeJWT() {
     let token = localStorage.getItem('token_hod') as string;

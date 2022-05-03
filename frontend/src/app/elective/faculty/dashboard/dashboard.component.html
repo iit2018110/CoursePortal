@@ -1,78 +1,222 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
-  <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
+    <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
 </nav>
 
-<div class="container m-5 p-5 shadow" style="width: fit-content; text-align: center;">
-  <div class="row m-5" style="text-align: center;">
-    <button type="button" class="btn btn-primary" routerLink="../subject_preference">Subject Preferences</button>
-  </div>
-  <div class="row m-5">
-    <button type="button" class="btn btn-primary" routerLink="../get_students">Students Alloted</button>
-  </div>
+<div class=" row container shadow bg-dark  m-5 p-3" style="text-align: center; width: 100%;">
+    <div class="col-4 ">
+        <button type="button" class=" col-12 btn btn-outline-light" (click)="btnClicked('subjectpreferences')">Subject Preferences</button>
+    </div>
+    <div class="col-4 ">
+        <button type="button" class="col-12 btn btn-outline-light" (click)="btnClicked('studentsalloted')">Students Alloted</button>
+    </div>
+    <div class="col-4 ">
+        <button type="button" class="col-12 btn btn-outline-light" *ngIf="isCC" (click)="btnClicked('runningcourses')">Running Courses</button>
+    </div>
 </div>
 
-<div class="container m-5 p-5 shadow" *ngIf="isCC">
-  <h1>Running Courses</h1>
-  <div>
-    <div class="container shadow m-5 p-5" *ngIf="this._util.cc_status==='buffer'">
-      <div class="row m-5 p-5 shadow">
-        <h2>Pending:</h2>
-        <div *ngFor="let course of this._util.buffer_courses">
-          <div *ngIf="course.status==='pending'">
-            <p>{{course.name}}
-              <button type="button" class="btn btn-success m-2" (click)="acceptCourse(course.id)">Accept</button>
-              <button type="button" class="btn btn-danger m-2" (click)="rejectCourse(course.id)">Reject</button>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row m-5 p-5 shadow">
-        <h3>Accepted:</h3>
-        <div *ngFor="let course of this._util.buffer_courses">
-          <div *ngIf="course.status==='selected'">
-            <p>{{course.name}}
-              <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row m-5 p-5 shadow">
-        <h3>Rejected</h3>
-        <div *ngFor="let course of this._util.buffer_courses">
-          <div *ngIf="course.status==='rejected'">
-            <p>{{course.name}}
-              <button type="button" class="btn btn-warning" (click)="restoreCourse(course.id)">Restore</button>
-            </p>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary" (click)="submitCourses()">Submit</button>
-    </div>
-  </div>
+<div *ngIf="subjectpreferences">
 
-  <div class="container shadow m-5 p-5" *ngIf="this._util.cc_status==='running'">
 
-    <h2>Running Courses</h2>
-    <div class="p-5 shadow">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Course ID</th>
-            <th>Course Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let course of this._util.running_courses">
-            <td>{{course.id}}</td>
-            <td>{{course.name}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button *ngIf="cc_functionality" type="button" class="btn btn-danger btn-block" (click)="resetRunningCoursesCC()">Reset</button>
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf=" courses_alloted.length > 0">
+        <div class=" bg-dark  m-5 p-4">
+            <h1 style="font-size:xxx-large; color:whitesmoke  ">Alloted Courses</h1>
+
+            <div class="container">
+                <div class="row">
+                    <div class=" shadow col-3 rounded-3  p-3 m-3" style="background-image:url('assets/images/wood.jpeg'); background-repeat: no-repeat;
+              background-size:cover; color: white;" *ngFor="let course of courses_alloted">
+                        <div style="width:100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); ">
+                            <h2>{{course.name}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted.length === 0 &&  _util.status==='non-filled'">
+        <div class=" bg-dark  m-5 p-4">
+            <h1 style="font-size:xxx-large; color:whitesmoke  ">Choose preferences</h1>
+            <form #subjectPreference="ngForm">
+                <table class="table text-white-50" style="font-size: medium;">
+                    <thead style="font-family:fantasy; font-size: large; color: antiquewhite;">
+                        <tr>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Preference1</th>
+                            <th scope="col">Preference2</th>
+                            <th scope="col">Preference3</th>
+                            <th scope="col">Preference4</th>
+                            <th scope="col">Preference5</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border: 0ch" *ngFor="let basket of _util.baskets">
+                        <tr *ngFor="let course of basket.running_courses">
+                            <td>{{course.name}}</td>
+                            <td>
+                                <div class="form-check form-check-inline form">
+                                    <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio1" [value]="1">
+                                    <label class="form-check-label" for="inlineRadio1">1st</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio2" [value]="2">
+                                    <label class="form-check-label" for="inlineRadio2">2nd</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio3" [value]="3">
+                                    <label class="form-check-label" for="inlineRadio3">3rd</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio4" [value]="4">
+                                    <label class="form-check-label" for="inlineRadio4">4th</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" ngModel type="radio" name="{{course.id}}" id="inlineRadio5" [value]="5">
+                                    <label class="form-check-label" for="inlineRadio5">5th</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" class="col-12 btn btn-outline-light" value="Submit Preference" (click)="onSubmit(subjectPreference.value)">
+            </form>
+        </div>
+    </div>
+
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted.length === 0 && _util.status==='filled'">
+        <div class=" bg-dark  m-5 p-4">
+            <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
+            <form #subjectPreference="ngForm">
+                <table class="table text-white-50" style="font-size: medium;">
+                    <thead style="font-family:fantasy; font-size: large; color: antiquewhite;">
+                        <tr>
+                            <th scope="col">Course</th>
+                            <th scope="col">Preferences</th>
+
+                        </tr>
+                    </thead>
+                    <tbody style="border: 0ch">
+                        <tr *ngFor="let course of _util.courses">
+                            <td>{{course.name}}</td>
+                            <td>{{course.preference_value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="col-6 btn btn-outline-danger" (click)="resetPreferences()">Reset Preferences</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="studentsalloted">
+    <div class="bg-transparent" style="margin-right: 5%;">
+        <div class=" bg-dark  m-5 p-4">
+            <h1 style="font-size:xxx-large; color:whitesmoke  ">Subjects</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="shadow col-5 " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+              background-size:cover; color:black;" *ngFor="let course of this._util.courses">
+                        <h2 style="margin-top: 4%; font-size: x-larger;">{{course.name}}</h2>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Roll Number</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let student of course.students">
+                                    <td>{{student.id}}</td>
+                                    <td>{{student.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-transparent" style="margin-right: 5%;" *ngIf="isCC && runningcourses">
+    <div class=" bg-dark  m-5 p-5">
+        <h1 style="font-size:xxx-large; color:whitesmoke  ">Running Courses</h1>
+        <div class="container shadow m-2 p-5" *ngIf="this._util.cc_status==='buffer'">
+            <div class="row" style="color:whitesmoke">
+                <div class="col-3 m-3 p-5 shadow">
+                    <h2>Accepted:</h2>
+                    <div *ngFor="let course of this._util.buffer_courses">
+                        <div *ngIf="course.status==='selected'">
+                            <div class="row p-2">
+                                <p class="col-10">{{course.name}}</p>
+                                <button type="button" class="col-2 rounded-circle btn btn-outline-warning btn-sm" (click)="restoreCourse(course.id)"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 m-4 p-5 shadow">
+                    <h2>Pending:</h2>
+                    <div *ngFor="let course of this._util.buffer_courses">
+                        <div *ngIf="course.status==='pending'">
+                            <div class="row p-2">
+                                <button type="button" class="col-2 rounded-circle btn btn-outline-success btn-sm" (click)="acceptCourse(course.id)"><i class="fa fa-arrow-left"></i></button>
+                                <p class="col-8">{{course.name}}
+                                </p>
+                                <button type="button" class="col-2 rounded-circle btn btn-outline-danger btn-sm" (click)="rejectCourse(course.id)"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 m-3 p-5 shadow">
+                    <h2>Rejected</h2>
+                    <div *ngFor="let course of this._util.buffer_courses">
+                        <div *ngIf="course.status==='rejected'">
+                            <div class="row p-2">
+                                <button type="button" class="col-2 rounded-circle btn btn-outline-warning btn-sm" (click)="restoreCourse(course.id)"><i class="fa fa-arrow-left"></i></button>
+                                <p class="col-10">{{course.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class=" col-12 btn btn-outline-light" (click)="submitCourses()">Submit</button>
+        </div>
+
+
+        <div class="bg-transparent" style="margin-right: 5%;" *ngIf="this._util.cc_status==='running'">
+            <div class=" bg-dark  m-5 p-4">
+                <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
+                <form #subjectPreference="ngForm">
+                    <table class="table text-white-50" style="font-size: medium;">
+                        <thead style="font-family:fantasy; font-size: large; color: antiquewhite;">
+                            <tr>
+                                <th scope="col">Course ID</th>
+                                <th scope="col">Course Name</th>
+
+                            </tr>
+                        </thead>
+                        <tbody style="border: 0ch">
+                            <tr *ngFor="let course of this._util.running_courses">
+                                <td>{{course.id}}</td>
+                                <td>{{course.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button *ngIf="cc_functionality" type="button" class="col-6 btn btn-outline-danger btn-block" (click)="resetRunningCoursesCC()">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
