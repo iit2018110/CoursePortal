@@ -26,6 +26,7 @@ import { FacultyLoadchartComponent } from './faculty-loadchart/faculty-loadchart
 import { FacultyLoadchartCoreComponent } from './faculty-loadchart-core/faculty-loadchart-core.component';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MatSelectModule } from '@angular/material/select';
     AdminRoutingModule,
     FormsModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     AuthService,
