@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 import { UtilService } from '../util.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
-import { CourseFacultyOption, StudentOption } from 'src/app/csv_options/options';
+import { CoreCourseFacultyOption, CourseFacultyOption, StudentOption } from 'src/app/csv_options/options';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -414,5 +414,17 @@ export class HomeComponent implements OnInit{
 
   downloadCSVCourseStudent(studentList: any, courseName: string) {
     new AngularCsv(studentList, courseName , StudentOption);
+  }
+
+  downloadCSVCoreCourseFaculty(baskets: any) {
+    let data = [];
+    for (let i = 0; i < baskets.length; i++) {
+      let basket = baskets[i];
+      for (let j = 0; j < basket.courses.length; j++) {
+        let course = basket.courses[j];
+        data.push({courseId : course.id, courseName: course.name, facultyName: course.faculty.name});
+      }
+    }
+    new AngularCsv(data, "Course details" , CoreCourseFacultyOption);
   }
 }

@@ -94,9 +94,7 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let course of basket.courses">
-                                                <td>
-                                                    {{course.id}}
-                                                </td>
+                                                <td>{{course.id}}</td>
                                                 <td>{{course.name}}</td>
                                                 <td>
                                                     <button type="button" (click)="removeCourse(basket.id,course.id)" class="rounded-circle btn btn-outline-danger">
@@ -306,7 +304,7 @@
                                                 <tr *ngFor="let course of faculty.courses">
                                                     <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
-                                                    <td>{{course.preference_value}}</td>
+                                                    <td>{{course.preference_value | ordinal}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -341,7 +339,7 @@
                                                 <tr *ngFor="let course of faculty.courses">
                                                     <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
-                                                    <td>{{course.preference_value}}</td>
+                                                    <td>{{course.preference_value | ordinal}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -415,7 +413,7 @@
                         </p>
                         <div *ngIf="baskets_ece?.length > 0" style="text-align: center;" id="ece">
                             <div class="container">
-                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCourseFaculty(baskets_it)"><i class="fa fa-download"></i></a>
+                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCourseFaculty(baskets_ece)"><i class="fa fa-download"></i></a>
                                 
                                 <div class="row">
                                     <div class="container shadow col-12 col-lg-8 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
@@ -653,18 +651,23 @@
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Basket doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-
-                                        <div *ngFor="let student of course.students">
-                                            <p>{{student.id}} => {{student.name}}</p>
-
-                                        </div>
-
-                                    </div>
-
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                                <th>Student List</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td>
+                                                <td><a href="javascript:void(0)" (click)="downloadCSVCourseStudent(course.students, course.name)"><i class="fa fa-download fa-lg"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -703,12 +706,20 @@
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-                                    </div>
-
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                </table>
                                 </div>
                             </div>
                         </div>
@@ -726,12 +737,20 @@
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-                                    </div>
-
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -832,14 +851,16 @@
                                         <table class="table">
                                             <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
+                                                    <th>Course ID</th>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
-                                                    <td>{{course.preference_value}}</td>
+                                                    <td>{{course.preference_value | ordinal}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -865,14 +886,16 @@
                                         <table class="table">
                                             <thead *ngIf="faculty.courses?.length>0">
                                                 <tr>
+                                                    <th>Course ID</th>
                                                     <th>Course Name</th>
                                                     <th>Preference</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of faculty.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
-                                                    <td>{{course.preference_value}}</td>
+                                                    <td>{{course.preference_value | ordinal}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -907,8 +930,9 @@
                         <p *ngIf="core_baskets_it?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
-                        <div style="text-align: center;" id="it">
+                        <div *ngIf="core_baskets_it?.length>0" style="text-align: center;" id="it">
                             <div class="container">
+                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCoreCourseFaculty(core_baskets_it)"><i class="fa fa-download"></i></a>
                                 <div class="row">
                                     <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let basket of core_baskets_it">
@@ -916,13 +940,15 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Course</th>
+                                                    <th>Course ID</th>
+                                                    <th>Course Name</th>
                                                     <th>Faculty</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.faculty.name}}</td>
 
@@ -939,8 +965,9 @@
                         <p *ngIf="core_baskets_ece?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
-                        <div style="text-align: center;" id="it">
+                        <div *ngIf="core_baskets_ece?.length > 0" style="text-align: center;" id="it">
                             <div class="container">
+                                Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCoreCourseFaculty(core_baskets_ece)"><i class="fa fa-download"></i></a>
                                 <div class="row">
                                     <div class="container shadow col-5 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of core_baskets_ece">
@@ -948,13 +975,15 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Course</th>
+                                                    <th>Course ID</th>
+                                                    <th>Course Name</th>
                                                     <th>Faculty</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let course of basket.courses">
+                                                    <td>{{course.id}}</td>
                                                     <td>{{course.name}}</td>
                                                     <td>{{course.faculty.name}}</td>
 
@@ -992,7 +1021,7 @@
                         <p *ngIf="faculties_it2?.length===0" class="text-danger">
                             ** No faculties yet! **
                         </p>
-                        <div class="container">
+                        <div *ngIf="faculties_it2?.length>0" class="container">
                             <div class="row">
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                           background-size:cover;" *ngFor="let basket of core_loadchart_it">
@@ -1000,12 +1029,20 @@
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-                                    </div>
-
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -1023,12 +1060,20 @@
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
                                         **Faculty doesnot have any courses **
                                     </p>
-
-                                    <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-
-                                    </div>
-
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Course ID</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size: medium;" *ngFor="let course of basket.courses">
+                                                <td>{{course.id}}</td>
+                                                <td>{{course.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
