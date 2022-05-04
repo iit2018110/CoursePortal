@@ -37,7 +37,12 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           let userType = this._auth.decodeJWT(res);
-          if (userType == 'faculty') {
+          if(userType == 'cc'){
+            localStorage.setItem('token_cc', res);
+            localStorage.setItem('token_faculty', res);
+            this.router.navigate(['/project/faculty/dashboard']);
+          }
+          else if (userType == 'faculty') {
             localStorage.setItem('token_faculty', res);
             this.router.navigate(['/project/faculty/dashboard']);
           } else if (userType == 'student') {

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
             if (token_hod) {
               this.router.navigate(['/core/hod/dashboard']);
             }
-
+    
             let token_faculty = localStorage.getItem('token_faculty');
             if (token_faculty) {
               this.router.navigate(['/core/faculty/dashboard']);
@@ -37,7 +37,12 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           let userType = this._auth.decodeJWT(res);
-          if (userType == 'hod') {
+          if(userType == 'cc'){
+            localStorage.setItem('token_cc', res);
+            localStorage.setItem('token_faculty', res);
+            this.router.navigate(['/core/faculty/dashboard']);
+          }
+          else if (userType == 'hod') {
             localStorage.setItem('token_hod', res);
             this.router.navigate(['/core/hod/dashboard']);
           } else if (userType == 'faculty') {

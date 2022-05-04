@@ -21,7 +21,7 @@
 <div *ngIf="subjectpreferences">
 
 
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf=" courses_alloted.length > 0">
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf=" courses_alloted?.length > 0">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Alloted Courses</h1>
 
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted.length === 0 &&  _util.status==='non-filled'">
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted?.length === 0 &&  _util.status==='non-filled'">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Choose preferences</h1>
             <form #subjectPreference="ngForm">
@@ -94,22 +94,23 @@
         </div>
     </div>
 
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted.length === 0 && _util.status==='filled'">
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted?.length === 0 && _util.status==='filled'">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
             <form #subjectPreference="ngForm">
                 <table class="table text-white-50" style="font-size: medium;">
                     <thead style="font-family:fantasy; font-size: large; color: antiquewhite;">
                         <tr>
-                            <th scope="col">Course</th>
+                            <th scope="col">Course ID</th>
+                            <th scope="col">Course Name</th>
                             <th scope="col">Preferences</th>
-
                         </tr>
                     </thead>
                     <tbody style="border: 0ch">
-                        <tr *ngFor="let course of _util.courses">
+                        <tr *ngFor="let course of _util.baskets">
+                            <td>{{course.id}}</td>
                             <td>{{course.name}}</td>
-                            <td>{{course.preference_value}}</td>
+                            <td>{{course.preference_value | ordinal}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -122,26 +123,27 @@
 <div *ngIf="studentsalloted">
     <div class="bg-transparent" style="margin-right: 5%;">
         <div class=" bg-dark  m-5 p-4">
-            <h1 style="font-size:xxx-large; color:whitesmoke  ">Subjects</h1>
             <div class="container">
                 <div class="row">
+                    <p *ngIf="this._util.courses?.length === 0" class="text-danger">** No courses alloted yet! **</p>
                     <div class="shadow col-5 " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
-              background-size:cover; color:black;" *ngFor="let course of this._util.courses">
-                        <h2 style="margin-top: 4%; font-size: x-larger;">{{course.name}}</h2>
-
-                        <table class="table">
+              background-size:cover; color:black;">
+                        <table class="table" *ngIf="this._util.courses?.length > 0">
                             <thead>
                                 <tr>
-                                    <th>Roll Number</th>
-                                    <th>Name</th>
+                                    <th>Course ID</th>
+                                    <th>Course Name</th>
+                                    <th>Student List</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let student of course.students">
-                                    <td>{{student.id}}</td>
-                                    <td>{{student.name}}</td>
+                                <tr style="font-size: medium;" *ngFor="let course of this._util.courses">
+                                    <td>{{course.id}}</td>
+                                    <td>{{course.name}}</td>
+                                    <td><a href="javascript:void(0)" (click)="downloadCSVCourseStudent(course.students, course.name)"><i class="fa fa-download fa-lg"></i></a></td>
                                 </tr>
                             </tbody>
+                            
                         </table>
                     </div>
                 </div>
@@ -152,7 +154,7 @@
 
 <div class="bg-transparent" style="margin-right: 5%;" *ngIf="isCC && runningcourses">
     <div class=" bg-dark  m-5 p-5">
-        <h1 style="font-size:xxx-large; color:whitesmoke  ">Running Courses</h1>
+        <h1 style="font-size:xxx-large; color:whitesmoke">Running Courses</h1>
         <div class="container shadow m-2 p-5" *ngIf="this._util.cc_status==='buffer'">
             <div class="row" style="color:whitesmoke">
                 <div class="col-3 m-3 p-5 shadow">
@@ -197,7 +199,6 @@
 
         <div class="bg-transparent" style="margin-right: 5%;" *ngIf="this._util.cc_status==='running'">
             <div class=" bg-dark  m-5 p-4">
-                <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
                 <form #subjectPreference="ngForm">
                     <table class="table text-white-50" style="font-size: medium;">
                         <thead style="font-family:fantasy; font-size: large; color: antiquewhite;">

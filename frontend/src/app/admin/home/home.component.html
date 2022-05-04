@@ -13,6 +13,10 @@
                 <li class="nav-item ">
                     <button class="nav-link " name="Core" (click)="dashboardNavClicked($event) ">Core</button>
                 </li>
+
+                <li class="nav-item ">
+                    <button class="nav-link" name="ResetPortal" (click)="dashboardNavClicked($event) ">Reset Portal</button>
+                </li>
             </ul>
         </div>
         <div class="card-body " style="background-color:white; ">
@@ -42,6 +46,14 @@
                     <li class="btn btn-dark m-2 " routerLink="/admin/core/faculties_preference " (click)="coreFacultyPreferences()">Faculties preferences</li>
                     <li class="btn btn-dark m-2 " routerLink="/admin/core/courses_faculty " (click)="coreFacultyCourses()">Faculty in courses</li>
                     <li class="btn btn-dark m-2 " routerLink="/admin/core/faculty_loadchart " (click)="coreFacultyLoadchart()">Faculty Loadchart</li>
+                </ul>
+            </div>
+
+            <div *ngIf="resetPortal">
+                <ul style="text-align: center; ">
+                    <li class="btn btn-outline-danger m-2 "  (click)="resetElectivePortal()">Reset Elective</li>
+                    <li class="btn btn-outline-danger m-2 "  (click)="resetCorePortal()">Reset Core</li>
+                    <li class="btn btn-outline-danger m-2 "  (click)="resetProjectPortal()">Reset Project</li>
                 </ul>
             </div>
         </div>
@@ -212,7 +224,7 @@
                                     <p *ngIf="basket.running_courses?.length === 0" class="text-danger">
                                         ** Course-coordinator didn't select course yet! **
                                     </p>
-                                    <table class="table">
+                                    <table *ngIf="basket.running_courses?.length>0" class="table">
                                         <thead>
                                             <tr>
                                                 <th>Course ID</th>
@@ -286,7 +298,7 @@
                         <div style="text-align: center;" id="it">
                             <div class="container">
                                 <div class="row">
-                                    <div class="container shadow col-12 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    <div class="container shadow col-11 p-5 m-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                     background-size:cover;" *ngFor="let faculty of faculties_it">
                                         <h2>{{faculty.name}}</h2>
                                         <p *ngIf="faculty.courses?.length===0" class="text-danger">
@@ -318,9 +330,6 @@
                         <div style="text-align: center;" id="ece">
                             <div class="container">
                                 <div class="row">
-                                    <p *ngIf="faculties_ece?.length===0" class="text-danger">
-                                        ** No Faculties are there in this branch **
-                                    </p>
                                     <div class="container shadow col-12 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let faculty of faculties_ece">
                                         <h2>{{faculty.name}}</h2>
@@ -704,9 +713,9 @@
                             background-size:cover;" *ngFor="let basket of faculties_it2">
                                     <h2>{{basket.name}}</h2>
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
-                                        **Faculty doesnot have any courses **
+                                        **Faculty does not have any courses **
                                     </p>
-                                    <table class="table">
+                                    <table *ngIf="basket.courses?.length > 0" class="table">
                                         <thead>
                                             <tr>
                                                 <th>Course ID</th>
@@ -733,11 +742,10 @@
                                 <div class=" shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                           background-size:cover;" *ngFor="let basket of faculties_ece2">
                                     <h2>{{basket.name}}</h2>
-                                    <h3 style="color:rgb(0, 0, 138);">Students to whom this course is alloted</h3>
                                     <p *ngIf="basket.courses?.length === 0" class="text-danger">
-                                        **Faculty doesnot have any courses **
+                                        **Faculty does not have any courses **
                                     </p>
-                                    <table class="table">
+                                    <table *ngIf="basket.courses?.length > 0" class="table">
                                         <thead>
                                             <tr>
                                                 <th>Course ID</th>

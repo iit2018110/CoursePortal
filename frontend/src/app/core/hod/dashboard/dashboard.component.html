@@ -50,13 +50,14 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <button type="button" class="mt-4 btn btn-danger" (click)="onReset(basket.id)">Reset</button>
+                                    <button type="button" class="mt-4 btn btn-danger" (click)="onReset(basket.semester)">Reset</button>
 
                                 </div>
                             </div>
                         </div>
 
                     </div>
+                    <button type="button" class=" col-12 btn btn-dark" (click)="onSubmit()">Submit</button>
                 </div>
                 <div *ngIf="unassigned ">
                     <h1>Unassigned</h1>
@@ -103,8 +104,6 @@
 
                     </div>
                 </div>
-                <button type="button" class=" col-12 btn btn-dark" (click)="onSubmit()">Submit</button>
-
             </div>
 
         </div>
@@ -114,22 +113,25 @@
 </div>
 
 <div *ngIf="_util.status === 'selected'">
-    <h1 class="mt-5" style="font-size: xxx-large; font-weight:500; color: aliceblue;">Selected</h1>
+    <h2 class="mt-5" style="font-size: xxx-large; font-weight:500; color: aliceblue;">Assigned faculty details</h2>
     <div class="container">
+        <h2>Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSV(_util.selected_baskets)"><i class="fa fa-download"></i></a></h2>
         <div class="row">
-            <div class="col-6 shadow  p-4 m-4 bg-light" style="color: black;" *ngFor="let basket of _util.selected_baskets">
+            <div class="col-11 shadow  p-4 m-5 bg-light" style="color: black;" *ngFor="let basket of _util.selected_baskets">
 
                 <h1>Semester: {{basket.semester}}</h1>
                 <div class="row">
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Course ID</th>
                                 <th>Course Name</th>
                                 <th>Faculty Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let course of basket.courses">
+                                <td>{{course.id}}</td>
                                 <td>{{course.name}}</td>
                                 <td>{{course.faculty.name}}</td>
                             </tr>
@@ -138,7 +140,9 @@
                 </div>
 
             </div>
+            <div style="text-align: center;"><button type="button" class="m-4 col-6 btn btn-outline-danger" (click)="onCourseFacultyReset()">Reset</button></div>
         </div>
+        
     </div>
-
+    
 </div>

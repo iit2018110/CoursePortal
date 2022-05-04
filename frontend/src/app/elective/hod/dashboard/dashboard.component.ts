@@ -1,6 +1,8 @@
 import { UtilService } from '../util.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { CourseFacultyOption, StudentOption } from 'src/app/csv_options/options';
 
 @Component({
   selector: 'app-dashboard',
@@ -131,5 +133,35 @@ export class DashboardComponent implements OnInit {
 
 
   }
+  downloadCSV(baskets: any) {
+    let data = [];
+    for (let i = 0; i < baskets.length; i++) {
+      let basket = baskets[i];
+      for (let j = 0; j < basket.courses.length; j++) {
+        let course = basket.courses[j];
+        data.push({courseId : course.id, courseName: course.name, seats: course.seats, facultyName: course.faculty.name});
+      }
+    }
+    new AngularCsv(data, "Course details" , CourseFacultyOption);
+  }
 
+  downloadStudentCSV(studentList: any, courseName: string) {
+    new AngularCsv(studentList, courseName , StudentOption);
+  }
+
+  onCourseFacultyReset(){
+    this._util.reset_assigned_courses().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
+  onCounsellingReset(){
+    this._util.reset_course_students().subscribe(
+      res => {
+        this.ngOnInit();
+      },
+      err => console.log(err)
+    )
+  }
 }

@@ -15,9 +15,10 @@
 
         <div class="container">
             <div class="row">
-                <div class=" shadow col-3 rounded-3  p-3 m-3" style="background-image:url('assets/images/wood.jpeg'); background-repeat: no-repeat;
-                background-size:cover; color: white;" *ngFor="let course of courses_alloted">
-                    <div style="width:100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); ">
+                <div class=" shadow col-3 rounded-3  p-3 m-3" style="background-color: bisque; background-repeat: no-repeat;
+                background-size:cover; color: black;" *ngFor="let course of courses_alloted">
+                    <div style="width:100%; height: 100%;">
+                        <h2 style="border-bottom: 1px solid black;">{{course.id}}</h2>
                         <h2>{{course.name}}</h2>
                     </div>
                 </div>

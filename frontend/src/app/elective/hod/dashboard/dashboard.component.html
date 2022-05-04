@@ -20,7 +20,7 @@
 
 <div class="bg-transparent" style="margin-right: 5%;" *ngIf="facultyassign">
     <div class=" bg-dark  m-5 p-3">
-        <h1 style="font-size:xxx-large; color:whitesmoke  ">FACULTY ASSIGN</h1>
+        <h2 style="font-size: xxx-large; color:whitesmoke  ">FACULTY ASSIGN</h2>
 
         <div class="container " *ngIf="_util.status === 'buffer'">
 
@@ -39,40 +39,45 @@
                     </div>
                     <div class="card-body " style="background-color:white; color: black; ">
                         <div *ngIf="assigned ">
-                            <h1>Assigned</h1>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12" *ngFor="let basket of _util.buffer_baskets">
                                         <div class=" shadow  p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                               background-size:cover;" *ngIf="basket.status === 'assigned'">
 
-                                            <h2>{{basket.name}}</h2>
+                                            <h2 style="font-style: italic; text-align: left; text-decoration: underline;">{{basket.name}}</h2>
                                             <div class="row">
-                                                <div class="col-4">
-                                                    <h2>Subject</h2>
+                                                <div class="col-3">
+                                                    <h2>Course ID</h2>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
+                                                    <h2>Course Name</h2>
+                                                </div>
+                                                <div class="col-3">
                                                     <h2>Faculty</h2>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <h2>Seat</h2>
                                                 </div>
                                             </div>
                                             <div class="row col" *ngFor="let course of basket.courses">
-                                                <div class="col-4">
+                                                <div class="col-3">
+                                                    <p>{{course.name}}</p>
+                                                </div>
+                                                <div class="col-3">
                                                     <p>{{course.name}}</p>
                                                 </div>
 
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <select #selectFaculty class="form-select form-select-sm" aria-label=".form-select-sm example" disabled>
                                               <option value="course.faculty.id" selected>{{course.faculty.name}}</option>
                                           </select>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <input type="text" [value]="course.seats" class="form-control" placeholder="Seats" disabled>
                                                 </div>
                                             </div>
-                                            <button type="button" class="mt-4 btn btn-danger" (click)="onReset(basket.id)">Reset</button>
+                                            <button type="button" class="mt-4 btn btn-outline-danger " style="width: 30%;" (click)="onReset(basket.id)">Reset</button>
 
                                         </div>
                                     </div>
@@ -82,7 +87,6 @@
                             <button type="button" class=" col-12 btn btn-dark" (click)="onSubmit()">Submit</button>
                         </div>
                         <div *ngIf="unassigned ">
-                            <h1>Unassigned</h1>
                             <div class="row">
                                 <div class="col-12" *ngFor="let basket of _util.buffer_baskets">
 
@@ -90,14 +94,18 @@
                           background-size:cover;" *ngIf="basket.status === 'un-assigned'">
 
                                         <div class="container">
+                                            <h2 style="font-style: italic; text-align: left; text-decoration: underline;">{{basket.name}}</h2>
                                             <div class="row">
-                                                <div class="col-lg-4">
-                                                    <h2>Subject</h2>
+                                                <div class="col-lg-3">
+                                                    <h2>Course ID</h2>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
+                                                    <h2>Course Name</h2>
+                                                </div>
+                                                <div class="col-lg-3">
                                                     <h2>Faculty</h2>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <h2>Seat</h2>
                                                 </div>
                                             </div>
@@ -105,10 +113,13 @@
                                         <form #selectFaculty="ngForm">
                                             <div *ngFor="let course of basket.courses">
                                                 <div class="row m-1" [ngModelGroup]="course.id">
-                                                    <div class="col-lg-4  ">
+                                                    <div class="col-lg-3">
+                                                        <p style="font-size:medium">{{course.id}}</p>
+                                                    </div>
+                                                    <div class="col-lg-3">
                                                         <p style="font-size:medium">{{course.name}}</p>
                                                     </div>
-                                                    <div class="col-lg-4 ">
+                                                    <div class="col-lg-3">
                                                         <select ngModel [name]="'faculty_id'" class="form-control form-select-sm" aria-label=".form-select-sm example">
                                                 <option value="">Select Faculty</option>
                                                 <option *ngFor="let faculty of getFaculties(course.id)" [ngValue]="faculty.id">
@@ -116,14 +127,14 @@
                                                 </option>
                                               </select>
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control" placeholder="default: 60 ">
+                                                    <div class="col-lg-3">
+                                                        <input ngModel [name]="'seats'" type="number" [value]="60" class="form-control" placeholder="default: 60 " min="0" oninput="validity.valid || (value='')">
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                         <div class="row">
-                                            <button type="button" class=" col-12 mt-3 h-50  btn btn-success" (click)="onCreate(selectFaculty.value)">Move to Assigned</button>
+                                            <button style="margin-left: 80%" type="button" class=" col-2 mt-3 h-50  btn btn-success" (click)="onCreate(selectFaculty.value)">Move to Assign</button>
 
                                         </div>
 
@@ -143,14 +154,16 @@
         </div>
 
         <div *ngIf="_util.status === 'selected'">
-            <h1 class="mt-5" style="font-size: xxx-large; font-weight:500; color: aliceblue;">Selected</h1>
+            <h2 class="mt-5" style="font-weight:500; color: gray;">Assigned faculties details</h2>
+            <h2>Download details <a href="javascript:void(0)" (click)="downloadCSV(_util.selected_baskets)"><i style="color: white;" class="fa fa-download"></i></a></h2>
             <div class="container">
                 <div class="row">
-                    <div class="col-6 shadow  p-4 m-4 bg-light" style="color: black;" *ngFor="let basket of _util.selected_baskets">
+                    <div class="col-11 shadow  p-4 m-5 mb-1 bg-light" style="color: black;" *ngFor="let basket of _util.selected_baskets">
                         <div class="row">
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Course Id</th>
                                         <th>Course Name</th>
                                         <th>Faculty Name</th>
                                         <th>Course Seat</th>
@@ -158,6 +171,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let course of basket.courses">
+                                        <td>{{course.id}}</td>
                                         <td>{{course.name}}</td>
                                         <td>{{course.faculty.name}}</td>
                                         <td>{{course.seats}}</td>
@@ -168,12 +182,10 @@
 
                     </div>
                 </div>
+                <button type="button" style="width: 30%;" class="mt-5 btn btn-outline-danger" (click)="onCourseFacultyReset()">Reset</button>
             </div>
         </div>
-
     </div>
-
-
 </div>
 
 
@@ -188,52 +200,49 @@
                 <div class=" col-12 text-center">
                     <div class="card-body ">
 
-                        <div class="container">
+                        <div class="container" *ngIf="_util.basket_preferences?.length > 0">
                             <div class="row">
                                 <div class="card shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of _util.basket_preferences">
                                     <h2>{{basket.name}}</h2>
-                                    <h3 style="color:rgb(0, 0, 138);">Students who had choosen this course.</h3>
-                                    <p *ngIf="basket.courses.length === 0" class="text-danger">
-                                        **Basket doesnot have any courses **
-                                    </p>
-
                                     <div style="font-size: medium;" *ngFor="let course of basket.courses">
                                         {{course.name}}
-
-
-                                        <div *ngFor="let student of course.students">
-                                            <p>{{student.id}} => {{student.name}}</p>
-
-                                        </div>
+                                        <a *ngIf="_util.counselling_status === 'submitted'" href="javascript:void(0)" (click)="downloadStudentCSV(course.students, course.name)">Download Students</a>
+                                        <!-- <h3 *ngIf="_util.counselling_status === 'unsubmitted'">Students who had choosen this course:</h3> -->
+                                        <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3>
+                                        <!-- <ul>
+                                            <li *ngFor="let student of course.students">
+                                              <p>({{student.id}}) {{student.name}}</p>
+                                            </li>
+                                        </ul> -->
                                         <div class="rounded-3 bg-dark text-white" *ngIf="!isEmpty(_util.course_students)">
-                                            <h3>Students to whom this course is alloted.</h3>
-
-                                            <div *ngFor="let student of _util.course_students[course.id]">
+                                            <h3>Students getting this course:</h3>
+                                            <ul>
+                                              <li *ngFor="let student of _util.course_students[course.id]">
                                                 {{student}}
-                                            </div>
-
+                                              </li>
+                                            </ul>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
+                            <button *ngIf="_util.counselling_status === 'submitted'" class="btn btn-danger" (click)="onCounsellingReset()">Reset</button>
 
+                            <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="startCounselling()">Preview counselling</button>
+                            <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="onSubmitCounselling()">Submit counselling</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
 
-        <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="startCounselling()">Start Counselling</button>
-        <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="onSubmitCounselling()">Submit</button>
 
     </div>
 
 </div>
+
+
 
 <div class="bg-transparent" style="margin-right: 5%;" *ngIf="coursesetting">
     <div class=" bg-dark  m-5 p-3">
@@ -248,10 +257,10 @@
                             <div class="row">
                                 <div class="card shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                               background-size:cover;" *ngFor="let basket of _util.baskets">
-                                    <h1>{{basket.name}}</h1>
+                                    <h1>({{basket.id}}) {{basket.name}}</h1>
                                     <div style="font-size: medium;" *ngFor="let course of basket.courses">
                                         <div class="row ">
-                                            <div class="col-6">{{course.name}}</div>
+                                            <div class="col-6">({{course.id}}) {{course.name}}</div>
                                             <!-- <label class="col-6 switch" style="margin-left:20%; margin-top: 8px">
                                               <input #run type="checkbox"  >
                                               <span class="slider round" ></span>

@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   opted =true
   notopted = false
   alloted = false
+  preferences = false
   ngOnInit(): void {
     this._util.init();
   }
@@ -44,10 +45,12 @@ export class DashboardComponent implements OnInit {
       res => {
         this.opted = false
         this.notopted = false
+        this.preferences = true
         this.ngOnInit()
       },
       err => console.log(err)
     )
+
   }
 
   onReset() {
@@ -64,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.opted = false
     this.notopted = false
     this.alloted = false
+    this.preferences = false
     switch(event.target.name) {
       case "opted":
         this.opted = true
@@ -74,7 +78,9 @@ export class DashboardComponent implements OnInit {
       case "alloted":
         this.alloted = true
         break;
-
+      case "preferences":
+        this.preferences = true;
+        break;
     }
   }
 }

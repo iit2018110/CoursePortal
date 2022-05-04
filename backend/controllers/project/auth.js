@@ -4,7 +4,19 @@ const {get_token} = require('../../utils/jwt-token/jwt');
 module.exports.login = async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
+    let cc = await db.Course_coordinator.findOne({
+        where: {
+            email: email,
+            password: password
+        }
+    })
 
+    if(cc) {
+        let token = get_token('cc', cc.id, cc.email, cc.name);
+        return res.status(200).json(token);
+    }
+
+    
     let faculty = await db.Faculty.findOne({
         where: {
             email: email,

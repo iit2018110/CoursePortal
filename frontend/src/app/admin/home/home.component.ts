@@ -6,6 +6,7 @@ import { UtilService } from '../util.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import { CoreCourseFacultyOption, CourseFacultyOption, StudentOption } from 'src/app/csv_options/options';
+import { PortalSettingService } from '../portal-setting.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit{
   public ece:boolean = false;
   public projects:boolean=false;
   public core:boolean=false;
+  public resetPortal:boolean=false;
   public oddButton:boolean=true;
   public it_faculties!: any;
   public ece_faculties!: any;
@@ -65,9 +67,14 @@ export class HomeComponent implements OnInit{
   public corefacultycourses:boolean = false;
   public corefacultyloadchart:boolean = false;
 
+  public resetPortalElective:boolean = false;
+  public resetPortalCore:boolean = false;
+  public resetPortalProject:boolean = false;
+
   constructor(public _auth: AuthService,
     public openDialog: OpenDialogService,
      public _util: UtilService,
+     public _portal: PortalSettingService
      ) {
 
   }
@@ -180,6 +187,27 @@ export class HomeComponent implements OnInit{
     this.corefacultypreferences = false;
     this.corefacultycourses = false;
   }
+
+
+  resetProjectPortal(){
+    this._portal.reset_project().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+  resetElectivePortal(){
+    this._portal.reset_elective().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+  resetCorePortal(){
+    this._portal.reset_core().subscribe(
+      res => this.ngOnInit(),
+      err => console.log(err)
+    )
+  }
+
   init() {
     this._util.fetch_it_courses().subscribe(
       res => this.it_courses = res,
@@ -338,6 +366,7 @@ export class HomeComponent implements OnInit{
     this.electives = false
     this.projects = false
     this.core = false
+    this.resetPortal = false
     switch(event.target.name) {
       case "Electives":
         this.electives = true
@@ -348,6 +377,10 @@ export class HomeComponent implements OnInit{
         break;
       case "Core":
         this.core = true
+        break;
+
+      case "ResetPortal":
+        this.resetPortal = true
         break;
     }
     this.runningCourse = false;
@@ -363,6 +396,10 @@ export class HomeComponent implements OnInit{
     this.corefacultypreferences = false;
     this.corefacultycourses = false;
     this.corefacultyloadchart = false;
+
+    this.resetPortalElective = false;
+    this.resetPortalProject = false;
+    this.resetPortalCore = false;
 
   }
 

@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/elective/hod/dashboard']);
           } else if (userType == 'cc') {
             localStorage.setItem('token_cc', res);
+            localStorage.setItem('token_faculty', res);
             this.router.navigate(['/elective/faculty/dashboard']);
           } else if (userType == 'faculty') {
             localStorage.setItem('token_faculty', res);

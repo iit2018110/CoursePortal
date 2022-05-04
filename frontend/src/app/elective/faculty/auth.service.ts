@@ -110,10 +110,7 @@ this.fetch_profile()
     let token_cc = localStorage.getItem('token_cc');
     if(token_cc) {
       localStorage.removeItem('token_cc');
-      this.router.navigate(['/elective/login']);
-      return;
     }
-
     localStorage.removeItem('token_faculty');
     this.router.navigate(['/elective/login']);
   }

@@ -1,8 +1,8 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
     <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
     <form class="form-inline">
-        <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+        <button type="button" class="btn btn-secondary m-2" routerLink="../profile"><i class="fa fa-user"></i></button>
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()"><i class="fa fa-sign-out"></i></button>
     </form>
 </nav>
 <div class="m-5 card col-11 text-center">
@@ -15,12 +15,11 @@
                 <button class="nav-link " name="notopted" *ngIf="_util.status==='buffer'" (click)="ITClicked($event) ">Not Opted  </button>
             </li>
             <li class="nav-item ">
-                <button class="nav-link " name="alloted" *ngIf="_util.alloted_courses?.length > 0" (click)="ITClicked($event) ">Not Opted  </button>
+                <button class="nav-link " name="alloted" *ngIf="_util.alloted_courses?.length > 0" (click)="ITClicked($event) ">Alloted</button>
             </li>
         </ul>
     </div>
-    <div *ngIf="opted ">
-        <h2 style="font-size:xx-large; color:black; margin: 2%;">OPTED</h2>
+    <div *ngIf="opted">
         <div style="text-align: center; color: black;">
             <div class="container">
                 <div class="row">
@@ -32,12 +31,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Course ID</th>
                                         <th>Course Name</th>
                                         <th>Faculty Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let course of basket.courses">
+                                        <td>{{course.id}}</td>
                                         <td>{{course.name}}</td>
                                         <td>{{course.faculty.name}}</td>
                                     </tr>
@@ -76,7 +77,7 @@
                   </select>
                                     </div>
                                 </div>
-                                <button type="button" class=" col-12 m-2 btn btn-outline-danger" (click)="onDelete(basket.id)">Delete</button>
+                                <button  type="button" class=" col-12 m-2 btn btn-outline-danger" (click)="onDelete(basket.id)">Delete</button>
 
                             </div>
                         </div>
@@ -85,27 +86,28 @@
             </div>
 
         </div>
-        <button type="button " class=" m-2 col-10 btn btn-success btn-lg " (click)="onSubmit() "> Submit </button>
+        <button *ngIf="_util.status==='buffer'" type="button " class=" m-2 col-6 btn btn-success " (click)="onSubmit() "> Submit </button>
     </div>
-    <div *ngIf="notopted ">
-        <h2 style="font-size:xx-large; margin: 2%; color:black;">NOT OPTED</h2>
+    <div *ngIf="notopted">
         <div style="text-align: center; color: black;">
             <div class="container">
                 <div class="row">
                     <div *ngFor="let basket of _util.buffer_baskets">
-                        <div class="container shadow m-4 col-5 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                        <div class="container shadow m-5 col-8 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                       background-size:cover;" *ngIf="basket.status==='non-opted'">
                             <h2>{{basket.name}}</h2>
 
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Course ID</th>
                                         <th>Course Name</th>
                                         <th>Faculty Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let course of basket.courses">
+                                        <td>{{course.id}}</td>
                                         <td>{{course.name}}</td>
                                         <td>{{course.faculty.name}}</td>
                                     </tr>
@@ -154,7 +156,7 @@
                                 </mat-select>
                             </mat-form-field>
 
-                            <button type="button " class="col-12 btn btn-outline-success " (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value?.id,preference2.value?.name,preference3.value?.id,preference3.value?.name,preference4.value?.id,preference4.value?.name,preference5.value?.id,preference5.value?.name) ">Create</button>
+                            <button type="button " class="col-8 btn btn-outline-success " (click)="onCreate(basket.id,preference1.value.id,preference1.value.name,preference2.value?.id,preference2.value?.name,preference3.value?.id,preference3.value?.name,preference4.value?.id,preference4.value?.name,preference5.value?.id,preference5.value?.name) ">Create</button>
 
                         </div>
 
@@ -165,7 +167,7 @@
 
     </div>
 
-    <div *ngIf="alloted ">
+    <div *ngIf="alloted">
         <h2 style="font-size:xx-large; color:black; margin: 2%;">ALLOTED COURSES</h2>
         <div style="text-align: center; color: black;">
             <table class="table">
@@ -197,7 +199,7 @@
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                    <div class="container shadow col-5 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                    <div class="container shadow col-5 m-3 p-3" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                               background-size:cover;" *ngFor="let basket of _util.baskets">
                         <h2 style="font-size: large; color: black;">{{basket.name}}</h2>
 
@@ -205,28 +207,34 @@
                             <thead>
                                 <tr>
                                     <th>Preference</th>
+                                    <th>Course ID</th>
                                     <th>Course Name</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr [hidden]="!basket.pref1_course_name">
                                     <td>1st</td>
+                                    <td>{{basket.pref1_course_id}}</td>
                                     <td>{{basket.pref1_course_name}}</td>
                                 </tr>
                                 <tr [hidden]="!basket.pref2_course_name">
                                     <td>2nd</td>
+                                    <td>{{basket.pref2_course_id}}</td>
                                     <td>{{basket.pref2_course_name}}</td>
                                 </tr>
                                 <tr [hidden]="!basket.pref3_course_name">
                                     <td>3rd</td>
+                                    <td>{{basket.pref3_course_id}}</td>
                                     <td>{{basket.pref3_course_name}}</td>
                                 </tr>
                                 <tr [hidden]="!basket.pref4_course_name">
                                     <td>4th</td>
+                                    <td>{{basket.pref4_course_id}}</td>
                                     <td>{{basket.pref4_course_name}}</td>
                                 </tr>
                                 <tr [hidden]="!basket.pref5_course_name">
                                     <td>5th</td>
+                                    <td>{{basket.pref5_course_id}}</td>
                                     <td>{{basket.pref5_course_name}}</td>
                                 </tr>
 

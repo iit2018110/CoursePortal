@@ -121,9 +121,10 @@ fetchDashboard() {
     this.fetch_subjects()
     .subscribe(
       res => {
+        
         this.status = res.status,
         this.baskets = res.data,
-        console.log("basket is:", this.baskets)
+        console.log("status is", this.status)
       },
       err => console.log(err)
     )

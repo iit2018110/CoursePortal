@@ -61,6 +61,7 @@ export class AuthService {
 
     userLogout() {
       localStorage.removeItem('token_faculty');
+      localStorage.removeItem('token_cc');
       this.router.navigate(['/core/login']);
     }
 

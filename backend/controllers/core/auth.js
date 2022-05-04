@@ -17,6 +17,18 @@ module.exports.login = async (req, res) => {
         return res.status(200).json(token);
     }
 
+    let cc = await db.Course_coordinator.findOne({
+        where: {
+            email: email,
+            password: password
+        }
+    })
+
+    if(cc) {
+        let token = get_token('cc', cc.id, cc.email, cc.name);
+        return res.status(200).json(token);
+    }
+
     let faculty = await db.Faculty.findOne({
         where: {
             email: email,
