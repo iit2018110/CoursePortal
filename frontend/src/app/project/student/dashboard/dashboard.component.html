@@ -1,119 +1,105 @@
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
-  <form class="form-inline">
-    <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
-    <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
-  </form>
-</nav>
+<div style="width: 100%; height: 100%; background-image: url('assets/images/project.jpg'); background-size: cover;">
 
-<div *ngIf="!approved && canChangeStatus" class="container m-5 p-5 shadow">
-  <h2>Create Project</h2>
-  <form #subjectPreference="ngForm">
-    <div class="row">
-      <div class="col"><input ngModel type="text" placeholder="Project title" [name]="'project_title'"></div>
-      <div class="col">
-          <select ngModel [name]="'faculty_id'" class="form-select form-select-sm" aria-label=".form-select-sm example">
-          <option value="">Select Faculty</option>
-          <option *ngFor="let faculty of faculties" [ngValue]="faculty.id">
-              {{faculty.name}}
-          </option>
-          </select>
-      </div>
-      <div class="m-1">
-          Group size:
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio1" [value]="1">
-          <label class="form-check-label" for="inlineRadio1">1</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio2" [value]="2">
-          <label class="form-check-label" for="inlineRadio2">2</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio3" [value]="3">
-          <label class="form-check-label" for="inlineRadio3">3</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio4" [value]="4">
-          <label class="form-check-label" for="inlineRadio4">4</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio5" [value]="5">
-          <label class="form-check-label" for="inlineRadio5">5</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio6" [value]="6">
-          <label class="form-check-label" for="inlineRadio5">6</label>
-          </div>
-      </div>
+    <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
+        <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
+        <form class="form-inline">
+            <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
+            <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+        </form>
+    </nav>
+    <div *ngIf="!approved && canChangeStatus">
+        <button class=" rotated col-10 m-5  btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="fa fa-plus"> Create Project</i>
+</button>
     </div>
-    <div class="row m-2">
-      <P [hidden]="subjectPreference.value.team_size < 1">Team Members:</P>
-      <div>
-        <input [hidden]="subjectPreference.value.team_size < 1" type="text" name="member1" [value]="_auth.id" readonly>
-        <input ngModel [hidden]="subjectPreference.value.team_size < 2" type="text" name="member2"
-          placeholder="Member 2">
-        <input ngModel [hidden]="subjectPreference.value.team_size < 3" type="text" name="member3"
-          placeholder="Member 3">
-        <input ngModel [hidden]="subjectPreference.value.team_size < 4" type="text" name="member4"
-          placeholder="Member 4">
-        <input ngModel [hidden]="subjectPreference.value.team_size < 5" type="text" name="member5"
-          placeholder="Member 5">
-        <input ngModel [hidden]="subjectPreference.value.team_size < 6" type="text" name="member6"
-          placeholder="Member 6">
-      </div>
+
+    <div class="offcanvas offcanvas-start" style="color:black" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="m-3 ">
+            <h2>CREATE PROJECT</h2>
+        </div>
+        <form class=" input-group" #subjectPreference="ngForm">
+            <div class="row">
+                <div class="col-10">
+                    <input class="m-4 form-control" ngModel type="text" placeholder="Project title" [name]="'project_title'"></div>
+                <div class="col-10">
+                    <select ngModel [name]="'faculty_id'" class="m-4 form-select" aria-label=".form-select-sm example">
+      <option class=" form-control" value="">Select Faculty</option>
+      <option class=" form-control" *ngFor="let faculty of faculties" [ngValue]="faculty.id">
+          {{faculty.name}}
+      </option>
+      </select>
+                </div>
+                <div class="m-1" style="font-size: large;">
+                    Group size:
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio1" [value]="1">
+                        <label class="form-check-label" for="inlineRadio1">1</label>
+                    </div>
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio2" [value]="2">
+                        <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio3" [value]="3">
+                        <label class="form-check-label" for="inlineRadio3">3</label>
+                    </div>
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio4" [value]="4">
+                        <label class="form-check-label" for="inlineRadio4">4</label>
+                    </div>
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio5" [value]="5">
+                        <label class="form-check-label" for="inlineRadio5">5</label>
+                    </div>
+                    <div class=" col-2 form-check form-check-inline">
+                        <input class="form-check-input" ngModel type="radio" [name]="'team_size'" id="inlineRadio6" [value]="6">
+                        <label class="form-check-label" for="inlineRadio5">6</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-2" style="font-size: large;">
+                <P [hidden]="subjectPreference.value.team_size < 1">Team Members:</P>
+                <div class=" ">
+                    <input class=" col-12 form-control" [hidden]="subjectPreference.value.team_size < 1" type="text" name="member1" [value]="_auth.id" readonly>
+                    <input class=" col-12 form-control" ngModel [hidden]="subjectPreference.value.team_size < 2" type="text" name="member2" placeholder="Member 2">
+                    <input class=" col-12 form-control" ngModel [hidden]="subjectPreference.value.team_size < 3" type="text" name="member3" placeholder="Member 3">
+                    <input class=" col-12 form-control" ngModel [hidden]="subjectPreference.value.team_size < 4" type="text" name="member4" placeholder="Member 4">
+                    <input class=" col-12 form-control" ngModel [hidden]="subjectPreference.value.team_size < 5" type="text" name="member5" placeholder="Member 5">
+                    <input class="col-12  form-control" ngModel [hidden]="subjectPreference.value.team_size < 6" type="text" name="member6" placeholder="Member 6">
+                </div>
+            </div>
+            <button type="button" class=" col-12 btn btn-success" (click)="createProject(subjectPreference.value)">Submit</button>
+        </form>
     </div>
-    <button type="button" class="btn btn-primary" (click)="createProject(subjectPreference.value)">Submit</button>
-  </form>
+
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf=" projects.length > 0">
+        <div class="row bg-dark  m-5 p-4">
+            <h1 style=" font-size:xxx-large; color:whitesmoke  ">Projects</h1>
+            <span class="col-4 badge rounded-pill bg-success">Approved</span>
+            <span class="col-4 badge rounded-pill bg-danger">Rejected</span>
+            <span class="col-4 badge rounded-pill bg-warning text-dark">Pending</span>
+
+            <div *ngFor="let project of projects">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 shadow  m-5 p-5" [ngStyle]="{ 'background-color': project.project_status==='approved'? 'rgba(0,255,0,0.3)': project.project_status==='pending' ? 'rgba(255,255,0,0.8)':'rgba(255,0,0,0.3)'}" *ngIf="project.project_status==='pending'">
+                            <div class="container shadow" style="width:100%; height: 100%; font-size: large; color: black; font-style: oblique;">
+                                <p>Project Title: {{project.project_title}}</p>
+                                <p>Faculty: {{project.faculty_name}}</p>
+                                <p>Team members: </p>
+                                <p *ngFor="let student of project.students">
+                                    Student: {{student.student_id}} Status: {{student.student_status}}
+                                    <button *ngIf="student.student_id===_auth.id && student.student_status==='pending' && canChangeStatus" type="button" class="col-6 mt-2 btn btn-outline-success" (click)="changeStatus(project.project_id,'approved')">Accept</button>
+                                    <button *ngIf="student.student_id===_auth.id && student.student_status==='pending' && canChangeStatus" type="button" class="col-6 mt-2 btn btn-outline-danger" (click)="changeStatus(project.project_id,'rejected')">Reject</button>
+
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-<div class="container m-5 p-5 shadow">
-  <h2>Approved</h2>
-  <div *ngFor="let project of projects">
-    <div *ngIf="project.project_status==='approved'">
-      <div class="container m-5 p-5 shadow">
-        <p>Project Title: {{project.project_title}}</p>
-        <p>Faculty: {{project.faculty_name}}</p>
-        <p>Team members: </p>
-        <p *ngFor="let student of project.students">
-          Student: {{student.student_id}} Status: {{student.student_status}}
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="!approved" class="container m-5 p-5 shadow">
-  <h2>Pending</h2>
-  <div *ngFor="let project of projects">
-    <div *ngIf="project.project_status==='pending'">
-      <div class="container m-5 p-5 shadow">
-        <p>Project Title: {{project.project_title}}</p>
-        <p>Faculty: {{project.faculty_name}}</p>
-        <p>Team members: </p>
-        <p *ngFor="let student of project.students">
-          Student: {{student.student_id}} Status: {{student.student_status}}
-          <button *ngIf="student.student_id===_auth.id && student.student_status==='pending' && canChangeStatus" type="button" class="btn btn-success" (click)="changeStatus(project.project_id,'approved')">Accept</button>
-          <button *ngIf="student.student_id===_auth.id && student.student_status==='pending' && canChangeStatus" type="button" class="btn btn-danger" (click)="changeStatus(project.project_id,'rejected')">Reject</button>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="!approved" class="container m-5 p-5 shadow">
-  <h2>Rejected</h2>
-  <div *ngFor="let project of projects">
-    <div *ngIf="project.project_status==='rejected'">
-      <div class="container m-5 p-5 shadow">
-        <p>Project Title: {{project.project_title}}</p>
-        <p>Faculty: {{project.faculty_name}}</p>
-        <p>Team members: </p>
-        <p *ngFor="let student of project.students">
-          Student: {{student.student_id}} Status: {{student.student_status}}
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
