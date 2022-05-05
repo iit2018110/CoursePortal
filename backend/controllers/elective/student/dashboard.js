@@ -98,7 +98,7 @@ module.exports.fetch_alloted_courses = async (req, res)=> {
     }
 
     let alloted_course_data = await sequelize.query(`
-        select baskets.id as  basked_id, baskets.name as basket_name, running_courses.id as course_id, running_courses.name as course_name
+        select baskets.id as  basket_id, baskets.name as basket_name, running_courses.id as course_id, running_courses.name as course_name
         from course_students
         join running_courses on course_students.course_id=running_courses.id
         join baskets on running_courses.basket_id=baskets.id

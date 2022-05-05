@@ -5,17 +5,15 @@
         <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()"><i class="fa fa-sign-out"></i></button>
     </form>
 </nav>
-<div class="m-5 card col-11 text-center">
+
+<div *ngIf="_util.status==='buffer' && _util.alloted_courses?.length === 0" class="m-5 card col-11 text-center">
     <div class="card-header" style="background-color:black;">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
                 <button class="nav-link active" name="opted" *ngIf="_util.status==='buffer'" (click)=" ITClicked($event) ">Opted</button>
             </li>
             <li class="nav-item ">
-                <button class="nav-link " name="notopted" *ngIf="_util.status==='buffer'" (click)="ITClicked($event) ">Not Opted  </button>
-            </li>
-            <li class="nav-item ">
-                <button class="nav-link " name="alloted" *ngIf="_util.alloted_courses?.length > 0" (click)="ITClicked($event) ">Alloted</button>
+                <button class="nav-link " name="notopted" *ngIf="_util.status==='buffer'" (click)="ITClicked($event) ">Not Opted</button>
             </li>
         </ul>
     </div>
@@ -166,30 +164,31 @@
         </div>
 
     </div>
-
-    <div *ngIf="alloted">
-        <h2 style="font-size:xx-large; color:black; margin: 2%;">ALLOTED COURSES</h2>
-        <div style="text-align: center; color: black;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Basket</th>
-                        <th>Course</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let course of _util.alloted_courses">
-                        <td>{{course.basket_name}}</td>
-                        <td>{{course.course_name}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 
-
-
+<div *ngIf="_util.alloted_courses?.length > 0" class="card col-8 text-center" style="margin: 15%;">
+    <h2 style="font-size:xx-large; color:black; margin: 2%;">ALLOTED COURSES</h2>
+    <div style="text-align: center; color: black;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Basket ID</th>
+                    <th>Basket Name</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of _util.alloted_courses">
+                    <td>{{course.basket_id}}</td>
+                    <td>{{course.basket_name}}</td>
+                    <td>{{course.course_id}}</td>
+                    <td>{{course.course_name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 <div *ngIf="_util.alloted_courses?.length === 0 && _util.status==='filled'" class="m-4 p-4 bg-dark" style=" color:white; font-size: large;">

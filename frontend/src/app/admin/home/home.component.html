@@ -379,7 +379,7 @@
                     </ul>
                 </div>
                 <div class="card-body" style="background-color:white; ">
-                    <div *ngIf="it ">
+                    <div *ngIf="it">
                         <p *ngIf="baskets_it?.length===0" class="text-danger">
                             ** HOD didn't assined faculty yet! **
                         </p>
@@ -389,7 +389,7 @@
                                 Download as CSV <a href="javascript:void(0)" class="my-5 fw-bolder" (click)="downloadCSVCourseFaculty(baskets_it)"><i class="fa fa-download"></i></a>
                                 
                                 <div class="row mt-3">
-                                    <div class="container shadow col-12 col-lg-8 p-5" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                                    <div class="container shadow col-12 col-lg-8 p-5 m-2" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                   background-size:cover;" *ngFor="let basket of baskets_it">
                                         <h3>{{basket.name}}</h3>
                                         <table class="table">

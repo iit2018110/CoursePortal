@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   public isCC = false;
   public cc_functionality = false;
   public faculty_functionality = false;
-  public courses_alloted!: any;
+  
 
   subjectpreferences: boolean = true;
   studentsalloted:boolean = false;
@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
   constructor(public _auth: AuthService, public _util: UtilService) { }
 
   ngOnInit(): void {
+    this._util.init()
     this.checkCC();
-    this.getAllotedCourses();
+    
     this.check_cc_functionality();
     this.check_faculty_functionality();
-    this._util.init()
   }
 
   checkCC() {
@@ -130,12 +130,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  getAllotedCourses() {
-    this._util.get_alloted_courses().subscribe(
-      res => this.courses_alloted = res,
-      err => console.log(err)
-    )
-  }
+  
 
   onSubmit(data: JSON) {
     this._util.submit_preferences(data)

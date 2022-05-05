@@ -27,7 +27,8 @@ export class UtilService {
   public baskets!: any;
   public courses!: any;
   public status!: string;
-
+  
+  public courses_alloted!: any;
   /**
    * Course coordinators variables
    */
@@ -44,6 +45,7 @@ export class UtilService {
     .subscribe(
       res => {
         this._auth.stream = res.stream
+        this.getAllotedCourses();
         this.fetchSubjects(),
         this.fetchStudents()
       },
@@ -91,6 +93,12 @@ export class UtilService {
     return this.http.get<any>(this.fetch_cc_dashboard_url, {params})
   }
 
+  getAllotedCourses() {
+    this.get_alloted_courses().subscribe(
+      res => this.courses_alloted = res,
+      err => console.log(err)
+    )
+  }
 /* private fetch_dashboard_url = 'http://localhost:3001/elective/cc/get_dashboard';
 fetchDashboard() {
     this.fetch_dashboard()

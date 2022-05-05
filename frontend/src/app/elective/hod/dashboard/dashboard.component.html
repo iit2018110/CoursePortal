@@ -204,29 +204,44 @@
                             <div class="row">
                                 <div class="card shadow col-5 p-4 m-4" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
                                 background-size:cover;" *ngFor="let basket of _util.basket_preferences">
-                                    <h2>{{basket.name}}</h2>
+                                    <h2>({{basket.id}}) {{basket.name}}</h2>
                                     <div style="font-size: medium;" *ngFor="let course of basket.courses">
-                                        {{course.name}}
-                                        <a *ngIf="_util.counselling_status === 'submitted'" href="javascript:void(0)" (click)="downloadStudentCSV(course.students, course.name)">Download Students</a>
+                                        <div class="row">
+                                        <div class="col">({{course.id}})</div>
+                                        <div class="col">{{course.name}}</div> 
+                                        <div class="col"><a *ngIf="_util.counselling_status === 'submitted'" href="javascript:void(0)" (click)="downloadStudentCSV(course.students, course.name)"><i class="fa fa-download"></i></a></div>
+                                    </div>
                                         <!-- <h3 *ngIf="_util.counselling_status === 'unsubmitted'">Students who had choosen this course:</h3> -->
-                                        <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3>
+                                        <!-- <h3 *ngIf="_util.counselling_status === 'submitted'">Students to whom course is alloted:</h3> -->
                                         <!-- <ul>
                                             <li *ngFor="let student of course.students">
                                               <p>({{student.id}}) {{student.name}}</p>
                                             </li>
                                         </ul> -->
-                                        <div class="rounded-3 bg-dark text-white" *ngIf="!isEmpty(_util.course_students)">
-                                            <h3>Students getting this course:</h3>
-                                            <ul>
-                                              <li *ngFor="let student of _util.course_students[course.id]">
-                                                {{student}}
-                                              </li>
-                                            </ul>
+
+                                        
+                                        <div class="rounded-3 text-white" *ngIf="!isEmpty(_util.course_students) && _util.counselling_status === 'unsubmitted' ">
+                                            <p>
+                                            <strong class="text-success">Students getting this course: <span class="badge badge-dark" style="color: black; background-color: white;">{{_util.course_students[course.id]?.length}}</span> </strong>
+                                            <a data-bs-toggle="collapse" [href]="'#'+course.id" role="button" aria-expanded="false" [attr.aria-controls]="course.id">
+                                                    <i class="fa fa-arrow-down fa-lg"></i>
+                                            </a>
+                                        </p>
+                                            <div class="collapse" [id]="course.id">
+                                                
+                                            <div  class="card card-body bg-dark" style="background-color: black;">
+                                                <ol>
+                                                    <li *ngFor="let student of _util.course_students[course.id]">
+                                                        {{student}}
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button *ngIf="_util.counselling_status === 'submitted'" class="btn btn-danger" (click)="onCounsellingReset()">Reset</button>
+                            <button *ngIf="_util.counselling_status === 'submitted'" class="col-5 btn btn-outline-danger" (click)="onCounsellingReset()">Reset</button>
 
                             <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="startCounselling()">Preview counselling</button>
                             <button [hidden]="_util.counselling_status==='submitted'" type="button" class="col-6 btn btn-outline-light" (click)="onSubmitCounselling()">Submit counselling</button>

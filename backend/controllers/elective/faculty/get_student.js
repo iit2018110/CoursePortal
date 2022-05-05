@@ -31,7 +31,8 @@ module.exports.fetch_students = async (req,res) => {
                 break;
             }
         }
-        course_students.push({id: courseId, name: course_students_data[i].courseName, students: [student]});
+        if(!flag)
+            course_students.push({id: courseId, name: course_students_data[i].courseName, students: [student]});
     }
 
     return res.status(200).json(course_students);
