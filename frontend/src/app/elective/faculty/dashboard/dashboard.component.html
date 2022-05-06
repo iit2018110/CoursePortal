@@ -1,10 +1,37 @@
-<nav class="navbar navbar-light bg-light justify-content-between">
+<!-- <nav class="navbar navbar-light bg-light justify-content-between">
     <button type="button" routerLink="admin" class="btn btn-primary m-2" style="visibility: hidden;">Admin Login</button>
     <form class="form-inline">
         <button type="button" class="btn btn-secondary m-2" routerLink="../profile">Profile</button>
         <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
     </form>
+</nav> -->
+
+
+<nav class="navbar navbar-light sticky-top bg-light justify-content-between">
+    <button type="button" class="btn btn-warning m-2" routerLink="../dashboard" style="visibility: hidden;">Dashboard</button>
+    <form class="form-inline">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Profile</button>
+        <!-- Modal -->
+        <button type="button" class="btn btn-danger m-2" (click)="_auth.userLogout()">Logout</button>
+    </form>
 </nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" style=" margin-left: 100px; color: black; font-size: x-large;" id="exampleModalLabel">PROFILE INFORMATION</h5>
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+                <img src="assets/images/close.jpeg" style="width:15px; height:15;" aria-hidden="true">
+              </button>
+            </div>
+            <h2 style="color: black;">Name: {{_auth.name}}</h2>
+            <h2 style="color: black;">Email: {{_auth.email}}</h2>
+            <h2 style="color: black;">Stream: {{_auth.stream}}</h2>
+            <h2 *ngIf="isCC" style="color: black;">Basket Id: {{_auth.basket_id}}</h2>
+        </div>
+    </div>
+</div>
+
 
 <div class=" row container shadow bg-dark  m-5 p-3" style="text-align: center; width: 100%;">
     <div class="col-4 ">

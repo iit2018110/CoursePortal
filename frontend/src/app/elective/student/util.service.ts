@@ -29,7 +29,9 @@ export class UtilService {
     this._auth.fetch_profile()
     .subscribe(
       res => {
-        this._auth.stream = res.stream
+        this._auth.stream = res.stream,
+        this._auth.gpa = res.gpa,
+        this._auth.degree = res.degree,
         this.fetchDashboard()
       },
       err => console.log(err)
