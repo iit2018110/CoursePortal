@@ -33,7 +33,7 @@
 
 
 
-<div class="bg-transparent" style="margin-right: 5%;" *ngIf=" courses_alloted.length > 0">
+<div class="bg-transparent" style="margin-right: 5%;" *ngIf=" courses_alloted?.length > 0">
     <div class=" bg-dark  m-5 p-4">
         <h1 style="font-size:xxx-large; color:whitesmoke  ">Alloted Courses</h1>
 
@@ -107,7 +107,7 @@
     </div>
 </div>
 
-<div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted.length === 0 && _util.status==='filled'">
+<div class="bg-transparent" style="margin-right: 5%;" *ngIf="courses_alloted?.length === 0 && _util.status==='filled'">
     <div class=" bg-dark  m-5 p-4">
         <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
         <form #subjectPreference="ngForm">
