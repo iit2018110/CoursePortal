@@ -1,16 +1,21 @@
 <div class="container">
     <p *ngIf="currTime >= startTime && currTime <= endTime">
         Portal is open.
+        <button (click)="logout()">Logout</button>
     </p>
     <p *ngIf="currTime < startTime">
         Portal not opened yet, will open at {{startTime | date: 'dd/MM/yyyy hh:mm a'}}.
+        <button (click)="logout()">Logout</button>
     </p>
     <p *ngIf="currTime > endTime">
         Portal closed, please contact with your administrator.
+        <button (click)="logout()">Logout</button>
     </p>
-    <!-- <form class="form-inline">
+
+
+    <form class="form-inline">
         <button type="button" routerLink="/elective" class="btn btn-outline-light  btn-lg m-2">Elective</button>
         <button type="button" routerLink="/project" class="btn btn-outline-light btn-lg m-2">Project</button>
         <button type="button" routerLink="/core" class="btn btn-outline-light btn-lg m-2">Core</button>
-    </form> -->
+    </form>
 </div>
