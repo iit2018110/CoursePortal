@@ -771,55 +771,67 @@
 
     <div *ngIf="projectmanagment" style=" color:black; font-size: large; background-color:white; ">
         <div class="container">
-            <div class="row m-5 p-5 shadow">
-                <div class="col-5" *ngFor="let faculty of faculties">
-                    <h1>{{faculty.name}}</h1>
-                    <div class="container m-5 p-5 shadow" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
-                    background-size:cover;">
-                        <h2>Approved</h2>
-                        <div *ngFor="let project of faculty.projects">
-                            <div *ngIf="project.project_status==='approved'">
-                                <div class="container p-2 shadow">
-                                    <p>Project Title: {{project.project_title}}</p>
-                                    <p>Team members: </p>
-                                    <p *ngFor="let student of project.students">
-                                        Student: {{student.student_id}} Status: {{student.student_status}}
-                                    </p>
-                                    <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+            <div class="p-5">
+                <div class="row" *ngFor="let faculty of faculties">
+                    <div class="col-4 mb-2">
+                        <h1>
+                            <strong class="p-2" style="font-size: xx-large; background-color: darkgray;">{{faculty.name}}</strong>
+                            <a data-bs-toggle="collapse" [href]="'#'+faculty.id" role="button" aria-expanded="false" [attr.aria-controls]="faculty.id">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </h1>
+                    </div>
+                    <br>
+                    <div class="col collapse" [id]="faculty.id">
+                        <div class="card card-body">
+                            <div class="container m-2 p-3 shadow" style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                            background-size:cover;">
+                                <h2>Approved</h2>
+                                <div *ngFor="let project of faculty.projects">
+                                    <div *ngIf="project.project_status==='approved'">
+                                        <div class="container m-2 p-5 shadow">
+                                            <p>Project Title: {{project.project_title}}</p>
+                                            <p>Team members: </p>
+                                            <p *ngFor="let student of project.students">
+                                                Student: {{student.student_id}} Status: {{student.student_status}}
+                                            </p>
+                                            <button type="button" class="btn btn-danger" (click)="deleteProject(project.project_id)">Delete Project</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="container m-5 p-5 shadow  " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
-                    background-size:cover;">
-                        <h2>Pending</h2>
-                        <div *ngFor="let project of faculty.projects ">
-                            <div *ngIf="project.project_status==='pending' ">
-                                <div class="container m-2 p-5 shadow ">
-                                    <p>Project Title: {{project.project_title}}</p>
-                                    <p>Team members: </p>
-                                    <p *ngFor="let student of project.students ">
-                                        Student: {{student.student_id}} Status: {{student.student_status}}
-                                    </p>
-                                    <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                            <div class="container m-2 p-3 shadow  " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                            background-size:cover;">
+                                <h2>Pending</h2>
+                                <div *ngFor="let project of faculty.projects ">
+                                    <div *ngIf="project.project_status==='pending' ">
+                                        <div class="container m-2 p-5 shadow ">
+                                            <p>Project Title: {{project.project_title}}</p>
+                                            <p>Team members: </p>
+                                            <p *ngFor="let student of project.students ">
+                                                Student: {{student.student_id}} Status: {{student.student_status}}
+                                            </p>
+                                            <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="container m-5 p-5 shadow " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
-                    background-size:cover;">
-                        <h2>Rejected</h2>
-                        <div *ngFor="let project of faculty.projects ">
-                            <div *ngIf="project.project_status==='rejected' ">
-                                <div class="container m-5 p-5 shadow ">
-                                    <p>Project Title: {{project.project_title}}</p>
-                                    <p>Team members: </p>
-                                    <p *ngFor="let student of project.students ">
-                                        Student: {{student.student_id}} Status: {{student.student_status}}
-                                    </p>
-                                    <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                            <div class="container m-2 p-3 shadow " style="background-image:url('assets/images/card.jpeg'); background-repeat: no-repeat;
+                            background-size:cover;">
+                                <h2>Rejected</h2>
+                                <div *ngFor="let project of faculty.projects ">
+                                    <div *ngIf="project.project_status==='rejected' ">
+                                        <div class="container m-2 p-5 shadow ">
+                                            <p>Project Title: {{project.project_title}}</p>
+                                            <p>Team members: </p>
+                                            <p *ngFor="let student of project.students ">
+                                                Student: {{student.student_id}} Status: {{student.student_status}}
+                                            </p>
+                                            <button type="button " class="btn btn-danger " (click)="deleteProject(project.project_id) ">Delete Project</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
