@@ -46,7 +46,10 @@
 </div>
 
 <div *ngIf="subjectpreferences">
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf=" _util.courses_alloted?.length > 0">
+  <div *ngIf="!faculty_functionality">
+    <p class="text-danger">** Portal currently not open for faculty **</p>
+  </div>
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="faculty_functionality && _util.courses_alloted?.length > 0">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Alloted Courses</h1>
 
@@ -71,7 +74,7 @@
         </div>
     </div>
 
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="_util.courses_alloted?.length === 0 &&  _util.status==='non-filled'">
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="faculty_functionality && _util.courses_alloted?.length === 0 &&  _util.status==='non-filled'">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Choose preferences</h1>
             <form #subjectPreference="ngForm">
@@ -127,7 +130,7 @@
         </div>
     </div>
 
-    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="_util.courses_alloted?.length === 0 && _util.status==='filled'">
+    <div class="bg-transparent" style="margin-right: 5%;" *ngIf="faculty_functionality && _util.courses_alloted?.length === 0 && _util.status==='filled'">
         <div class=" bg-dark  m-5 p-4">
             <h1 style="font-size:xxx-large; color:whitesmoke  ">Preferences</h1>
             <form #subjectPreference="ngForm">
@@ -155,7 +158,10 @@
 
 <div *ngIf="studentsalloted">
     <div class="bg-transparent" style="margin-right: 5%;">
-        <div class=" bg-dark  m-5 p-4">
+      <div *ngIf="!faculty_functionality">
+        <p class="text-danger">** Portal currently not open for faculty **</p>
+      </div>
+        <div class=" bg-dark  m-5 p-4" *ngIf="faculty_functionality">
             <div class="container">
                 <div class="row">
                     <p *ngIf="this._util.courses?.length === 0" class="text-danger">** No courses alloted yet! **</p>
@@ -176,7 +182,7 @@
                                     <td><a href="javascript:void(0)" (click)="downloadCSVCourseStudent(course.students, course.name)"><i class="fa fa-download fa-lg"></i></a></td>
                                 </tr>
                             </tbody>
-                            
+
                         </table>
                     </div>
                 </div>

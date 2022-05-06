@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   public isCC = false;
   public cc_functionality = false;
   public faculty_functionality = false;
-  
+
 
   subjectpreferences: boolean = true;
   studentsalloted:boolean = false;
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this._util.init()
     this.checkCC();
-    
+
     this.check_cc_functionality();
     this.check_faculty_functionality();
   }
@@ -58,10 +58,13 @@ export class DashboardComponent implements OnInit {
   check_faculty_functionality() {
     this._auth.get_portal_timing().subscribe(
       res => {
+
+
         if(!res) {
           this.faculty_functionality = true;
           return;
         }
+
         let currTime = new Date().getTime();
         let startTime = new Date(res.start_time).getTime();
         let endTime = new Date(res.end_time).getTime();
@@ -69,6 +72,7 @@ export class DashboardComponent implements OnInit {
         if (currTime >= startTime && currTime <= endTime) {
           this.faculty_functionality = true;
         }
+
       },
       err => console.log(err)
     )
@@ -130,7 +134,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  
+
 
   onSubmit(data: JSON) {
     this._util.submit_preferences(data)

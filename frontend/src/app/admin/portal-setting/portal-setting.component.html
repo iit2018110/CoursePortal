@@ -40,7 +40,7 @@
         <div class="" *ngIf="electives" style="  border:10px; color: black;">
             <div class="row m-5 p-5 shadow" style="background-size: cover; background-image: url('assets/images/time.jpg'); font-size: larger; font-weight: 500;">
                 <h1>Elective</h1>
-                <div class="col text-black" style="">
+                <div class="col text-black">
                     <h2>Role: </h2>
                     <p>Course coordinator:</p>
                     <p>HOD: </p>
@@ -50,18 +50,18 @@
 
                 <div class="col">
                     <h2>Start Time: </h2>
-                    <p>{{elective_cc_start ? (elective_cc_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_hod_start ? (elective_hod_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_faculty_start ? (elective_faculty_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_student_start ? (elective_student_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
+                    <p>{{elective_cc_start ? (elective_cc_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_hod_start ? (elective_hod_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_faculty_start ? (elective_faculty_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_student_start ? (elective_student_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
                 </div>
 
                 <div class="col">
                     <h2>End Time: </h2>
-                    <p>{{elective_cc_end ? (elective_cc_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_hod_end ? (elective_hod_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_faculty_end ? (elective_faculty_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{elective_student_end ? (elective_student_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
+                    <p>{{elective_cc_end ? (elective_cc_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_hod_end ? (elective_hod_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_faculty_end ? (elective_faculty_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{elective_student_end ? (elective_student_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
                 </div>
 
             </div>
@@ -101,7 +101,7 @@
         <div class="" style=" border:10px; color: black;" *ngIf="projects">
             <div class="row m-5 p-5 shadow" style="background-size: cover; background-image: url('assets/images/time.jpg'); font-size: larger; font-weight: 500;">
                 <h1>Project</h1>
-                <div class="col text-black" style="">
+                <div class="col text-black">
                     <h2>Role: </h2>
                     <p>Faculty: </p>
                     <p>Student: </p>
@@ -109,14 +109,14 @@
 
                 <div class="col">
                     <h2>Start Time: </h2>
-                    <p>{{project_faculty_start ? (project_faculty_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{project_student_start ? (project_student_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
+                    <p>{{project_faculty_start ? (project_faculty_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{project_student_start ? (project_student_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
                 </div>
 
                 <div class="col">
                     <h2>End Time: </h2>
-                    <p>{{project_faculty_end ? (project_faculty_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                    <p>{{project_student_end ? (project_student_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
+                    <p>{{project_faculty_end ? (project_faculty_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                    <p>{{project_student_end ? (project_student_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
                 </div>
             </div>
 
@@ -151,14 +151,14 @@
 
                     <div class="col">
                         <h2>Start Time: </h2>
-                        <p>{{core_hod_start ? (core_hod_start | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                        <p>{{core_faculty_start ? (core_faculty_start | date: 'dd/MM/yyyy hh:mm a') : null }} </p>
+                        <p>{{core_hod_start ? (core_hod_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                        <p>{{core_faculty_start ? (core_faculty_start | date: 'dd/MM/yyyy hh:mm a') : 'not set' }} </p>
                     </div>
 
                     <div class="col">
                         <h2>End Time: </h2>
-                        <p>{{core_hod_end ? (core_hod_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
-                        <p>{{core_faculty_end ? (core_faculty_end | date: 'dd/MM/yyyy hh:mm a') : null }}</p>
+                        <p>{{core_hod_end ? (core_hod_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
+                        <p>{{core_faculty_end ? (core_faculty_end | date: 'dd/MM/yyyy hh:mm a') : 'not set' }}</p>
                     </div>
                 </div>
             </div>

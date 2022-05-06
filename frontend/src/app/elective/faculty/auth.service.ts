@@ -118,10 +118,10 @@ this.fetch_profile()
   private get_portal_timing_url = 'http://localhost:3001/admin/get_portal_timing';
 
   get_portal_timing() {
-    let token_cc = localStorage.getItem('token_cc');
-    if(token_cc) {
-      return this.get_cc_portal_timing();
-    }
+    // let token_cc = localStorage.getItem('token_cc');
+    // if(token_cc) {
+    //   return this.get_cc_portal_timing();
+    // }
 
     let params = new HttpParams()
       .set('user_type', 'elective_faculty');
